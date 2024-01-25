@@ -138,7 +138,7 @@ model bandhistorikk {
     historikkId     String
     createdAt       DateTime @default(now())
     updatedAt       DateTime @updatedAt
-    userId          String
+    userId          String?
     createdBy       User     @relation(fields: [createdById], references: [id])
     sagNr           String
     datoInn         DateTime
@@ -164,7 +164,7 @@ model bandhistorikk {
     datoSrv         DateTime
     activePost      Boolean
     bladeRelationId String
-    alt             String
+    alt             String?
     creator2        String
     creatorImg2     String
     creator3        String
