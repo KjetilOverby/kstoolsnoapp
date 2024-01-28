@@ -44,7 +44,7 @@ const statistikk = ({ theme }) => {
     });
 
   return (
-    <div data-theme={theme} className="min-h-screen">
+    <div data-theme={theme} className="min-h-screen ">
       <HeaderComponent />
       {sessionData?.user.role === "ADMIN" && (
         <StatistikkMain

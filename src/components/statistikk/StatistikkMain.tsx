@@ -97,10 +97,10 @@ const StatistikkMain = ({
   }, [historikkData]);
 
   return (
-    <div className="pb-10">
+    <div className="px-10 pb-10">
       <div className="mx-5 mt-5 max-lg:mx-0">
         <div>
-          <div className="w-1/5 max-lg:w-full">
+          <div className="w-1/5 shadow-xl max-lg:w-full">
             <DatepickerComponent
               setDateValue={setDateValue}
               dateValue={dateValue}
@@ -108,13 +108,13 @@ const StatistikkMain = ({
           </div>
           <h1 className="mt-10">Bytteårsaker</h1>
           <div className="max-lg:overflow-scroll">
-            <table className="table table-xs whitespace-nowrap bg-neutral">
+            <table className="table table-xs whitespace-nowrap bg-base-100">
               <thead>
-                <tr>
-                  <th className="text-sm text-accent">Sag</th>
-                  <th className="text-sm text-accent">Antall</th>
+                <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
+                  <th className="text-sm text-neutral">Sag</th>
+                  <th className="text-sm text-neutral">Antall</th>
                   {feilkoder.map((feilkode) => (
-                    <th key={feilkode} className="text-sm text-accent">
+                    <th key={feilkode} className="text-sm text-neutral">
                       {feilkode}
                     </th>
                   ))}
@@ -122,19 +122,22 @@ const StatistikkMain = ({
               </thead>
               <tbody>
                 {Object.entries(tableData).map(([sagNr, data]) => (
-                  <tr className="bg-accent" key={sagNr}>
-                    <td className="border border-primary bg-neutral px-4 py-2 text-primary">
+                  <tr
+                    className="border border-base-100 bg-base-100 hover:bg-primary"
+                    key={sagNr}
+                  >
+                    <td className="border border-base-100 bg-base-100 px-4 py-2 text-neutral">
                       {sagNr} {sagNr % "2" == "0" ? "H" : "V"}
                     </td>
-                    <td className="border border-primary px-4 py-2">
+                    <td className="border border-base-100 px-4 py-2">
                       {data.total}
                     </td>
 
                     {feilkoder.map((feilkode) => (
                       <td
                         key={feilkode}
-                        className={`border border-primary px-4 py-2 ${
-                          data[feilkode] ? "bg-secondary" : ""
+                        className={`border border-base-100 px-4 py-2 ${
+                          data[feilkode] ? "text-orange-600" : ""
                         }`}
                       >
                         {data[feilkode] ?? 0}
@@ -151,11 +154,11 @@ const StatistikkMain = ({
           <div className="max-lg:overflow-scroll">
             <table className="table table-xs whitespace-nowrap bg-neutral">
               <thead>
-                <tr>
-                  <th className="text-sm text-accent">Sag</th>
-                  <th className="text-sm text-accent">Antall</th>
+                <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary bg-base-100 ">
+                  <th className="text-sm text-neutral">Sag</th>
+                  <th className="text-sm text-neutral">Antall</th>
                   {feilkoder.map((feilkode) => (
-                    <th key={feilkode} className="text-sm text-accent">
+                    <th key={feilkode} className="text-sm text-neutral">
                       {feilkode}
                     </th>
                   ))}
@@ -163,18 +166,18 @@ const StatistikkMain = ({
               </thead>
               <tbody>
                 {Object.entries(tableData).map(([sagNr, data]) => (
-                  <tr className="bg-accent" key={sagNr}>
-                    <td className="border border-primary bg-neutral px-4 py-2 text-primary">
+                  <tr className="bg-base-100 hover:bg-primary" key={sagNr}>
+                    <td className="border border-base-100 bg-base-100 px-4 py-2 text-neutral">
                       {sagNr} {sagNr % "2" == "0" ? "H" : "V"}
                     </td>
-                    <td className="border border-primary px-4 py-2">
+                    <td className="border border-base-100 px-4 py-2">
                       {data.total}
                     </td>
                     {feilkoder.map((feilkode) => (
                       <td
                         key={feilkode}
-                        className={`border border-primary px-4 py-2 ${
-                          data[feilkode] ? "bg-secondary" : ""
+                        className={`border border-base-100 px-4 py-2 ${
+                          data[feilkode] ? "text-orange-600" : ""
                         }`}
                       >
                         {data?.total
@@ -190,7 +193,7 @@ const StatistikkMain = ({
             </table>
           </div>
         </div>
-        <div className="mt-20 flex w-full rounded-xl border border-secondary p-5 max-lg:grid">
+        <div className="mt-20 flex w-full rounded-xl border border-base-100 p-5 shadow-2xl max-lg:grid">
           <div className="w-2/5 max-lg:w-full">
             <h1 className="text-2xl text-neutral">Årsak til vrak</h1>
             <p className="text-neutral">
@@ -198,7 +201,7 @@ const StatistikkMain = ({
             </p>
             <BarCharts deleteReasonCount={deleteReasonCount} />
           </div>
-          <div className="ml-16 w-3/5 rounded-xl bg-accent p-5 max-lg:ml-0 max-lg:w-full">
+          <div className="ml-16 w-3/5 rounded-xl border border-primary bg-base-100 p-5 max-lg:ml-0 max-lg:w-full">
             {
               <>
                 <h1 className="text-neutral">Årsak til vrak:</h1>

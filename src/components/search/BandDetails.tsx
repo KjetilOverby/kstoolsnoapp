@@ -121,7 +121,7 @@ const BandDetails = ({
   });
 
   return (
-    <div className="z-50 w-full">
+    <div className="z-50 w-full bg-base-100">
       {openInput && (
         <HistorikkInput
           setOpenInput={setOpenInput}
@@ -163,28 +163,28 @@ const BandDetails = ({
         </div>
       </div>
       <div className="max-xl:overflow-scroll">
-        <table className="table table-xs w-full bg-neutral">
+        <table className="table table-xs w-full bg-base-100">
           <thead>
-            <tr>
-              <th className="text-sm font-thin text-accent">Sag</th>
-              <th className="text-sm font-thin text-accent">Innpostet</th>
-              <th className="text-sm font-thin text-accent">Signatur</th>
-              <th className="text-sm font-thin text-accent">Utpostet</th>
-              <th className="text-sm font-thin text-accent">Signatur</th>
+            <tr className="border border-b-neutral border-l-base-100 border-r-base-100 border-t-neutral">
+              <th className="text-sm font-thin text-neutral">Sag</th>
+              <th className="text-sm font-thin text-neutral">Innpostet</th>
+              <th className="text-sm font-thin text-neutral">Signatur</th>
+              <th className="text-sm font-thin text-neutral">Utpostet</th>
+              <th className="text-sm font-thin text-neutral">Signatur</th>
 
-              <th className="text-sm font-thin text-accent">T</th>
+              <th className="text-sm font-thin text-neutral">T</th>
 
-              <th className="text-sm font-thin text-accent">Temp</th>
-              <th className="text-sm font-thin text-accent">Ampere</th>
-              <th className="text-sm font-thin text-accent">Feilkode</th>
-              <th className="text-sm font-thin text-accent">Anm</th>
-              <th className="text-sm font-bold text-primary"></th>
-              <th className="text-sm font-bold text-primary"></th>
-              <th className="text-sm font-bold text-primary">Service</th>
-              <th className="text-sm font-bold text-primary">SK</th>
-              <th className="text-sm font-bold text-primary">Anm KS</th>
-              <th className="text-sm font-bold text-primary">Signatur</th>
-              <th className="text-sm font-bold text-primary">Dato srv</th>
+              <th className="text-sm font-thin text-neutral">Temp</th>
+              <th className="text-sm font-thin text-neutral">Ampere</th>
+              <th className="text-sm font-thin text-neutral">Feilkode</th>
+              <th className="text-sm font-thin text-neutral">Anm</th>
+              <th className="text-sm font-bold text-neutral"></th>
+              <th className="text-sm font-bold text-neutral"></th>
+              <th className="text-sm font-bold text-neutral">Service</th>
+              <th className="text-sm font-bold text-neutral">SK</th>
+              <th className="text-sm font-bold text-neutral">Anm KS</th>
+              <th className="text-sm font-bold text-neutral">Signatur</th>
+              <th className="text-sm font-bold text-neutral">Dato srv</th>
             </tr>
           </thead>
           <tbody>
@@ -223,20 +223,21 @@ const BandDetails = ({
               return (
                 <>
                   <tr
-                    className={post.activePost ? "bg-primary" : "bg-secondary"}
+                    // className={post.activePost ? "bg-primary" : "bg-base-100"}
+                    className="border border-base-100 bg-base-100 hover:bg-primary"
                   >
-                    <td>
+                    <td className="py-5">
                       <div className="text-xs text-neutral">
                         {post.sagNr} {post.sagNr % "2" == "0" ? "H" : "V"}
                       </div>
                     </td>
-                    <td>
+                    <td className="py-5">
                       <div className="text-xs text-neutral ">
                         {dateFormat(post.datoInn, "dd.mm.yyyy")},{" "}
                         {dateFormat(post.klInn, "HH:MM")}
                       </div>
                     </td>
-                    <td className="text-neutral">
+                    <td className="py-5 text-neutral">
                       <div className="flex items-center">
                         <div className="mr-2 h-5 w-5">
                           <img
@@ -249,7 +250,7 @@ const BandDetails = ({
                         {post.creator}
                       </div>
                     </td>
-                    <td>
+                    <td className="py-5">
                       {!post.activePost ? (
                         <div className="text-xs text-neutral">
                           {dateFormat(post.datoUt, "dd.mm.yyyy")},{" "}
@@ -259,7 +260,7 @@ const BandDetails = ({
                         "Aktiv"
                       )}
                     </td>
-                    <td className="text-neutral">
+                    <td className="py-5 text-neutral">
                       {post.creatorImg2 === "-" ? (
                         ""
                       ) : (
@@ -278,13 +279,15 @@ const BandDetails = ({
                         </div>
                       )}
                     </td>
-                    <td className="font-bold text-neutral">{post.sagtid}</td>
+                    <td className="py-5 font-bold text-neutral">
+                      {post.sagtid}
+                    </td>
 
-                    <td className="text-neutral">{post.temperatur}</td>
-                    <td className="text-neutral">{post.ampere}</td>
-                    <td className="text-neutral">{post.feilkode}</td>
+                    <td className="py-5 text-neutral">{post.temperatur}</td>
+                    <td className="py-5 text-neutral">{post.ampere}</td>
+                    <td className="py-5 text-neutral">{post.feilkode}</td>
 
-                    <td className="relative  max-w-56 text-neutral">
+                    <td className="relative  max-w-56 py-5 text-neutral">
                       {post.anmSag === "-" ? (
                         ""
                       ) : (

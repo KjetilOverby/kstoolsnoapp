@@ -30,7 +30,8 @@ const DatepickerComponent: React.FC<DateProps> = ({
   };
 
   return (
-    <div className="flex flex-col rounded-2xl bg-accent p-5">
+    <div className="mb-3 flex flex-col rounded-2xl bg-base-100">
+      <p className="mb-3">Dato</p>
       <form
         onSubmit={(e) => {
           e.preventDefault();

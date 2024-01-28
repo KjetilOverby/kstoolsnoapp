@@ -105,9 +105,9 @@ const HistorikkInput = ({
             console.log(error);
           }
         }}
-        className="card w-96 border border-neutral bg-primary text-neutral"
+        className="card w-96 bg-primary text-neutral shadow-2xl"
       >
-        <div className="card-body">
+        <div className="card-body bg-base-100">
           <h2 className="card-title">Legg til data</h2>
           <div>
             <p>Sag nr:</p>
@@ -131,7 +131,7 @@ const HistorikkInput = ({
               <option value="7">7</option>
             </select>
           </div>
-          <div>
+          {/* <div>
             <p>Innpostningsdato:</p>
             <input
               onChange={(e) =>
@@ -143,8 +143,8 @@ const HistorikkInput = ({
               type="date"
               className="input input-bordered input-xs w-full max-w-xs bg-white"
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <p>Klokkeslett inn:</p>
             <input
               onChange={(e) => {
@@ -161,8 +161,8 @@ const HistorikkInput = ({
               type="time"
               className="input input-bordered input-xs w-full max-w-xs bg-white"
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <p>Utpostningsdato:</p>
             <input
               onChange={(e) =>
@@ -174,8 +174,8 @@ const HistorikkInput = ({
               type="date"
               className="input input-bordered input-xs w-full max-w-xs bg-white"
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <p>Klokkeslett ut:</p>
             <input
               onChange={(e) => {
@@ -192,7 +192,7 @@ const HistorikkInput = ({
               type="time"
               className="input input-bordered input-xs w-full max-w-xs bg-white"
             />
-          </div>
+          </div> */}
           <div>
             <p>Antall timer:</p>
             <input

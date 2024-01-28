@@ -81,9 +81,9 @@ const EditBandDetails = ({
             creatorImg2: "",
           });
         }}
-        className="card w-96  border border-neutral bg-primary text-neutral"
+        className="card w-96 bg-base-100 text-neutral shadow-2xl"
       >
-        <div className="card-body">
+        <div className="card-body ">
           <h2 className="card-title">Rediger data</h2>
           <div>
             <p>Sag nr:</p>
@@ -107,7 +107,7 @@ const EditBandDetails = ({
               <option value="7">7</option>
             </select>
           </div>
-          <div>
+          {/* <div>
             <p>Innpostningsdato:</p>
             <input
               onChange={(e) =>
@@ -120,8 +120,8 @@ const EditBandDetails = ({
               className="input input-bordered input-xs w-full max-w-xs bg-white"
               value={historikkData.datoInn}
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <p>Klokkeslett inn:</p>
             <input
               onChange={(e) => {
@@ -139,8 +139,8 @@ const EditBandDetails = ({
               className="input input-bordered input-xs w-full max-w-xs bg-white"
               value={historikkData.klInn}
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <p>Utpostningsdato:</p>
             <input
               onChange={(e) =>
@@ -153,8 +153,8 @@ const EditBandDetails = ({
               className="input input-bordered input-xs w-full max-w-xs bg-white"
               value={historikkData.datoUt}
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <p>Klokkeslett ut:</p>
             <input
               onChange={(e) => {
@@ -172,7 +172,7 @@ const EditBandDetails = ({
               className="input input-bordered input-xs w-full max-w-xs bg-white"
               value={historikkData.klUt}
             />
-          </div>
+          </div> */}
           <div>
             <p>Antall timer:</p>
             <input

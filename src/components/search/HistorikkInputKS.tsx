@@ -72,7 +72,7 @@ const HistorikkInputKS = ({
             creatorImg3: "",
           });
         }}
-        className="card w-96 border border-neutral bg-primary text-neutral"
+        className="card w-96 bg-base-100 text-neutral shadow-2xl"
       >
         <div className="card-body">
           <h2 className="card-title">Oppdater post</h2>

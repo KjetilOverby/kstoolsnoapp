@@ -145,19 +145,19 @@ const SearchMain = ({
         ) : (
           ""
         )}
-        <table className="table table-xs whitespace-nowrap bg-neutral">
+        <table className="table table-xs whitespace-nowrap bg-base-100">
           <thead>
-            <tr>
-              <th className="text-sm text-accent">ID</th>
-              <th className="text-sm text-accent">Type</th>
-              <th className="text-sm text-accent">Dato opprettet</th>
-              <th className="text-sm text-accent">Opprettet av</th>
+            <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
+              <th className="text-sm text-neutral">ID</th>
+              <th className="text-sm text-neutral">Type</th>
+              <th className="text-sm text-neutral">Dato opprettet</th>
+              <th className="text-sm text-neutral">Opprettet av</th>
               {sessionData?.user.role === "ADMIN" && (
-                <th className="text-sm text-accent">Aktiv</th>
+                <th className="text-sm text-neutral">Aktiv</th>
               )}
 
-              <th className="text-sm text-accent">Historikk</th>
-              <th className="text-sm text-accent">Slett</th>
+              <th className="text-sm text-neutral">Historikk</th>
+              <th className="text-sm text-neutral">Slett</th>
             </tr>
           </thead>
           <tbody>
@@ -208,8 +208,11 @@ const SearchMain = ({
               return (
                 <>
                   {!blade.deleted && (
-                    <tr key={blade.id} className="bg-accent even:bg-secondary">
-                      <td className="font-bold text-neutral">
+                    <tr
+                      key={blade.id}
+                      className="border border-base-100 bg-base-100 hover:bg-primary"
+                    >
+                      <td className="py-5 font-bold text-neutral">
                         {blade.IdNummer}{" "}
                         {blade.note !== "-" && (
                           <span className="text-xs font-normal text-neutral">
@@ -217,7 +220,7 @@ const SearchMain = ({
                           </span>
                         )}
                       </td>
-                      <td>
+                      <td className="py-5">
                         <div className="flex items-center space-x-3">
                           <div className="avatar"></div>
                           <div>
@@ -227,7 +230,7 @@ const SearchMain = ({
                           </div>
                         </div>
                       </td>
-                      <td>
+                      <td className="py-5">
                         <div className="flex items-center space-x-3">
                           <div className="avatar"></div>
 
@@ -241,7 +244,7 @@ const SearchMain = ({
                           </div>
                         </div>
                       </td>
-                      <td className="flex items-center">
+                      <td className="flex items-center py-5">
                         <div className="mr-2 h-5 w-5">
                           <img
                             className="rounded-full"
@@ -359,7 +362,7 @@ const SearchMain = ({
                     </tr>
                   )}
                   {openHistorikk === blade.id && (
-                    <div className="absolute top-0 z-50 h-screen w-full rounded-2xl  border border-primary bg-accent p-5 max-lg:relative">
+                    <div className="absolute top-0 z-50 h-screen w-full rounded-2xl  border border-primary bg-base-100 p-5 max-lg:relative">
                       <div className="mr-5 flex justify-between">
                         <div>
                           <h1 className=" text-lg text-neutral">Historikk</h1>
@@ -378,7 +381,7 @@ const SearchMain = ({
                           </p>
                         </div>
                         <div>
-                          <table className="table table-xs ml-5 w-full border border-primary bg-accent text-neutral">
+                          <table className="table table-xs ml-5 w-full border border-primary bg-base-100 text-neutral shadow-xl">
                             <thead>
                               <tr className="border border-primary">
                                 <th className="text-lg italic text-neutral">
@@ -455,17 +458,17 @@ const SearchMain = ({
           <h1 className="text-xl text-neutral">
             Slettede blad ({deletedSawblades?.length})
           </h1>
-          <table className="table table-xs whitespace-nowrap bg-neutral">
+          <table className="table table-xs whitespace-nowrap bg-base-100">
             <thead>
-              <tr>
-                <th className="text-sm text-accent">ID</th>
-                <th className="text-sm text-accent">Type</th>
+              <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
+                <th className="text-sm text-neutral">ID</th>
+                <th className="text-sm text-neutral">Type</th>
 
-                {/* <th className="text-sm text-accent">Opprettet av</th> */}
-                <th className="text-sm text-accent">Slettet av</th>
-                <th className="text-sm text-accent">Dato slettet</th>
-                <th className="text-sm text-accent">Årsak</th>
-                <th className="text-sm text-accent"></th>
+                {/* <th className="text-sm text-neutral">Opprettet av</th> */}
+                <th className="text-sm text-neutral">Slettet av</th>
+                <th className="text-sm text-neutral">Dato slettet</th>
+                <th className="text-sm text-neutral">Årsak</th>
+                <th className="text-sm text-neutral"></th>
               </tr>
             </thead>
             <tbody>
@@ -473,8 +476,8 @@ const SearchMain = ({
                 return (
                   <>
                     {blade.deleted && (
-                      <tr className="bg-primary">
-                        <td className="font-bold text-neutral">
+                      <tr className="border border-base-100 bg-base-100 hover:bg-primary">
+                        <td className="py-5 font-bold text-neutral">
                           {blade.IdNummer}{" "}
                           {blade.note !== "-" && (
                             <span className="text-xs font-normal text-orange-200">
@@ -482,7 +485,7 @@ const SearchMain = ({
                             </span>
                           )}
                         </td>
-                        <td>
+                        <td className="py-5">
                           <div className="flex items-center space-x-3">
                             <div className="avatar"></div>
                             <div>
@@ -503,7 +506,7 @@ const SearchMain = ({
                           {blade.creator}
                         </td> */}
 
-                        <td className="flex items-center">
+                        <td className="flex items-center py-5">
                           <div className="mr-2 h-5 w-5">
                             <img
                               className="rounded-full"
@@ -513,7 +516,7 @@ const SearchMain = ({
                           </div>
                           {blade.deleter}
                         </td>
-                        <td>
+                        <td className="py-5">
                           <div className="flex items-center space-x-3">
                             <div className="text-xs text-neutral">
                               {dateFormat(
@@ -523,8 +526,8 @@ const SearchMain = ({
                             </div>
                           </div>
                         </td>
-                        <td>{blade.deleteReason}</td>
-                        <td>
+                        <td className="py-5">{blade.deleteReason}</td>
+                        <td className="py-5">
                           <th className="text-neutral">
                             <RestoreComponent id={blade.id} />
                           </th>

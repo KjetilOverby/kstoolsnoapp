@@ -65,10 +65,10 @@ const Search = ({ theme }) => {
       sessionData?.user.role === "MO_ADMIN" ? (
         <>
           <HeaderComponent />
-          <div className="m-5 min-h-screen max-lg:m-0">
-            <div className="rounded-xl bg-accent">
+          <div className="m-5 mx-48 min-h-screen max-lg:m-0">
+            <div className="rounded-xl bg-base-100 shadow-xl">
               {!closeSearchComponent ? (
-                <div className="mb-5 w-96 rounded-xl bg-accent p-5">
+                <div className="mb-5 w-96 rounded-xl bg-base-100 p-5">
                   <DatepickerComponent
                     setDateValue={setDateValue}
                     dateValue={dateValue}
@@ -80,7 +80,7 @@ const Search = ({ theme }) => {
                       onChange={(e) => setIdValue(e.currentTarget.value)}
                       type="text"
                       placeholder="Skriv id nummer"
-                      className="input input-bordered input-xs w-full max-w-xs bg-accent"
+                      className="input input-bordered input-xs w-full max-w-xs bg-base-100"
                     />
                   </div>
                 </div>

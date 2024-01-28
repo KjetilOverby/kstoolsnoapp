@@ -42,7 +42,7 @@ const CreatePost = () => {
     }
   }, [bladeData]);
   return (
-    <div className="rounded-xl bg-accent p-5">
+    <div className="rounded-xl bg-base-100 p-5 shadow-xl">
       <form
         onSubmit={async (e) => {
           e.preventDefault();
@@ -97,7 +97,7 @@ const CreatePost = () => {
           onChange={(e) =>
             setBladeData({ ...bladeData, side: e.currentTarget.value })
           }
-          className="select  select-sm border-neutral bg-accent text-lg text-neutral"
+          className="select  select-sm border-neutral bg-base-100 text-lg text-neutral"
         >
           <option disabled selected>
             Velg side
@@ -114,7 +114,7 @@ const CreatePost = () => {
           onChange={(e) =>
             setBladeData({ ...bladeData, note: e.currentTarget.value })
           }
-          className="w-full rounded-xl bg-gray-800 px-4 py-2 text-sm text-neutral"
+          className="w-full rounded-xl border border-accent bg-base-100 px-4 py-2 text-sm text-neutral"
           value={bladeData.note}
         />
         <div className="flex">
@@ -125,12 +125,12 @@ const CreatePost = () => {
             placeholder={"ID nummer"}
             value={inputID}
             onChange={(e) => setInputID(e.currentTarget.value)}
-            className="w-full rounded-xl bg-primary  px-4 py-2 text-sm text-neutral"
+            className="w-full rounded-xl border  border-primary bg-base-100 px-4 py-2 text-sm text-neutral"
           />
         </div>
         <button
           type="submit"
-          className="btn-xl rounded-xl bg-secondary px-10 py-3 text-xs font-semibold transition hover:bg-white/20"
+          className="btn-xl rounded-xl bg-neutral px-10 py-3 text-xs font-semibold text-primary transition hover:bg-neutral/70"
           disabled={createPost.isLoading}
         >
           {createPost.isLoading ? "Lagrer..." : "Lagre"}
