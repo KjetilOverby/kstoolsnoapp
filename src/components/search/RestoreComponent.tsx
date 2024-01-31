@@ -2,17 +2,19 @@
 // @ts-nocheck
 import React from "react";
 import { api } from "~/utils/api";
-import { useRouter } from "next/navigation";
 
 interface IdProps {
   id: string;
 }
 
 export const RestoreComponent = ({ id }: IdProps) => {
-  const router = useRouter();
+  const ctx = api.useContext();
   const updateBlade = api.sawblades.update.useMutation({
     onSuccess: () => {
-      router.refresh();
+      void ctx.sawblades.getAll.invalidate();
+      void ctx.sawblades.getCustomer.invalidate();
+      void ctx.sawblades.getAllDeleted.invalidate();
+      void ctx.sawblades.getCustomerAllDeleted.invalidate();
     },
   });
   return (
