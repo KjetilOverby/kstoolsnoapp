@@ -251,8 +251,8 @@ export const sawbladesRouter = createTRPCRouter({
              active: input.active,
              deleteReason: input.deleteReason,
              produsent: input.produsent,
-             deleter: '-',
-             deleterImg: '-'
+             deleter: '',
+             deleterImg: ''
          },
      })
   }),

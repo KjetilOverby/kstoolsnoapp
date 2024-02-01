@@ -16,11 +16,11 @@ const CreatePost = () => {
     kunde: "",
     side: "",
     active: false,
-    deleteReason: "-",
+    deleteReason: "",
     produsent: "",
-    creatorImg: "-",
-    deleter: "-",
-    deleterImg: "-",
+    creatorImg: "",
+    deleter: "",
+    deleterImg: "",
   });
   const [inputID, setInputID] = useState("");
   const [kundeID, setKundeID] = useState("");
@@ -65,11 +65,11 @@ const CreatePost = () => {
                 kunde: bladeData.kunde,
                 side: bladeData.side,
                 active: false,
-                deleteReason: "-",
+                deleteReason: "",
                 produsent: "Munkfors",
-                creatorImg: "-",
-                deleter: "-",
-                deleterImg: "-",
+                creatorImg: "",
+                deleter: "",
+                deleterImg: "",
               });
               console.log(response);
             }
