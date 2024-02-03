@@ -81,7 +81,7 @@ const Newtools = ({ theme, setTheme }) => {
                         <tr className="border border-base-100  bg-base-100 hover:bg-primary">
                           <td className="py-5 font-bold text-neutral">
                             {blade.IdNummer}{" "}
-                            {blade.note !== "-" && (
+                            {blade.note && (
                               <span className="text-xs font-normal text-orange-600">
                                 ({blade.note})
                               </span>

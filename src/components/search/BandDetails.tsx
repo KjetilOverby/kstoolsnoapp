@@ -261,9 +261,7 @@ const BandDetails = ({
                       )}
                     </td>
                     <td className="py-5 text-neutral">
-                      {post.creatorImg2 === "-" ? (
-                        ""
-                      ) : (
+                      {post.creatorImg2 && (
                         <div className="flex items-center">
                           <div className="mr-2 h-5 w-5">
                             <img
@@ -273,9 +271,7 @@ const BandDetails = ({
                               alt=""
                             />
                           </div>
-                          {post.sgSag && post.sgSag !== "-"
-                            ? post.sgSag
-                            : post.creator2}
+                          {post.sgSag ? post.sgSag : post.creator2}
                         </div>
                       )}
                     </td>
@@ -288,9 +284,7 @@ const BandDetails = ({
                     <td className="py-5 text-neutral">{post.feilkode}</td>
 
                     <td className="relative  max-w-56 py-5 text-neutral">
-                      {post.anmSag === "-" ? (
-                        ""
-                      ) : (
+                      {post.anmSag && (
                         <button
                           onClick={() => messageHander(post.id)}
                           className="btn btn-xs bg-accent"
@@ -361,9 +355,7 @@ const BandDetails = ({
                     <td className="text-neutral">{post.handling}</td>
                     <td className="text-neutral">{post.sideklaring}</td>
                     <td className="relative max-w-56 text-neutral">
-                      {post.anmKS === "-" ? (
-                        ""
-                      ) : (
+                      {post.anmKS && (
                         <>
                           <button
                             onClick={() => messageKShandler(post.id)}
@@ -393,9 +385,7 @@ const BandDetails = ({
                       )}
                     </td>
                     <td className="text-neutral">
-                      {post.creator3 === "-" ? (
-                        ""
-                      ) : (
+                      {post.creator3 && (
                         <div className="flex items-center">
                           <div className="mr-2 h-5 w-5">
                             <img
@@ -405,7 +395,7 @@ const BandDetails = ({
                               alt=""
                             />
                           </div>
-                          {post.creator3}
+                          {post.sgKS ? post.sgKS : post.creator3}
                         </div>
                       )}
                     </td>

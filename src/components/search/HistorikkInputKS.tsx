@@ -213,7 +213,7 @@ const HistorikkInputKS = ({
             </label>
           </div>
 
-          {/* <div>
+          <div>
             <p>Sign:</p>
             <input
               value={historikkKs.sgKS}
@@ -226,7 +226,7 @@ const HistorikkInputKS = ({
               type="text"
               className="input input-bordered input-xs w-full max-w-xs bg-white"
             />
-          </div> */}
+          </div>
 
           <div className="card-actions">
             <button className="btn btn-primary btn-xs">Lagre</button>

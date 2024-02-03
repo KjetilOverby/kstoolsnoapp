@@ -29,7 +29,7 @@ export const bandhistorikkRouter = createTRPCRouter({
              anmSag: input.anmSag,
              temperatur: input.temperatur,
              creator: creatorName,
-             userId: '-',
+             userId: '',
              sagtid: input.sagtid,
              sgSag: input.sgSag,
              anmKS: input.anmKS,
@@ -44,10 +44,10 @@ export const bandhistorikkRouter = createTRPCRouter({
              activePost: input.activePost,
              bladeRelationId: input.bladeRelationId,
              alt: input.alt,
-             creator2: '-',
-              creatorImg2: '-',
-             creator3: '-',
-              creatorImg3: '-',
+             creator2: '',
+              creatorImg2: '',
+             creator3: '',
+              creatorImg3: '',
               stokkAnt: 0
 
              

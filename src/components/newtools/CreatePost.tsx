@@ -60,7 +60,7 @@ const CreatePost = () => {
               const response = await createPost.mutateAsync({
                 IdNummer: `${kundeID}-${inputID}`,
                 type: bladeData.type,
-                note: bladeData.note === "" ? "-" : bladeData.note,
+                note: bladeData.note,
                 deleted: false,
                 kunde: bladeData.kunde,
                 side: bladeData.side,
