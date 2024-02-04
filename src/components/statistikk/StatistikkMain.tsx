@@ -224,7 +224,7 @@ const StatistikkMain = ({
         </div>
         <div className="mt-20 flex w-full rounded-xl border border-base-100 p-5 shadow-2xl max-lg:grid">
           <div className="w-2/5 max-lg:w-full">
-            <h1 className="text-2xl text-neutral">Årsak til vrak</h1>
+            <h1 className="text-2xl text-neutral">Vrak</h1>
             <p className="text-neutral">
               Antall vrak: {deletedSawblades?.length}
             </p>
