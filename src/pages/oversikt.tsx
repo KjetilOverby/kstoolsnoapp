@@ -15,10 +15,18 @@ import TableOverview from "~/components/oversikt/TableOverview";
 
 const oversikt = ({ theme }) => {
   const { data: sessionData } = useSession();
-  const { data: sawblades } = api.sawblades.getAllNoInput.useQuery({});
-  //   const { data: sawbladesMo } = api.sawblades.getAllCustomerNoInput.useQuery({
-  //     init: "MØ",
-  //   });
+  const [KundeId, setKundeId] = useState("");
+  const { data: sawblades } = api.sawblades.getAllNoInput.useQuery({
+    init: KundeId,
+  });
+
+  useEffect(() => {
+    if (sessionData?.user.role === "ADMIN") {
+      setKundeId("");
+    } else if (sessionData?.user.role === "MO_ADMIN") {
+      setKundeId("MØ");
+    }
+  }, [sessionData]);
 
   const [typeCount, setTypeCount] = useState({});
 
@@ -75,9 +83,9 @@ const oversikt = ({ theme }) => {
 
   const [typeCountInUse, setTypeCountInUse] = useState({});
 
-  const { data: sawbladesInUse } = api.sawblades.getAllNoInputInUse.useQuery(
-    {},
-  );
+  const { data: sawbladesInUse } = api.sawblades.getAllNoInputInUse.useQuery({
+    init: KundeId,
+  });
 
   function getTypeCountInUse(sawbladesInUse) {
     // eslint-disable-next-line prefer-const
@@ -108,33 +116,43 @@ const oversikt = ({ theme }) => {
 
   return (
     <div data-theme={theme} className="min-h-screen ">
-      <HeaderComponent />
-      <div className="px-96">
-        <div>
-          <h1 className="my-5 text-2xl">Oversikt over alle blad</h1>
-          <div className="mb-16">
-            <p>Oversikt over alle typer blad i bruk og vraket ({totalAll})</p>
-            <TableOverview val={typeCount} header="Type" />
+      {sessionData?.user.role === "ADMIN" ||
+      sessionData?.user.role === "MO_ADMIN" ? (
+        <>
+          <HeaderComponent />
+
+          <div className="px-96">
+            <div>
+              <h1 className="my-5 text-2xl">Oversikt over alle blad</h1>
+              <div className="mb-16">
+                <p>
+                  Oversikt over alle typer blad i bruk og vraket ({totalAll})
+                </p>
+                <TableOverview val={typeCount} header="Type" />
+              </div>
+              <div className="mb-16">
+                <p>
+                  Oversikt over alle typer blad i bruk og vraket, høyre og
+                  venstre ({totalAll})
+                </p>
+                <TableOverview val={typeAndSideCount} header="Type og side" />
+              </div>
+            </div>
+            <div>
+              <h1 className="my-5 text-2xl">Oversikt over alle blad i bruk</h1>
+              <div className="mb-16">
+                <p>
+                  Oversikt over alle typer blad i bruk, høyre og venstre (
+                  {totalAllInUse})
+                </p>
+                <TableOverview val={typeCountInUse} header="Type og side" />
+              </div>
+            </div>
           </div>
-          <div className="mb-16">
-            <p>
-              Oversikt over alle typer blad i bruk og vraket, høyre og venstre (
-              {totalAll})
-            </p>
-            <TableOverview val={typeAndSideCount} header="Type og side" />
-          </div>
-        </div>
-        <div>
-          <h1 className="my-5 text-2xl">Oversikt over alle blad i bruk</h1>
-          <div className="mb-16">
-            <p>
-              Oversikt over alle typer blad i bruk, høyre og venstre (
-              {totalAllInUse})
-            </p>
-            <TableOverview val={typeCountInUse} header="Type og side" />
-          </div>
-        </div>
-      </div>
+        </>
+      ) : (
+        <NotAuthorized />
+      )}
     </div>
   );
 };

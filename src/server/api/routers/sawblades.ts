@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { z } from "zod";
@@ -307,31 +309,46 @@ export const sawbladesRouter = createTRPCRouter({
 
   
      getAllNoInput: protectedProcedure
-     
-          .query(({ ctx }) => {
-           return ctx.db.sawblades.findMany({})
+     .input(z.object({init: z.string()}))
+          .query(({ ctx, input }) => {
+           return ctx.db.sawblades.findMany({
+            where: {
+              IdNummer: {startsWith: input.init},
+            }
+           })
         }),
   
      getAllNoInputInUse: protectedProcedure
-          .query(({ ctx }) => {
+     .input(z.object({init: z.string()}))
+          .query(({ ctx, input }) => {
            return ctx.db.sawblades.findMany({
            
             where: {
-              deleted: false
+              AND: [{
+             
+                deleted: false,
+              IdNummer: {startsWith: input.init},
+              }]
+             
           },
            })
         }),
      getAllNoInputInUseVrak: protectedProcedure
-          .query(({ ctx }) => {
+     .input(z.object({init: z.string()}))
+          .query(({ ctx, input }) => {
            return ctx.db.sawblades.findMany({
            
             where: {
-              deleted: true
+              AND: [{
+             
+                deleted: false,
+              IdNummer: {startsWith: input.init},
+              }]
+              
           },
            })
         }),
 
-        
         
 })
 
