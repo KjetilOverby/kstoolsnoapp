@@ -7,7 +7,7 @@ const TableOverview = ({ val, header }: { val: ValueType; header: string }) => {
     <div className="overflow-x-auto shadow-lg">
       <table className="table-xs w-full table-auto divide-y divide-gray-200">
         <thead>
-          <tr className="text-left text-xs text-neutral">
+          <tr className="border border-b-neutral border-l-base-100 border-r-base-100 border-t-neutral text-left text-xs text-neutral">
             <th className="px-4 py-2">{header}</th>
             <th className="px-4 py-2">Antall</th>
           </tr>

@@ -309,13 +309,30 @@ export const sawbladesRouter = createTRPCRouter({
      getAllNoInput: protectedProcedure
      
           .query(({ ctx }) => {
+           return ctx.db.sawblades.findMany({})
+        }),
+  
+     getAllNoInputInUse: protectedProcedure
+          .query(({ ctx }) => {
            return ctx.db.sawblades.findMany({
            
-         
+            where: {
+              deleted: false
+          },
+           })
+        }),
+     getAllNoInputInUseVrak: protectedProcedure
+          .query(({ ctx }) => {
+           return ctx.db.sawblades.findMany({
+           
+            where: {
+              deleted: true
+          },
            })
         }),
 
-    
+        
+        
 })
 
 

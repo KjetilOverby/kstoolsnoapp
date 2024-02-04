@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -44,6 +45,8 @@ const oversikt = ({ theme }) => {
     setTypeAndSideCount(getTypeAndSideCount(sawblades));
   }, [sawblades]);
 
+  const totalAll = Object.values(typeCount).reduce((a, b) => a + Number(b), 0);
+
   // Now you can use typeAndSideCount in your component
 
   function getTypeAndSideCount(sawblades) {
@@ -67,21 +70,69 @@ const oversikt = ({ theme }) => {
   useEffect(() => {
     setTypeCount(getTypeCount(sawblades));
   }, [sawblades]);
-  console.log(typeCount);
+
+  // *************   Blades in use *************
+
+  const [typeCountInUse, setTypeCountInUse] = useState({});
+
+  const { data: sawbladesInUse } = api.sawblades.getAllNoInputInUse.useQuery(
+    {},
+  );
+
+  function getTypeCountInUse(sawbladesInUse) {
+    // eslint-disable-next-line prefer-const
+    let typeAndSideCount = {};
+    sawbladesInUse?.forEach((blade) => {
+      const type = blade.type;
+      const side = blade.side;
+      if (type && side) {
+        const key = `${type}-${side}`;
+        if (key in typeAndSideCount) {
+          typeAndSideCount[key]++;
+        } else {
+          typeAndSideCount[key] = 1;
+        }
+      }
+    });
+    return typeAndSideCount;
+  }
+
+  useEffect(() => {
+    setTypeCountInUse(getTypeCountInUse(sawbladesInUse));
+  }, [sawbladesInUse]);
+
+  const totalAllInUse = Object.values(typeCountInUse).reduce<number>(
+    (a: number, b: number) => a + b,
+    0,
+  );
 
   return (
     <div data-theme={theme} className="min-h-screen ">
       <HeaderComponent />
-      <div className="px-48">
-        <div className="mb-16">
-          <p>Oversikt over alle typer blad i bruk og vraket</p>
-          <TableOverview val={typeCount} header="Type" />
+      <div className="px-96">
+        <div>
+          <h1 className="my-5 text-2xl">Oversikt over alle blad</h1>
+          <div className="mb-16">
+            <p>Oversikt over alle typer blad i bruk og vraket ({totalAll})</p>
+            <TableOverview val={typeCount} header="Type" />
+          </div>
+          <div className="mb-16">
+            <p>
+              Oversikt over alle typer blad i bruk og vraket, høyre og venstre (
+              {totalAll})
+            </p>
+            <TableOverview val={typeAndSideCount} header="Type og side" />
+          </div>
         </div>
-        <div className="mb-16">
-          <p>
-            Oversikt over alle typer blad i bruk og vraket, høyre og venstre
-          </p>
-          <TableOverview val={typeAndSideCount} header="Type og side" />
+        <div>
+          <h1 className="my-5 text-2xl">Oversikt over alle blad i bruk</h1>
+          <div className="mb-16">
+            <p>
+              Oversikt over alle typer blad i bruk, høyre og venstre (
+              {totalAllInUse})
+            </p>
+            <TableOverview val={typeCountInUse} header="Type og side" />
+          </div>
         </div>
       </div>
     </div>
