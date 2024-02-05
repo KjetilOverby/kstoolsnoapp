@@ -121,7 +121,7 @@ const oversikt = ({ theme }) => {
         <>
           <HeaderComponent />
 
-          <div className="px-96">
+          <div className="mx-5 min-h-screen bg-base-100 p-5 md:max-lg:p-0 xl:mx-96">
             <div>
               <h1 className="my-5 text-2xl">Oversikt over alle blad</h1>
               <div className="mb-16">

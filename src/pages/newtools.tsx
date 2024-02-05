@@ -40,11 +40,11 @@ const Newtools = ({ theme, setTheme }) => {
         <>
           <HeaderComponent setTheme={setTheme} />
 
-          <div className="mx-48 min-h-screen bg-base-100 p-5 max-lg:p-0">
+          <div className="mx-5 min-h-screen bg-base-100 p-5 md:max-lg:p-0 xl:mx-48">
             <div className="overflow-x-auto px-5 pt-5">
-              <div className="flex h-96 flex-row py-5 max-lg:grid max-lg:h-5/6">
+              <div className="flex flex-col py-5 md:flex-row md:max-lg:grid md:max-lg:h-5/6">
                 <CreatePost />
-                <div className="ml-5 rounded-xl bg-base-100 p-5 shadow-xl max-lg:ml-0">
+                <div className="mt-5 rounded-xl bg-base-100 p-5 shadow-xl md:ml-5 md:mt-0 md:max-lg:ml-0">
                   <DatepickerComponent
                     setDateValue={setDateValue}
                     dateValue={dateValue}

@@ -65,7 +65,7 @@ const Search = ({ theme }) => {
       sessionData?.user.role === "MO_ADMIN" ? (
         <>
           <HeaderComponent />
-          <div className="m-5 mx-48 min-h-screen max-lg:m-0">
+          <div className="mx-5 min-h-screen bg-base-100 p-5 md:max-lg:p-0 xl:mx-48">
             <div className="rounded-xl bg-base-100 shadow-xl">
               {!closeSearchComponent ? (
                 <div className="mb-5 w-96 rounded-xl bg-base-100 p-5">
