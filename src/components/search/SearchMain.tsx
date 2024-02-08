@@ -134,7 +134,7 @@ const SearchMain = ({
   return (
     <div className="max-lg:overflow-scroll">
       <div>
-        {!closeSearchComponent ? (
+        {/* {!closeSearchComponent ? (
           <div>
             <h1 className="text-xl text-neutral">
               Blad i bruk ({countBlades})
@@ -145,7 +145,7 @@ const SearchMain = ({
           </div>
         ) : (
           ""
-        )}
+        )} */}
         <table className="table table-xs whitespace-nowrap bg-base-100">
           <thead>
             <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
@@ -416,9 +416,7 @@ const SearchMain = ({
       </button>
       {showDeletedBlades && (
         <div>
-          <h1 className="text-xl text-neutral">
-            Slettede blad ({deletedSawblades?.length})
-          </h1>
+          <h1 className="text-xl text-neutral">Slettede blad</h1>
           <table className="table table-xs whitespace-nowrap bg-base-100">
             <thead>
               <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">

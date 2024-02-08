@@ -23,13 +23,13 @@ const Newtools = ({ theme, setTheme }) => {
 
   // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
   const [dateValue, setDateValue] = useState({
-    endDate: `2040-01-15`,
-    startDate: `2024-01-15`,
+    endDate: dateFormat(new Date(), "yyyy-mm-dd"),
+    startDate: dateFormat(new Date(), "yyyy-mm-dd"),
   });
 
   const [idValue, setIdValue] = useState("");
 
-  const { data } = api.sawblades.getAll.useQuery({
+  const { data } = api.sawblades.getAllcreate.useQuery({
     date: `${dateValue.endDate}T23:59:59.000Z`,
     date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: idValue,

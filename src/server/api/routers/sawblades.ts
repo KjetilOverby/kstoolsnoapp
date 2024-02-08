@@ -25,10 +25,11 @@ export const sawbladesRouter = createTRPCRouter({
     //      })
     //   }),
 
-    getAll: protectedProcedure
+    getAllcreate: protectedProcedure
     .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string()}))
         .query(({ ctx, input }) => {
          return ctx.db.sawblades.findMany({
+      
           where: {
             AND: [{
               createdAt: {
@@ -39,7 +40,35 @@ export const sawbladesRouter = createTRPCRouter({
             }]
           },
           orderBy: {
-            IdNummer: 'asc'
+            IdNummer: 'desc'
+                          },
+            include: {
+              _count: {
+                select: {
+                  bandhistorikk: true,
+                },
+              },
+              bandhistorikk: {
+                orderBy: {
+                  createdAt: 'asc'
+                }
+              },
+            },
+         })
+      }),
+    getAll: protectedProcedure
+    .input(z.object({IdNummer: z.string()}))
+        .query(({ ctx, input }) => {
+         return ctx.db.sawblades.findMany({
+          take: 5,
+          where: {
+            AND: [{
+            
+              IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined},
+            }]
+          },
+          orderBy: {
+            IdNummer: 'desc'
                           },
             include: {
               _count: {
@@ -58,16 +87,14 @@ export const sawbladesRouter = createTRPCRouter({
 
 
     getAllDeleted: protectedProcedure
-    .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string(),}))
+    .input(z.object({ IdNummer: z.string(),}))
         .query(({ ctx, input }) => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
          return ctx.db.sawblades.findMany({
+          take: 5,
           where: {
             AND: [{
-              updatedAt: {
-               lte: new Date(input.date),
-               gte: new Date(input.date2),
-              },
+           
               deleted: true,
               IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined},
             }]
@@ -91,7 +118,7 @@ export const sawbladesRouter = createTRPCRouter({
       }),
 
       getActive: protectedProcedure
-      .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string(), init: z.string()}))
+      .input(z.object({IdNummer: z.string(), init: z.string()}))
           .query(({ ctx, input }) => {
            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
            return ctx.db.sawblades.findMany({
@@ -121,16 +148,14 @@ export const sawbladesRouter = createTRPCRouter({
         }),
 
     getCustomerAllDeleted: protectedProcedure
-    .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string(), init: z.string()}))
+    .input(z.object({IdNummer: z.string(), init: z.string()}))
         .query(({ ctx, input }) => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
          return ctx.db.sawblades.findMany({
+          take: 5,
           where: {
             AND: [{
-              updatedAt: {
-               lte: new Date(input.date),
-               gte: new Date(input.date2),
-              },
+             
               deleted: true,
               IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined, startsWith: input.init},
             }]
@@ -158,21 +183,18 @@ export const sawbladesRouter = createTRPCRouter({
 
    
     getCustomer: protectedProcedure
-    .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string(), init: z.string()}))
+    .input(z.object({IdNummer: z.string(), init: z.string()}))
         .query(({ ctx, input }) => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
          return ctx.db.sawblades.findMany({
+          take: 5,
           where: {
-            AND: [{
-              createdAt: {
-               lte: new Date(input.date),
-               gte: new Date(input.date2),
-              },
+            
               IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined, startsWith: input.init},
-            }]
+           
           },
           orderBy: {
-            IdNummer: 'asc'
+            IdNummer: 'desc'
                           },
                           include: {
                             _count: {
@@ -190,7 +212,7 @@ export const sawbladesRouter = createTRPCRouter({
       }),
    
     getCustomerActive: protectedProcedure
-    .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string(), init: z.string()}))
+    .input(z.object({IdNummer: z.string(), init: z.string()}))
         .query(({ ctx, input }) => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
          return ctx.db.sawblades.findMany({

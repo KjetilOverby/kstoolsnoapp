@@ -3,6 +3,7 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
+import { Analytics } from "@vercel/analytics/react";
 
 import { api } from "~/utils/api";
 
@@ -52,6 +53,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider session={session}>
       <AppDataContext.Provider value={{ setTheme, theme }}>
         <Component {...pageProps} theme={themeUse} setTheme={setTheme} />
+        <Analytics />
       </AppDataContext.Provider>
     </SessionProvider>
   );

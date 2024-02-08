@@ -14,50 +14,79 @@ import NotAuthorized from "~/components/reusable/NotAuthorized";
 const Search = ({ theme }) => {
   const [closeSearchComponent, setCloseSearchComponent] = useState(false);
   const { data: sessionData } = useSession();
-  const [dateValue, setDateValue] = useState({
-    endDate: "2040-01-14",
-    startDate: "2023-12-01",
-  });
+
   const [idValue, setIdValue] = useState("");
 
   const { data: sawblades } = api.sawblades.getAll.useQuery({
-    date: `${dateValue.endDate}T23:59:59.000Z`,
-    date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: idValue,
   });
 
   const { data: deletedSawblades } = api.sawblades.getAllDeleted.useQuery({
-    date: `${dateValue.endDate}T23:59:59.000Z`,
-    date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: idValue,
   });
   const { data: sawbladeslActive } = api.sawblades.getActive.useQuery({
-    date: `${dateValue.endDate}T23:59:59.000Z`,
-    date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: idValue,
     init: "MØ",
   });
 
   const { data: sawbladesOsterdal } = api.sawblades.getCustomer.useQuery({
-    date: `${dateValue.endDate}T23:59:59.000Z`,
-    date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: idValue,
     init: "MØ",
   });
   const { data: sawbladesOsterdalDeleted } =
     api.sawblades.getCustomerAllDeleted.useQuery({
-      date: `${dateValue.endDate}T23:59:59.000Z`,
-      date2: `${dateValue.startDate}T00:00:00.000Z`,
       IdNummer: idValue,
       init: "MØ",
     });
   const { data: sawbladesOsterdalActive } =
     api.sawblades.getCustomerActive.useQuery({
-      date: `${dateValue.endDate}T23:59:59.000Z`,
-      date2: `${dateValue.startDate}T00:00:00.000Z`,
       IdNummer: idValue,
       init: "MØ",
     });
+  // const [dateValue, setDateValue] = useState({
+  //   endDate: "2040-01-14",
+  //   startDate: "2023-12-01",
+  // });
+  // const [idValue, setIdValue] = useState("");
+
+  // const { data: sawblades } = api.sawblades.getAll.useQuery({
+  //   date: `${dateValue.endDate}T23:59:59.000Z`,
+  //   date2: `${dateValue.startDate}T00:00:00.000Z`,
+  //   IdNummer: idValue,
+  // });
+
+  // const { data: deletedSawblades } = api.sawblades.getAllDeleted.useQuery({
+  //   date: `${dateValue.endDate}T23:59:59.000Z`,
+  //   date2: `${dateValue.startDate}T00:00:00.000Z`,
+  //   IdNummer: idValue,
+  // });
+  // const { data: sawbladeslActive } = api.sawblades.getActive.useQuery({
+  //   date: `${dateValue.endDate}T23:59:59.000Z`,
+  //   date2: `${dateValue.startDate}T00:00:00.000Z`,
+  //   IdNummer: idValue,
+  //   init: "MØ",
+  // });
+
+  // const { data: sawbladesOsterdal } = api.sawblades.getCustomer.useQuery({
+  //   date: `${dateValue.endDate}T23:59:59.000Z`,
+  //   date2: `${dateValue.startDate}T00:00:00.000Z`,
+  //   IdNummer: idValue,
+  //   init: "MØ",
+  // });
+  // const { data: sawbladesOsterdalDeleted } =
+  //   api.sawblades.getCustomerAllDeleted.useQuery({
+  //     date: `${dateValue.endDate}T23:59:59.000Z`,
+  //     date2: `${dateValue.startDate}T00:00:00.000Z`,
+  //     IdNummer: idValue,
+  //     init: "MØ",
+  //   });
+  // const { data: sawbladesOsterdalActive } =
+  //   api.sawblades.getCustomerActive.useQuery({
+  //     date: `${dateValue.endDate}T23:59:59.000Z`,
+  //     date2: `${dateValue.startDate}T00:00:00.000Z`,
+  //     IdNummer: idValue,
+  //     init: "MØ",
+  //   });
 
   return (
     <div data-theme={theme}>
@@ -69,10 +98,10 @@ const Search = ({ theme }) => {
             <div className="rounded-xl bg-base-100 shadow-xl">
               {!closeSearchComponent ? (
                 <div className="mb-5 w-96 rounded-xl bg-base-100 p-5">
-                  <DatepickerComponent
+                  {/* <DatepickerComponent
                     setDateValue={setDateValue}
                     dateValue={dateValue}
-                  />
+                  /> */}
                   <div className="flex flex-col">
                     <label>Søk</label>
                     <input
