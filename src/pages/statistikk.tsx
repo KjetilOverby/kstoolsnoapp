@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable react-hooks/rules-of-hooks */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -9,11 +10,13 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import StatistikkMain from "~/components/statistikk/StatistikkMain";
 import HeaderComponent from "~/components/reusable/HeaderComponent";
 
+import dateFormat from "dateformat";
+
 const statistikk = ({ theme }) => {
   const { data: sessionData } = useSession();
   const [dateValue, setDateValue] = useState({
-    endDate: "2040-01-14",
-    startDate: "2023-12-01",
+    endDate: dateFormat(new Date(), "yyyy-mm-dd"),
+    startDate: dateFormat(new Date(), "yyyy-mm-dd"),
   });
 
   const { data: statistikkData } =
@@ -30,13 +33,13 @@ const statistikk = ({ theme }) => {
       init: "MØ",
     });
 
-  const { data: deletedSawblades } = api.sawblades.getAllDeleted.useQuery({
+  const { data: deletedSawblades } = api.sawblades.getAllDeletedStats.useQuery({
     date: `${dateValue.endDate}T23:59:59.000Z`,
     date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: "",
   });
   const { data: deletedSawbladesMo } =
-    api.sawblades.getCustomerAllDeleted.useQuery({
+    api.sawblades.getCustomerAllDeletedStats.useQuery({
       date: `${dateValue.endDate}T23:59:59.000Z`,
       date2: `${dateValue.startDate}T00:00:00.000Z`,
       IdNummer: "",

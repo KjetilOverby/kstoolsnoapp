@@ -12,7 +12,7 @@ const Deleteblades = ({ blade }: bladeProps) => {
 
   const deleteBladeApi = api.sawblades.delete.useMutation({
     onSuccess: () => {
-      void ctx.sawblades.getAll.invalidate();
+      void ctx.sawblades.getAllcreate.invalidate();
       void ctx.sawblades.getCustomer.invalidate();
     },
   });

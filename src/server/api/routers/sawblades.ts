@@ -39,21 +39,7 @@ export const sawbladesRouter = createTRPCRouter({
               IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined},
             }]
           },
-          orderBy: {
-            IdNummer: 'desc'
-                          },
-            include: {
-              _count: {
-                select: {
-                  bandhistorikk: true,
-                },
-              },
-              bandhistorikk: {
-                orderBy: {
-                  createdAt: 'asc'
-                }
-              },
-            },
+       
          })
       }),
     getAll: protectedProcedure
@@ -95,6 +81,39 @@ export const sawbladesRouter = createTRPCRouter({
           where: {
             AND: [{
            
+              deleted: true,
+              IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined},
+            }]
+          },
+          orderBy: {
+            updatedAt: 'asc'
+                          },
+                          include: {
+                            _count: {
+                              select: {
+                                bandhistorikk: true,
+                              },
+                            },
+                            bandhistorikk: {
+                              orderBy: {
+                                createdAt: 'asc'
+                              }
+                            },
+                          },
+         })
+      }),
+    getAllDeletedStats: protectedProcedure
+    .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string(),}))
+        .query(({ ctx, input }) => {
+         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+         return ctx.db.sawblades.findMany({
+         
+          where: {
+            AND: [{
+              createdAt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+               },
               deleted: true,
               IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined},
             }]
@@ -177,6 +196,39 @@ export const sawbladesRouter = createTRPCRouter({
                           },
          })
       }),
+    getCustomerAllDeletedStats: protectedProcedure
+    .input(z.object({date: z.string(), date2: z.string(),IdNummer: z.string(), init: z.string()}))
+        .query(({ ctx, input }) => {
+         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+         return ctx.db.sawblades.findMany({
+        
+          where: {
+            AND: [{
+              createdAt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+               },
+              deleted: true,
+              IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined, startsWith: input.init},
+            }]
+          },
+          orderBy: {
+            updatedAt: 'asc'
+                          },
+                          include: {
+                            _count: {
+                              select: {
+                                bandhistorikk: true,
+                              },
+                            },
+                            bandhistorikk: {
+                              orderBy: {
+                                createdAt: 'asc'
+                              }
+                            },
+                          },
+         })
+      }),
 
   
 
@@ -187,6 +239,7 @@ export const sawbladesRouter = createTRPCRouter({
         .query(({ ctx, input }) => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
          return ctx.db.sawblades.findMany({
+          skip: 5,
           take: 5,
           where: {
             
