@@ -34,6 +34,7 @@ const Newtools = ({ theme, setTheme }) => {
     date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: idValue,
   });
+
   return (
     <div data-theme={theme}>
       {sessionData?.user.role === "ADMIN" ? (

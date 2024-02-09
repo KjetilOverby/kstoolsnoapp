@@ -423,8 +423,36 @@ export const sawbladesRouter = createTRPCRouter({
           },
            })
         }),
-
+        countSawblades: protectedProcedure.query(async ({ ctx }) => {
+          const count = await ctx.db.sawblades.groupBy({
+       by : ['type', 'side', 'deleted'],
+       _count:  true,
+          });
         
+          return count;
+        }),
+        // countSawblades: protectedProcedure.query(async ({ ctx }) => {
+        //   const count = await ctx.db.sawblades.count({
+        //     where: {
+        //      deleted: true
+        //     },
+        //   });
+        
+        //   return count;
+        // }),
+
+        // countSawblades: protectedProcedure.query(async ({ ctx }) => {
+        //   const result = await ctx.db.sawblades.aggregate({
+        //     _count: {
+        //       _all: true,
+        //     },
+        //     where: {
+        //       deleted: true,
+        //     },
+        //   });
+        
+        //   return result;
+        // }),
 })
 
 

@@ -20,6 +20,9 @@ const oversikt = ({ theme }) => {
     init: KundeId,
   });
 
+  const { data: count } = api.sawblades.countSawblades.useQuery();
+  console.log(count);
+
   useEffect(() => {
     if (sessionData?.user.role === "ADMIN") {
       setKundeId("");
@@ -120,6 +123,32 @@ const oversikt = ({ theme }) => {
       sessionData?.user.role === "MO_ADMIN" ? (
         <>
           <HeaderComponent />
+
+          <div className="overflow-x-auto">
+            <table className="table table-zebra">
+              {/* head */}
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Antall</th>
+                </tr>
+              </thead>
+              <tbody>
+                {count?.map(
+                  (item) =>
+                    !item.deleted && (
+                      <tr key={item}>
+                        <td>
+                          {item.type}
+                          {item.side}
+                        </td>
+                        <td>{item._count}</td>
+                      </tr>
+                    ),
+                )}
+              </tbody>
+            </table>
+          </div>
 
           <div className="mx-5 min-h-screen bg-base-100 p-5 md:max-lg:p-0 xl:mx-96">
             <div>
