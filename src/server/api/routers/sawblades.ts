@@ -39,9 +39,14 @@ export const sawbladesRouter = createTRPCRouter({
               IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined},
             }]
           },
+          orderBy: {
+            IdNummer: 'desc'
+                          },
        
          })
       }),
+
+
     getAll: protectedProcedure
     .input(z.object({IdNummer: z.string()}))
         .query(({ ctx, input }) => {
@@ -430,6 +435,24 @@ export const sawbladesRouter = createTRPCRouter({
           });
         
           return count;
+        }),
+
+
+
+        countSawbladesCustomer: protectedProcedure
+        .input(z.object({init: z.string()}))
+        .query(async ({ ctx, input }) => {
+          const countCustomer = await ctx.db.sawblades.groupBy({
+            by: ['type', 'side', 'deleted'],
+            _count: true,
+            where: {
+              IdNummer: {
+                startsWith: input.init
+              }
+            }
+          });
+      
+          return countCustomer;
         }),
         // countSawblades: protectedProcedure.query(async ({ ctx }) => {
         //   const count = await ctx.db.sawblades.count({
