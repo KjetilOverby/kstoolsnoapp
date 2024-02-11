@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import ChartTimeCount from "../forbruk/ChartTimeCount";
@@ -14,6 +14,20 @@ const Tidsrapport = ({ dateValue, setDateValue }) => {
     date: `${dateValue.endDate}T23:59:59.000Z`,
     date2: `${dateValue.startDate}T00:00:00.000Z`,
   });
+  const { data: sagtidSumCustomer } =
+    api.bandhistorikk.countTimerSagCustomer.useQuery({
+      date: `${dateValue.endDate}T23:59:59.000Z`,
+      date2: `${dateValue.startDate}T00:00:00.000Z`,
+      init: kundeInit,
+    });
+
+  useEffect(() => {
+    if (sessionData?.user.role === "ADMIN") {
+      setKundeInit("");
+    } else if (sessionData?.user.role === "MO_ADMIN") {
+      setKundeInit("MØ");
+    }
+  }, [sessionData]);
 
   return (
     <div>
@@ -28,11 +42,17 @@ const Tidsrapport = ({ dateValue, setDateValue }) => {
               <ChartTimeCount sagtidSum={sagtidSum} />
             </div>
           </div>
-          <div className="mt-5 rounded-xl border border-primary p-5 text-neutral">
+        </div>
+      )}
+      {sessionData?.user.role === "MO_ADMIN" && (
+        <div>
+          <div className="text-neutrals rounded-xl border border-primary p-5">
             <p className="mb-5 text-center text-xs">
-              Balanse mellom nye og vraket
+              Total sagtid og antall serviceposter
             </p>
-            <div></div>
+            <div>
+              <ChartTimeCount sagtidSum={sagtidSumCustomer} />
+            </div>
           </div>
         </div>
       )}

@@ -7,7 +7,6 @@
 import React, { useState, useEffect } from "react";
 import DatepickerComponent from "../reusable/Datepicker";
 import BarCharts from "../statistikk/BarCharts";
-import BSFTable from "../reusable/BSFTable";
 
 interface statistikkProps {
   historikkData: {
@@ -37,40 +36,12 @@ const StatistikkMain = ({
     return countObj;
   }, {});
 
-  function getHandlingCount(historikkData) {
-    const handlingCount = {};
-    historikkData?.forEach((data) => {
-      const handling = data.handling;
-      if (handling) {
-        handling.split(",").forEach((item) => {
-          const trimmedItem = item.trim();
-          if (trimmedItem in handlingCount) {
-            handlingCount[trimmedItem]++;
-          } else {
-            handlingCount[trimmedItem] = 1;
-          }
-        });
-      }
-    });
-    return handlingCount;
-  }
-
-  const [handlingCount, setHandlingCount] = useState(
-    getHandlingCount(historikkData),
-  );
-  useEffect(() => {
-    setHandlingCount(getHandlingCount(historikkData));
-  }, [historikkData]);
-
   deletedSawblades?.forEach((blade) => {
     const reason = blade.deleteReason;
     if (reason in deleteReasonCount) {
       deleteReasonCount[reason]++;
     }
   });
-
-  console.log(deleteReasonCount);
-  console.log(handlingCount);
 
   const feilkoder: string[] = [
     "Ingen anmerkning",
@@ -242,36 +213,6 @@ const StatistikkMain = ({
                   ))}
                 </ul>
               </>
-            }
-          </div>
-        </div>
-        <div className="mt-20 flex w-full rounded-xl border border-base-100 p-5 shadow-2xl max-lg:grid">
-          <div className="w-2/5 max-lg:w-full">
-            <h1 className="text-2xl text-neutral">Service</h1>
-            <p className="text-neutral">
-              Antall serviceposter: {historikkData?.length}
-            </p>
-            <BarCharts deleteReasonCount={handlingCount} />
-          </div>
-          <div className="ml-16 w-3/5 rounded-xl border border-primary bg-base-100 p-5 max-lg:ml-0 max-lg:w-full">
-            {
-              <div className="">
-                <div className="mb-10 w-2/6">
-                  <BSFTable />
-                </div>
-                <div className="pl-5">
-                  <h1 className="text-neutral">Handling:</h1>
-                  <ul className=" italic text-neutral">
-                    {Object.entries(getHandlingCount(historikkData)).map(
-                      ([handling, count]) => (
-                        <li key={handling}>
-                          {handling}: {count}
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                </div>
-              </div>
             }
           </div>
         </div>

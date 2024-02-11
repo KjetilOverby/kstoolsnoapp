@@ -168,6 +168,158 @@ export const bandhistorikkRouter = createTRPCRouter({
   }),
 
 
+  //************ countTimerSagCustomer ****************
+  countTimerSagCustomer: protectedProcedure
+  .input(z.object({date: z.string(), date2: z.string(), init: z.string()}))
+  .query(async ({ ctx, input }) => {
+    const sagNrList = await ctx.db.bandhistorikk.findMany({
+        where: { 
+            AND: [{
+              datoUt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+              },
+              bladeRelationId: {startsWith :input.init},
+              
+             
+            }],
+         
+          },
+      select: {
+        sagNr: true,
+       
+      },
+      distinct: ['sagNr']
+    });
+
+    const result = await Promise.all(sagNrList.map(async (item) => {
+      const countSagNr = await ctx.db.bandhistorikk.count({
+        where: {
+          sagNr: item.sagNr,
+          bladeRelationId: {startsWith :input.init},
+        }
+      });
+
+      const sagtidList = await ctx.db.bandhistorikk.findMany({
+        where: {
+          sagNr: item.sagNr,
+          bladeRelationId: {startsWith :input.init},
+        },
+        select: {
+          sagtid: true,
+        }
+      });
+
+      const totalSagtid = sagtidList.reduce((sum, sag) => sum + sag.sagtid, 0);
+
+      return {
+        sagNr: item.sagNr,
+        totalSagtid: totalSagtid,
+        countSagNr: countSagNr
+      };
+    }));
+
+    return result;
+  }),
+  //************ countTimerSagCustomer ****************
+
+
+
+    //************ SERVICE ****************
+    bfsServiceData: protectedProcedure
+    .input(z.object({date: z.string(), date2: z.string()}))
+    .query(async ({ ctx, input }) => {
+      const handlingData = await ctx.db.bandhistorikk.findMany({
+        select: {
+          handling: true,
+        },
+        where: {
+          updatedAt: {
+            lte: new Date(input.date),
+            gte: new Date(input.date2),
+          },
+        }
+      });
+  
+      const handlingCounts = {
+        'Ingen handling': 0,
+        'BFS423': 0,
+        'BFS426': 0,
+        'BFS427': 0,
+        'BFS429': 0,
+        'BSF438': 0,
+        'BFS442': 0,
+      };
+  
+      handlingData.forEach(data => {
+        const handlings = data.handling.split(', ');
+        handlings.forEach(handling => {
+          if (handling in handlingCounts) {
+            handlingCounts[handling]++;
+          }
+        });
+      });
+  
+      return handlingCounts;
+    }),
+    bfsServiceDataCustomer: protectedProcedure
+    .input(z.object({date: z.string(), date2: z.string(), init: z.string()}))
+    .query(async ({ ctx, input }) => {
+      const handlingData = await ctx.db.bandhistorikk.findMany({
+        select: {
+          handling: true,
+        },
+        where: {
+          updatedAt: {
+            lte: new Date(input.date),
+            gte: new Date(input.date2),
+          },
+          bladeRelationId: {startsWith :input.init},
+        }
+      });
+  
+      const handlingCounts = {
+        'Ingen handling': 0,
+        'BFS423': 0,
+        'BFS426': 0,
+        'BFS427': 0,
+        'BFS429': 0,
+        'BSF438': 0,
+        'BFS442': 0,
+      };
+  
+      handlingData.forEach(data => {
+        const handlings = data.handling.split(', ');
+        handlings.forEach(handling => {
+          if (handling in handlingCounts) {
+            handlingCounts[handling]++;
+          }
+        });
+      });
+  
+      return handlingCounts;
+    }),
+
+
+
+    serviceDataTEs: protectedProcedure
+    .input(z.object({date: z.string(), date2: z.string()}))
+    .query(async ({ ctx, input }) => {
+        const countCustomer = await ctx.db.sawblades.groupBy({
+                  by: ['type', 'side', 'deleted'],
+                  _count: true,
+                  where: {
+                   datoSrv: {
+                        lte: new Date(input.date),
+                        gte: new Date(input.date2),
+                      },
+                  }
+                });
+  
+      return countCustomer;
+    }),
+
+
 //   countSawbladesCustomer: protectedProcedure
 //   .input(z.object({init: z.string()}))
 //   .query(async ({ ctx, input }) => {

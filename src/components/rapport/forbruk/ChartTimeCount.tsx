@@ -15,8 +15,8 @@ const ChartTimeCount = ({ sagtidSum }) => {
   // Define colors for each dataset
   const colorTotalSagtid = "rgba(75, 192, 192, 0.6)";
   const borderColorTotalSagtid = "rgba(75, 192, 192, 1)";
-  const colorCountSagNr = "rgba(255, 99, 132, 0.6)";
-  const borderColorCountSagNr = "rgba(255, 99, 132, 1)";
+  const colorCountSagNr = "rgba(255, 206, 86, 0.6)";
+  const borderColorCountSagNr = "rgba(255, 206, 86, 1)";
 
   useEffect(() => {
     if (sagtidSum) {
@@ -47,7 +47,7 @@ const ChartTimeCount = ({ sagtidSum }) => {
           labels: filledSagtidSum.map((item) => item.sagNr),
           datasets: [
             {
-              label: "Total Sagtid",
+              label: "Sagtid timer",
               data: filledSagtidSum.map((item) => item.totalSagtid),
               backgroundColor: colorTotalSagtid,
               borderColor: borderColorTotalSagtid,
