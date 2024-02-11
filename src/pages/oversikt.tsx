@@ -17,9 +17,9 @@ import OverviewTable from "~/components/oversikt/OverviewTable";
 const oversikt = ({ theme }) => {
   const { data: sessionData } = useSession();
   const [KundeId, setKundeId] = useState("");
-  const { data: sawblades } = api.sawblades.getAllNoInput.useQuery({
-    init: KundeId,
-  });
+
+  const { data: sagTidSum } = api.bandhistorikk.countTimerSag.useQuery();
+  console.log(sagTidSum && sagTidSum);
 
   const { data: count } = api.sawblades.countSawblades.useQuery();
   const { data: countCustomer } = api.sawblades.countSawbladesCustomer.useQuery(
@@ -27,8 +27,6 @@ const oversikt = ({ theme }) => {
       init: KundeId,
     },
   );
-
-  console.log(countCustomer);
 
   useEffect(() => {
     if (sessionData?.user.role === "ADMIN") {

@@ -13,13 +13,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import NotAuthorized from "~/components/reusable/NotAuthorized";
 const Newtools = ({ theme, setTheme }) => {
   const { data: sessionData } = useSession();
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth() + 1;
-  const date = new Date().getDate();
-
-  // endDate: `${year}-${month}-${date}`,
-  // startDate: `${year}-${month}-${date}`,
 
   // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
   const [dateValue, setDateValue] = useState({

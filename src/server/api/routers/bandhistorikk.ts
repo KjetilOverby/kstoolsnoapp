@@ -123,6 +123,67 @@ export const bandhistorikkRouter = createTRPCRouter({
       });
   }),
 
+  countTimerSag: protectedProcedure
+  .input(z.object({date: z.string(), date2: z.string()}))
+  .query(async ({ ctx, input }) => {
+    const sagNrList = await ctx.db.bandhistorikk.findMany({
+        where: {
+           datoUt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+              },
+        },
+      select: {
+        sagNr: true
+      },
+      distinct: ['sagNr']
+    });
+
+    const result = await Promise.all(sagNrList.map(async (item) => {
+      const countSagNr = await ctx.db.bandhistorikk.count({
+        where: {
+          sagNr: item.sagNr
+        }
+      });
+
+      const sagtidList = await ctx.db.bandhistorikk.findMany({
+        where: {
+          sagNr: item.sagNr
+        },
+        select: {
+          sagtid: true,
+        }
+      });
+
+      const totalSagtid = sagtidList.reduce((sum, sag) => sum + sag.sagtid, 0);
+
+      return {
+        sagNr: item.sagNr,
+        totalSagtid: totalSagtid,
+        countSagNr: countSagNr
+      };
+    }));
+
+    return result;
+  }),
+
+
+//   countSawbladesCustomer: protectedProcedure
+//   .input(z.object({init: z.string()}))
+//   .query(async ({ ctx, input }) => {
+//     const countCustomer = await ctx.db.sawblades.groupBy({
+//       by: ['type', 'side', 'deleted'],
+//       _count: true,
+//       where: {
+//         IdNummer: {
+//           startsWith: input.init
+//         }
+//       }
+//     });
+
+//     return countCustomer;
+//   }),
+
  
 })
 

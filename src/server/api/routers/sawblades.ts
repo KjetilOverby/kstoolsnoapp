@@ -430,14 +430,108 @@ export const sawbladesRouter = createTRPCRouter({
         }),
         countSawblades: protectedProcedure.query(async ({ ctx }) => {
           const count = await ctx.db.sawblades.groupBy({
-       by : ['type', 'side', 'deleted'],
+       by : ['deleted', 'side', 'type'],
        _count:  true,
           });
         
           return count;
         }),
 
+// RAPPORT
+        rapportDeleteReasons: protectedProcedure
+        .input(z.object({date: z.string(), date2: z.string()}))
+        .query(async ({ ctx, input }) => {
+          const count = await ctx.db.sawblades.groupBy({
+            where: { 
+              updatedAt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+               },
+              },
+             by : ['deleted', 'deleteReason'],
+              _count:  true,
+      
+                });
+          
+        
+          return count;
+        }),
+        rapportDeleteReasonsCustomer: protectedProcedure
+        .input(z.object({date: z.string(), date2: z.string(), init: z.string()}))
+        .query(async ({ ctx, input }) => {
+          const count = await ctx.db.sawblades.groupBy({
+            where: { 
+              updatedAt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+               },
+               IdNummer: {startsWith : input.init}
+              },
+             by : ['deleted', 'deleteReason'],
+              _count:  true,
+      
+                });
+          
+        
+          return count;
+        }),
 
+       countCreatedAndUpdated: protectedProcedure
+        .input(z.object({date: z.string(), date2: z.string()}))
+        .query(async ({ ctx, input }) => {
+          const Nye = await ctx.db.sawblades.count({
+            where: { 
+              createdAt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+              },
+            },
+          });
+    
+          const Vraket = await ctx.db.sawblades.count({
+            where: { 
+              AND: [{
+                updatedAt: {
+                  lte: new Date(input.date),
+                  gte: new Date(input.date2),
+                },
+                deleted: true,
+              }],
+           
+            },
+          });
+    
+          return { Nye, Vraket };
+        }),
+       countCreatedAndUpdatedCustomer: protectedProcedure
+        .input(z.object({date: z.string(), date2: z.string(), init: z.string()}))
+        .query(async ({ ctx, input }) => {
+          const Nye = await ctx.db.sawblades.count({
+            where: { 
+              createdAt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+              },
+              IdNummer: {startsWith : input.init}
+            },
+          });
+    
+          const Vraket = await ctx.db.sawblades.count({
+            where: { 
+              AND: [{
+                updatedAt: {
+                  lte: new Date(input.date),
+                  gte: new Date(input.date2),
+                },
+                IdNummer: {startsWith : input.init},
+                deleted: true,
+              }],
+           
+            },
+          });
+    
+          return { Nye, Vraket };
+        }),
 
         countSawbladesCustomer: protectedProcedure
         .input(z.object({init: z.string()}))
