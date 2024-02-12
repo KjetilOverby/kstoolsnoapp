@@ -9,6 +9,7 @@ import DatepickerComponent from "~/components/reusable/Datepicker";
 import HeaderComponent from "~/components/reusable/HeaderComponent";
 import dateFormat from "dateformat";
 import ServiceMain from "~/components/rapport/service/ServiceMain";
+import FeilkoderMain from "~/components/rapport/feilkoder/FeilkoderMain";
 
 interface Props {
   theme: string;
@@ -38,6 +39,7 @@ const Rapport = ({ theme }: Props) => {
           <Tidsrapport dateValue={dateValue} setDateValue={setDateValue} />
 
           <ServiceMain dateValue={dateValue} setDateValue={setDateValue} />
+          <FeilkoderMain dateValue={dateValue} />
         </div>
       </div>
     </div>

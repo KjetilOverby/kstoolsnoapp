@@ -14,12 +14,31 @@ const Tidsrapport = ({ dateValue, setDateValue }) => {
     date: `${dateValue.endDate}T23:59:59.000Z`,
     date2: `${dateValue.startDate}T00:00:00.000Z`,
   });
+
+  const totalSagtidSum = sagtidSum?.reduce(
+    (sum, item) => sum + item.totalSagtid,
+    0,
+  );
+  const totalServiceSum = sagtidSum?.reduce(
+    (sum, item) => sum + item.countSagNr,
+    0,
+  );
+
   const { data: sagtidSumCustomer } =
     api.bandhistorikk.countTimerSagCustomer.useQuery({
       date: `${dateValue.endDate}T23:59:59.000Z`,
       date2: `${dateValue.startDate}T00:00:00.000Z`,
       init: kundeInit,
     });
+
+  const totalSagtidSumCustomer = sagtidSumCustomer?.reduce(
+    (sum, item) => sum + item.totalSagtid,
+    0,
+  );
+  const totalServiceSumCustomer = sagtidSumCustomer?.reduce(
+    (sum, item) => sum + item.countSagNr,
+    0,
+  );
 
   useEffect(() => {
     if (sessionData?.user.role === "ADMIN") {
@@ -36,7 +55,8 @@ const Tidsrapport = ({ dateValue, setDateValue }) => {
         <div>
           <div className="text-neutrals rounded-xl border border-primary p-5">
             <p className="mb-5 text-center text-xs">
-              Total sagtid og antall serviceposter
+              Total sagtid ({totalSagtidSum}) og antall serviceposter (
+              {totalServiceSum}) fordelt på sagnummer i timer
             </p>
             <div>
               <ChartTimeCount sagtidSum={sagtidSum} />
@@ -48,7 +68,8 @@ const Tidsrapport = ({ dateValue, setDateValue }) => {
         <div>
           <div className="text-neutrals rounded-xl border border-primary p-5">
             <p className="mb-5 text-center text-xs">
-              Total sagtid og antall serviceposter
+              Total sagtid ({totalSagtidSumCustomer}) og antall serviceposter (
+              {totalServiceSumCustomer}) fordelt på sagnummer i timer
             </p>
             <div>
               <ChartTimeCount sagtidSum={sagtidSumCustomer} />

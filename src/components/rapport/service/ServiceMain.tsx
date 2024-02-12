@@ -47,10 +47,6 @@ const ServiceMain = ({ dateValue }) => {
               <BfsChart bfsServiceData={bfsServiceData} />
             </div>
           </div>
-          <div className="mt-5 rounded-xl border border-primary p-5 text-neutral">
-            <p className="mb-5 text-center text-xs"></p>
-            <div></div>
-          </div>
         </div>
       )}
       {sessionData?.user.role === "MO_ADMIN" && (
@@ -65,10 +61,6 @@ const ServiceMain = ({ dateValue }) => {
             <div>
               <BfsChart bfsServiceData={bfsServiceDataCustomer} />
             </div>
-          </div>
-          <div className="mt-5 rounded-xl border border-primary p-5 text-neutral">
-            <p className="mb-5 text-center text-xs"></p>
-            <div></div>
           </div>
         </div>
       )}

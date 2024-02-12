@@ -65,16 +65,15 @@ const ForbrukRapport = ({ dateValue, setDateValue }) => {
         <div>
           <div className="text-neutrals rounded-xl border border-primary p-5">
             <p className="mb-5 text-center text-xs">
-              Top 3 vrakårsaker av {countCreatedAndUpdated?.Vraket} vrakede blad
+              Topp 3 vrakårsaker av {countCreatedAndUpdated?.Vraket} vrakede
+              blad
             </p>
             <div>
               <DeleteReasonChart deleteReasonCount={topThree} />
             </div>
           </div>
           <div className="mt-5 rounded-xl border border-primary p-5 text-neutral">
-            <p className="mb-5 text-center text-xs">
-              Balanse mellom nye og vraket
-            </p>
+            <p className="mb-5 text-center text-xs">Nye og vraket</p>
             <div>
               <BalanseChart countCreatedAndUpdated={countCreatedAndUpdated} />
             </div>

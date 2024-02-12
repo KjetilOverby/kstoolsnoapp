@@ -317,23 +317,43 @@ export const bandhistorikkRouter = createTRPCRouter({
     }),
 
 
-
-    serviceDataTEs: protectedProcedure
+    feilkoder: protectedProcedure
     .input(z.object({date: z.string(), date2: z.string()}))
     .query(async ({ ctx, input }) => {
-        const countCustomer = await ctx.db.sawblades.groupBy({
-                  by: ['type', 'side', 'deleted'],
+        const feilkoder = await ctx.db.bandhistorikk.groupBy({
+                  by: ['feilkode', 'sagNr'], // Include 'sagNr' in the groupBy clause
                   _count: true,
                   where: {
-                   datoSrv: {
+                  updatedAt: {
                         lte: new Date(input.date),
                         gte: new Date(input.date2),
                       },
                   }
                 });
   
-      return countCustomer;
+      return feilkoder;
     }),
+
+
+    feilkoderCustomer: protectedProcedure
+    .input(z.object({date: z.string(), date2: z.string(), init: z.string()}))
+    .query(async ({ ctx, input }) => {
+        const feilkoder = await ctx.db.bandhistorikk.groupBy({
+                  by: ['feilkode', 'sagNr'], // Include 'sagNr' in the groupBy clause
+                  _count: true,
+                  where: {
+                  updatedAt: {
+                        lte: new Date(input.date),
+                        gte: new Date(input.date2),
+                      },
+                      bladeRelationId: {startsWith :input.init},
+                  }
+                });
+  
+      return feilkoder;
+    }),
+
+    
 
 
 //   countSawbladesCustomer: protectedProcedure
