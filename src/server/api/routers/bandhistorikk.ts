@@ -142,13 +142,21 @@ export const bandhistorikkRouter = createTRPCRouter({
     const result = await Promise.all(sagNrList.map(async (item) => {
       const countSagNr = await ctx.db.bandhistorikk.count({
         where: {
-          sagNr: item.sagNr
+          sagNr: item.sagNr,
+          datoUt: {
+            lte: new Date(input.date),
+            gte: new Date(input.date2),
+          },
         }
       });
 
       const sagtidList = await ctx.db.bandhistorikk.findMany({
         where: {
-          sagNr: item.sagNr
+          sagNr: item.sagNr,
+          datoUt: {
+            lte: new Date(input.date),
+            gte: new Date(input.date2),
+          },
         },
         select: {
           sagtid: true,
@@ -197,6 +205,10 @@ export const bandhistorikkRouter = createTRPCRouter({
         where: {
           sagNr: item.sagNr,
           bladeRelationId: {startsWith :input.init},
+          datoUt: {
+                lte: new Date(input.date),
+                gte: new Date(input.date2),
+              },
         }
       });
 
@@ -204,6 +216,10 @@ export const bandhistorikkRouter = createTRPCRouter({
         where: {
           sagNr: item.sagNr,
           bladeRelationId: {startsWith :input.init},
+          datoUt: {
+            lte: new Date(input.date),
+            gte: new Date(input.date2),
+          },
         },
         select: {
           sagtid: true,
