@@ -28,6 +28,8 @@ const HistorikkInput = ({
     onSuccess: () => {
       void ctx.sawblades.getAll.invalidate();
       void ctx.sawblades.getCustomer.invalidate();
+      void ctx.bandhistorikk.countAllHistorikk.invalidate();
+      void ctx.bandhistorikk.countAllSagtid.invalidate();
       setOpenInput(false);
     },
   });

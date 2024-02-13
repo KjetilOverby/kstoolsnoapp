@@ -8,7 +8,19 @@ import {
 } from "~/server/api/trpc";
 export const bandhistorikkRouter = createTRPCRouter({
 
+    countAllHistorikk: protectedProcedure
+        .query(({ ctx, }) => {
+         return ctx.db.bandhistorikk.count({
+       
+         })
+      }),
 
+      countAllSagtid: protectedProcedure
+  .query(async ({ ctx }) => {
+    const records = await ctx.db.bandhistorikk.findMany({});
+    const sum = records.reduce((acc, record) => acc + record.sagtid, 0);
+    return sum;
+  }),
     
       create: protectedProcedure
       .input(z.object({ sagNr: z.string(), datoInn: z.date(), klInn: z.date(), klUt: z.date(), datoUt: z.date(),ampere: z.number(), feilkode: z.string(), anmSag: z.string(), temperatur: z.number(), userId: z.string(),  handling: z.string(), sideklaring: z.number(), sgSag: z.string(), datoSrv: z.date(),createdById: z.string(), bladedata: z.string(), anmKS: z.string(), createdBy: z.string(), sagtid:z.number(), sgKS: z.string(), creatorImg: z.string(), side: z.string(), bladType: z.string(), activePost: z.boolean(), bladeRelationId: z.string(), alt: z.string(), creator: z.string(), creator2: z.string(), creatorImg2: z.string(), creator3: z.string(), creatorImg3: z.string() }))

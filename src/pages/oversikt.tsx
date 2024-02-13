@@ -18,10 +18,8 @@ const oversikt = ({ theme }) => {
   const { data: sessionData } = useSession();
   const [KundeId, setKundeId] = useState("");
 
-  const { data: sagTidSum } = api.bandhistorikk.countTimerSag.useQuery();
-  console.log(sagTidSum && sagTidSum);
-
   const { data: count } = api.sawblades.countSawblades.useQuery();
+
   const { data: countCustomer } = api.sawblades.countSawbladesCustomer.useQuery(
     {
       init: KundeId,
@@ -46,7 +44,7 @@ const oversikt = ({ theme }) => {
               <h1 className="my-5">Oversikt over blad alle kunder:</h1>
               <p className="text-xs italic">
                 I tabellen vises slettet og total antall verdier fra start
-                15.02.2024
+                14.02.2024
               </p>
               <OverviewTable count={count} deleted={false} />
             </div>

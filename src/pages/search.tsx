@@ -17,6 +17,10 @@ const Search = ({ theme }) => {
 
   const [idValue, setIdValue] = useState("");
 
+  const { data: countAllBlades } = api.sawblades.countAllBlades.useQuery({});
+  const { data: countAllHistorikk } =
+    api.bandhistorikk.countAllHistorikk.useQuery({});
+  const { data: countAllSagtid } = api.bandhistorikk.countAllSagtid.useQuery();
   const { data: sawblades } = api.sawblades.getAll.useQuery({
     IdNummer: idValue,
   });
@@ -118,13 +122,32 @@ const Search = ({ theme }) => {
               )}
             </div>
             {sessionData?.user.role === "ADMIN" && (
-              <SearchMain
-                sawblades={sawblades}
-                deletedSawblades={deletedSawblades}
-                activeBlades={sawbladeslActive}
-                closeSearchComponent={closeSearchComponent}
-                setCloseSearchComponent={setCloseSearchComponent}
-              />
+              <>
+                <div>
+                  <p className="text-xs italic">
+                    Blad totalt: {countAllBlades?.total}
+                  </p>
+                  <p className="text-xs italic">
+                    Blad i bruk: {countAllBlades?.notDeleted}
+                  </p>
+                  <p className="text-xs italic">
+                    Blad slettet: {countAllBlades?.deleted}
+                  </p>
+                  <p className="text-xs italic">
+                    Serviceposter: {countAllHistorikk}
+                  </p>
+                  <p className="text-xs italic">
+                    Antall timer: {countAllSagtid}
+                  </p>
+                </div>
+                <SearchMain
+                  sawblades={sawblades}
+                  deletedSawblades={deletedSawblades}
+                  activeBlades={sawbladeslActive}
+                  closeSearchComponent={closeSearchComponent}
+                  setCloseSearchComponent={setCloseSearchComponent}
+                />
+              </>
             )}
             {sessionData?.user.role === "MO_ADMIN" && (
               <SearchMain
