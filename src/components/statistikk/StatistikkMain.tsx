@@ -56,6 +56,8 @@ const StatistikkMain = ({
     "Reklamasjon",
     "Havari",
     "Ikjøring",
+    "Skar ut",
+    "Rutine",
     "Riper/bølger",
     "Riper/sprekk",
     "Riper/vandrer",
