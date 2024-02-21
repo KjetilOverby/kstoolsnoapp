@@ -45,6 +45,10 @@ export const NewInputComponent = ({
           Velg bladtype
         </option>
 
+        <option value="1600. 180x1,47–T45–Lengde 9855mm. (Z219)">
+          1600. 180x1,47–T45–Lengde 9855mm. (Z219)
+        </option>
+
         <option value="1600. 180x1,47-STB45–Lengde 9855mm. (Z219)">
           1600. 180x1,47-STB45–Lengde 9855mm. (Z219)
         </option>
