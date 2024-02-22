@@ -16,6 +16,7 @@ const Search = ({ theme }) => {
   const { data: sessionData } = useSession();
 
   const [idValue, setIdValue] = useState("");
+  const [openIngenHandling, setOpenIngenHandling] = useState(false);
 
   const { data: countAllBlades } = api.sawblades.countAllBlades.useQuery({});
   const { data: countAllHistorikk } =
@@ -24,6 +25,10 @@ const Search = ({ theme }) => {
   const { data: sawblades } = api.sawblades.getAll.useQuery({
     IdNummer: idValue,
   });
+  const { data: sawbladesIngenHandling } =
+    api.sawblades.getAllIngenHandling.useQuery({});
+
+  console.log(sawbladesIngenHandling);
 
   const { data: deletedSawblades } = api.sawblades.getAllDeleted.useQuery({
     IdNummer: idValue,
@@ -123,22 +128,34 @@ const Search = ({ theme }) => {
             </div>
             {sessionData?.user.role === "ADMIN" && (
               <>
-                <div>
-                  <p className="text-xs italic">
-                    Blad totalt: {countAllBlades?.total}
-                  </p>
-                  <p className="text-xs italic">
-                    Blad i bruk: {countAllBlades?.notDeleted}
-                  </p>
-                  <p className="text-xs italic">
-                    Blad slettet: {countAllBlades?.deleted}
-                  </p>
-                  <p className="text-xs italic">
-                    Serviceposter: {countAllHistorikk}
-                  </p>
-                  <p className="text-xs italic">
-                    Antall timer: {countAllSagtid}
-                  </p>
+                <div className="flex">
+                  <div className="mr-20">
+                    <p className="text-xs italic">
+                      Blad totalt: {countAllBlades?.total}
+                    </p>
+                    <p className="text-xs italic">
+                      Blad i bruk: {countAllBlades?.notDeleted}
+                    </p>
+                    <p className="text-xs italic">
+                      Blad slettet: {countAllBlades?.deleted}
+                    </p>
+                    <p className="text-xs italic">
+                      Serviceposter: {countAllHistorikk}
+                    </p>
+                    <p className="text-xs italic">
+                      Antall timer: {countAllSagtid}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm">Blad Ingen Handling:</p>
+                    {sawbladesIngenHandling?.map((sawblade) => (
+                      <>
+                        <div key={sawblade.id} className="flex justify-between">
+                          <p className="text-xs">ID: {sawblade.IdNummer}</p>
+                        </div>
+                      </>
+                    ))}
+                  </div>
                 </div>
                 <SearchMain
                   sawblades={sawblades}
@@ -146,6 +163,8 @@ const Search = ({ theme }) => {
                   activeBlades={sawbladeslActive}
                   closeSearchComponent={closeSearchComponent}
                   setCloseSearchComponent={setCloseSearchComponent}
+                  sawbladesIngenHandling={sawbladesIngenHandling}
+                  openIngenHandling={openIngenHandling}
                 />
               </>
             )}

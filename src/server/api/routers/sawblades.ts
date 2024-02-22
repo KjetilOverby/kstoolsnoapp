@@ -65,7 +65,7 @@ export const sawbladesRouter = createTRPCRouter({
           where: {
             AND: [{
             
-              IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined},
+              IdNummer: input.IdNummer,
             }]
           },
           orderBy: {
@@ -85,6 +85,35 @@ export const sawbladesRouter = createTRPCRouter({
             },
          })
       }),
+
+      getAllIngenHandling: protectedProcedure
+
+  .query(({ ctx }) => {
+    return ctx.db.sawblades.findMany({
+      where: {
+            bandhistorikk: {
+              some: {
+               handling: "Ingen handling"
+              }
+            }
+      },
+      orderBy: {
+        IdNummer: 'desc'
+      },
+      include: {
+        _count: {
+          select: {
+            bandhistorikk: true,
+          },
+        },
+        bandhistorikk: {
+          orderBy: {
+            createdAt: 'asc'
+          }
+        },
+      },
+    })
+  }),
 
 
     getAllDeleted: protectedProcedure
