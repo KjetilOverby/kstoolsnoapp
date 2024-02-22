@@ -41,7 +41,7 @@ const HistorikkInput = ({
     datoUt: new Date(),
     klUt: new Date(),
     sagtid: 0,
-    feilkode: "Ingen anmerkning",
+    feilkode: "",
     handling: "Ingen handling",
     sideklaring: 0,
     creator: "",
@@ -67,6 +67,10 @@ const HistorikkInput = ({
 
             if (historikkData.sagNr === "") {
               alert("Sagnummer påkrevd");
+            } else if (historikkData.sagtid === 0) {
+              alert("Antall timer påkrevd");
+            } else if (historikkData.feilkode === "") {
+              alert("Feilkode påkrevd");
             } else {
               const response = createPost.mutateAsync({
                 sagNr: historikkData.sagNr,
@@ -258,7 +262,7 @@ const HistorikkInput = ({
               }
               className="select select-bordered select-xs w-full max-w-xs bg-white"
             >
-              <option value="Ingen anmerkning">Ingen anmerkning</option>
+              <option value="">Velg feilkode</option>
               <option value="Bølger">Bølger</option>
               <option value="Vandrer på hjul">Vandrer på hjul</option>
               <option value="Sprekk">Sprekk</option>

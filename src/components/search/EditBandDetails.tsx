@@ -241,7 +241,7 @@ const EditBandDetails = ({
               className="select select-bordered select-xs w-full max-w-xs bg-white"
               value={historikkData.feilkode}
             >
-              <option value="Ingen anmerkning">Ingen anmerkning</option>
+              <option value="">Velg feilkode</option>
               <option value="Bølger">Bølger</option>
               <option value="Vandrer på hjul">Vandrer på hjul</option>
               <option value="Sprekk">Sprekk</option>

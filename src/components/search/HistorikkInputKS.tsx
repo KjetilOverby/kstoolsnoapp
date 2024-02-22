@@ -61,6 +61,7 @@ const HistorikkInputKS = ({
       <form
         onSubmit={(e) => {
           e.preventDefault();
+
           void updatePost.mutate({
             id: postId,
             anmKS: historikkKs.anmKS,

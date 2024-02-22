@@ -44,7 +44,6 @@ const StatistikkMain = ({
   });
 
   const feilkoder: string[] = [
-    "Ingen anmerkning",
     "Bølger",
     "Vandrer på hjul",
     "Sprekk",

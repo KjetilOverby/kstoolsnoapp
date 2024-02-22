@@ -287,7 +287,7 @@ const SearchMain = ({
                               marginLeft: ".5rem",
                               fontSize: ".9rem",
                             }}
-                            onClick={openHistorikkDataHandler}
+                            // onClick={openHistorikkDataHandler}
                             className="text-neutral"
                           />
                         </div>
@@ -302,7 +302,7 @@ const SearchMain = ({
                           onClick={() => deleteHandler(blade.id)}
                         />
                         {openDeleteID === blade.id && (
-                          <div className="card absolute right-24 z-40 flex w-96 flex-col items-center bg-primary text-primary-content">
+                          <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-primary-content text-white">
                             <div className="card-body">
                               <h2 className="card-title">
                                 Slett blad: {blade.IdNummer}
@@ -312,7 +312,7 @@ const SearchMain = ({
                                 onChange={(e) =>
                                   setWasteReasonInput(e.currentTarget.value)
                                 }
-                                className="select select-bordered select-xs w-full max-w-xs"
+                                className="select select-bordered select-xs w-full max-w-xs text-black"
                               >
                                 <option disabled selected>
                                   Velg
@@ -362,8 +362,8 @@ const SearchMain = ({
                       </td>
                     </tr>
                   )}
-                  {openHistorikk === blade.id && (
-                    <div className="absolute top-0 z-50 h-screen w-full rounded-2xl  border border-primary bg-base-100 p-5 max-lg:relative">
+                  {
+                    <div className="absolute z-50 h-auto w-screen rounded-2xl bg-base-100  max-lg:relative  md:w-full">
                       <div className="mr-5 flex justify-between">
                         <div>
                           <h1 className=" text-lg text-neutral">Historikk</h1>
@@ -394,14 +394,14 @@ const SearchMain = ({
                         handleCloseModal={handleCloseModal}
                       />
 
-                      <button
+                      {/* <button
                         onClick={handleCloseHistorikk}
                         className="btn btn-primary btn-xs mt-5"
                       >
                         Lukk historikk
-                      </button>
+                      </button> */}
                     </div>
-                  )}
+                  }
                 </>
               );
             })}
