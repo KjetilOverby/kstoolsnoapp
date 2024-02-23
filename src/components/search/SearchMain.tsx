@@ -384,9 +384,14 @@ const SearchMain = ({
                             Registrert av: {blade.creator}
                           </p>
                           {blade.deleted && (
-                            <p className="italic text-neutral">
-                              Vraket av: {blade.deleter}
-                            </p>
+                            <>
+                              <p className="italic text-neutral">
+                                Vraket av: {blade.deleter}
+                              </p>
+                              <p className="italic text-neutral">
+                                Vrakårsak: {blade.deleteReason}
+                              </p>
+                            </>
                           )}
                         </div>
                         <div>
