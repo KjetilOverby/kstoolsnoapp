@@ -368,18 +368,26 @@ const SearchMain = ({
                         <div>
                           <h1 className=" text-lg text-neutral">Historikk</h1>
                           <h1 className="text-2xl font-semibold text-neutral">
-                            ID: {blade.IdNummer}
+                            ID: {blade.IdNummer}{" "}
+                            <span className="text-red-500">
+                              {blade.deleted && "(VRAK)"}
+                            </span>
                           </h1>
                           <p className="text-xl text-neutral">
                             Type: {blade.type} {blade.side}
                           </p>
                           <p className="italic text-neutral">
-                            Registrert:
+                            Registrert:{" "}
                             {dateFormat(blade.createdAt, "dd.mm.yyyy")}
                           </p>
                           <p className="italic text-neutral">
                             Registrert av: {blade.creator}
                           </p>
+                          {blade.deleted && (
+                            <p className="italic text-neutral">
+                              Vraket av: {blade.deleter}
+                            </p>
+                          )}
                         </div>
                         <div>
                           <BSFTable />

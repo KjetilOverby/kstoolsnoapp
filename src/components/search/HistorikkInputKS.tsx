@@ -54,24 +54,27 @@ const HistorikkInputKS = ({
   const nonEmptyValues = Object.values(bfsValue).filter(
     (value) => value !== "",
   );
-  const concatenatedString = nonEmptyValues.join(", ");
+  const concatenatedString = nonEmptyValues.join(", ") || "Ingen handling";
 
   return (
     <div className="absolute z-40">
       <form
         onSubmit={(e) => {
           e.preventDefault();
-
-          void updatePost.mutate({
-            id: postId,
-            anmKS: historikkKs.anmKS,
-            handling: concatenatedString,
-            sgKS: historikkKs.sgKS,
-            datoSrv: historikkKs.datoSrv,
-            sideklaring: historikkKs.sideklaring,
-            creator3: "",
-            creatorImg3: "",
-          });
+          if (concatenatedString === "Ingen handling") {
+            alert("Du må velge minst en BFS kode");
+          } else {
+            void updatePost.mutate({
+              id: postId,
+              anmKS: historikkKs.anmKS,
+              handling: concatenatedString,
+              sgKS: historikkKs.sgKS,
+              datoSrv: historikkKs.datoSrv,
+              sideklaring: historikkKs.sideklaring,
+              creator3: "",
+              creatorImg3: "",
+            });
+          }
         }}
         className="card w-96 bg-base-100 text-neutral shadow-2xl"
       >
@@ -134,7 +137,7 @@ const HistorikkInputKS = ({
                 onChange={(e) =>
                   setBfsValue({
                     ...bfsValue,
-                    bfs1: e.currentTarget.value,
+                    bfs1: e.currentTarget.checked ? e.currentTarget.value : "",
                   })
                 }
                 type="checkbox"
@@ -148,7 +151,7 @@ const HistorikkInputKS = ({
                 onChange={(e) =>
                   setBfsValue({
                     ...bfsValue,
-                    bfs2: e.currentTarget.value,
+                    bfs2: e.currentTarget.checked ? e.currentTarget.value : "",
                   })
                 }
                 type="checkbox"
@@ -162,7 +165,7 @@ const HistorikkInputKS = ({
                 onChange={(e) =>
                   setBfsValue({
                     ...bfsValue,
-                    bfs3: e.currentTarget.value,
+                    bfs3: e.currentTarget.checked ? e.currentTarget.value : "",
                   })
                 }
                 value="BFS427"
@@ -176,7 +179,7 @@ const HistorikkInputKS = ({
                 onChange={(e) =>
                   setBfsValue({
                     ...bfsValue,
-                    bfs4: e.currentTarget.value,
+                    bfs4: e.currentTarget.checked ? e.currentTarget.value : "",
                   })
                 }
                 value="BFS429"
@@ -190,7 +193,7 @@ const HistorikkInputKS = ({
                 onChange={(e) =>
                   setBfsValue({
                     ...bfsValue,
-                    bfs5: e.currentTarget.value,
+                    bfs5: e.currentTarget.checked ? e.currentTarget.value : "",
                   })
                 }
                 value="BSF438"
@@ -204,7 +207,7 @@ const HistorikkInputKS = ({
                 onChange={(e) =>
                   setBfsValue({
                     ...bfsValue,
-                    bfs6: e.currentTarget.value,
+                    bfs6: e.currentTarget.checked ? e.currentTarget.value : "",
                   })
                 }
                 value="BFS442"
