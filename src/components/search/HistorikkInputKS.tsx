@@ -49,6 +49,7 @@ const HistorikkInputKS = ({
     bfs4: "",
     bfs5: "",
     bfs6: "",
+    vrak: "",
   });
 
   const nonEmptyValues = Object.values(bfsValue).filter(
@@ -211,6 +212,20 @@ const HistorikkInputKS = ({
                   })
                 }
                 value="BFS442"
+                type="checkbox"
+                className="checkbox"
+              />
+            </label>
+            <label className="label cursor-pointer">
+              <span className="label-text">Vrak</span>
+              <input
+                onChange={(e) =>
+                  setBfsValue({
+                    ...bfsValue,
+                    vrak: e.currentTarget.checked ? e.currentTarget.value : "",
+                  })
+                }
+                value="Vrak"
                 type="checkbox"
                 className="checkbox"
               />

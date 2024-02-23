@@ -271,6 +271,7 @@ export const bandhistorikkRouter = createTRPCRouter({
   
       const handlingCounts = {
         'Ingen handling': 0,
+        'Vrak': 0,
         'BFS423': 0,
         'BFS426': 0,
         'BFS427': 0,
@@ -308,6 +309,7 @@ export const bandhistorikkRouter = createTRPCRouter({
   
       const handlingCounts = {
         'Ingen handling': 0,
+        'Vrak': 0,
         'BFS423': 0,
         'BFS426': 0,
         'BFS427': 0,
