@@ -90,6 +90,9 @@ const SearchMain = ({
   const [openHistorikk, setopenHistorikk] = useState<string | null>(null);
   const [wasteReasonInput, setWasteReasonInput] = useState("");
   const [openDeleteID, setOpenDeleteID] = useState<string | null>(null);
+  const [openGjenopprettID, setOpenGjenopprettID] = useState<string | null>(
+    null,
+  );
 
   const [countBlades, setCountBlades] = useState();
 
@@ -97,6 +100,9 @@ const SearchMain = ({
 
   const deleteHandler = (postID: string) => {
     setOpenDeleteID(postID);
+  };
+  const gjenopprettHandler = (postID: string) => {
+    setOpenGjenopprettID(postID);
   };
 
   const ctx = api.useContext();
@@ -344,13 +350,59 @@ const SearchMain = ({
                                     closeDeleteHandler={closeDeleteHandler}
                                   />
                                 </button>
+                                <h1>
+                                  NB: Husk å sette Vrak i BFS koder på
+                                  historikk.
+                                </h1>
                               </th>
                             )}
                           </div>
-                          <div className="card-actions my-5 justify-end">
+                          <div className="card-actions my-5  ">
                             <button
                               onClick={closeDeleteHandler}
                               className="btn btn-xs"
+                            >
+                              Avbryt
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      {blade.deleted && (
+                        <button
+                          onClick={() => gjenopprettHandler(blade.id)}
+                          className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
+                        >
+                          Gjenopprett
+                        </button>
+                      )}
+
+                      {openGjenopprettID === blade.id && (
+                        <div className="card absolute right-24 z-[100] grid w-96 items-center text-wrap bg-gray-500 p-5 text-white">
+                          <h1 className="mb-5 text-xl">Gjenopprett</h1>
+                          <div className="h-auto w-full overflow-auto whitespace-normal ">
+                            <p className="">
+                              Ved å angre sletting av dette bladet så
+                              gjenopprettes statistikk tilbake til det som var
+                              før sletting og sletteårsak vil bli fjernet.
+                            </p>
+                            <br />
+                            <p className="text-yellow-200">
+                              NB: Husk fjerne vrak i BFS koder på historikk
+                            </p>
+                          </div>
+
+                          <div className="mt-5">
+                            <button className="btn btn-sm mr-2 bg-green-300 hover:bg-green-500">
+                              {" "}
+                              <RestoreComponent
+                                setOpenGjenopprettID={setOpenGjenopprettID}
+                                id={blade.id}
+                              />
+                            </button>
+                            <button
+                              onClick={() => setOpenGjenopprettID(null)}
+                              className="btn btn-sm "
                             >
                               Avbryt
                             </button>

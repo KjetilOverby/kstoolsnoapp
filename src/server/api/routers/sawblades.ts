@@ -283,12 +283,18 @@ export const sawbladesRouter = createTRPCRouter({
         .query(({ ctx, input }) => {
          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
          return ctx.db.sawblades.findMany({
-          skip: 5,
-          take: 5,
+      
           where: {
-            
-              IdNummer: {contains: input.IdNummer ? input.IdNummer : undefined, startsWith: input.init},
-           
+            AND: [
+              {
+                IdNummer: {
+                  startsWith: "MØ",
+                },
+              },
+              {
+                IdNummer: input.IdNummer
+              },
+            ],
           },
           orderBy: {
             IdNummer: 'desc'

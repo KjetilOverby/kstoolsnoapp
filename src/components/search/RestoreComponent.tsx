@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React from "react";
@@ -7,7 +8,7 @@ interface IdProps {
   id: string;
 }
 
-export const RestoreComponent = ({ id }: IdProps) => {
+export const RestoreComponent = ({ id, setOpenGjenopprettID }: IdProps) => {
   const ctx = api.useContext();
   const updateBlade = api.sawblades.update.useMutation({
     onSuccess: () => {
@@ -16,6 +17,7 @@ export const RestoreComponent = ({ id }: IdProps) => {
       void ctx.sawblades.getAllDeleted.invalidate();
       void ctx.sawblades.getCustomerAllDeleted.invalidate();
       void ctx.sawblades.countAllBlades.invalidate();
+      setOpenGjenopprettID(null);
     },
   });
   return (
