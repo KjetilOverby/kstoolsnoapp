@@ -8,12 +8,14 @@ interface AnyProps {
   deleteReason: string;
   wasteReasonInput: string;
   setWasteReasonInput: React.Dispatch<React.SetStateAction<string>>;
+  closeDeleteHandler: () => void;
 }
 
 export const DeleteComponent = ({
   id,
   wasteReasonInput,
   setWasteReasonInput,
+  closeDeleteHandler,
 }: AnyProps) => {
   const ctx = api.useContext();
   const updateBlade = api.sawblades.update.useMutation({
@@ -24,6 +26,7 @@ export const DeleteComponent = ({
       void ctx.sawblades.getCustomerAllDeleted.invalidate();
       void ctx.sawblades.countAllBlades.invalidate();
       setWasteReasonInput("");
+      closeDeleteHandler();
     },
   });
   return (

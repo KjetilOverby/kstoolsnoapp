@@ -28,8 +28,6 @@ const Search = ({ theme }) => {
   const { data: sawbladesIngenHandling } =
     api.sawblades.getAllIngenHandling.useQuery({});
 
-  console.log(sawbladesIngenHandling);
-
   const { data: deletedSawblades } = api.sawblades.getAllDeleted.useQuery({
     IdNummer: idValue,
   });

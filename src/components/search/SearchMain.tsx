@@ -158,7 +158,8 @@ const SearchMain = ({
               )}
 
               <th className="text-sm text-neutral">Historikk</th>
-              <th className="text-sm text-neutral">Slett</th>
+
+              <th className="text-sm text-neutral"></th>
             </tr>
           </thead>
           <tbody>
@@ -208,92 +209,89 @@ const SearchMain = ({
 
               return (
                 <>
-                  {!blade.deleted && (
-                    <tr
-                      key={blade.id}
-                      className="border border-base-100 bg-base-100 hover:bg-primary"
-                    >
-                      <td className="py-5 font-bold text-neutral">
-                        {blade.IdNummer}{" "}
-                        {blade.note && (
-                          <span className="text-xs font-normal text-neutral">
-                            ({blade.note})
-                          </span>
-                        )}
-                      </td>
-                      <td className="py-5">
-                        <div className="flex items-center space-x-3">
-                          <div className="avatar"></div>
-                          <div>
-                            <div className="text-xs text-neutral">
-                              {blade.type} {blade.side}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-5">
-                        <div className="flex items-center space-x-3">
-                          <div className="avatar"></div>
-
-                          <div>
-                            <div className="text-xs text-neutral">
-                              {dateFormat(
-                                blade.createdAt,
-                                "dd.mm.yyyy , HH:MM",
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="flex items-center py-5">
-                        <div className="mr-2 h-5 w-5">
-                          <img
-                            className="rounded-full"
-                            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                            src={blade.creatorImg}
-                            alt=""
-                          />
-                        </div>
-                        {blade.creator}
-                      </td>
-
-                      {sessionData?.user.role === "ADMIN" && (
-                        <th>
-                          <div>
-                            <div
-                              onClick={() => statusHandler(blade.id)}
-                              className={`h-3 w-3 rounded-full ${
-                                blade.active ? "bg-green-400" : "bg-primary"
-                              }`}
-                            >
-                              {openStatus === blade.id && !blade.active && (
-                                <ActivateBlade
-                                  blade={blade}
-                                  createPost={createPost}
-                                  updateStatusHandler={updateStatusHandler}
-                                  handleCloseModal={handleCloseModal}
-                                />
-                              )}
-                            </div>
-                          </div>
-                        </th>
+                  <tr
+                    key={blade.id}
+                    className="border border-base-100 bg-base-100 hover:bg-primary"
+                  >
+                    <td className="py-5 font-bold text-neutral">
+                      {blade.IdNummer}{" "}
+                      {blade.note && (
+                        <span className="text-xs font-normal text-neutral">
+                          ({blade.note})
+                        </span>
                       )}
-
-                      <td>
-                        <div className="flex items-center">
-                          <p className="w-5">{blade._count.bandhistorikk}</p>
-                          <BsClipboardData
-                            style={{
-                              marginLeft: ".5rem",
-                              fontSize: ".9rem",
-                            }}
-                            // onClick={openHistorikkDataHandler}
-                            className="text-neutral"
-                          />
+                    </td>
+                    <td className="py-5">
+                      <div className="flex items-center space-x-3">
+                        <div className="avatar"></div>
+                        <div>
+                          <div className="text-xs text-neutral">
+                            {blade.type} {blade.side}
+                          </div>
                         </div>
-                      </td>
+                      </div>
+                    </td>
+                    <td className="py-5">
+                      <div className="flex items-center space-x-3">
+                        <div className="avatar"></div>
 
-                      <td className="relative">
+                        <div>
+                          <div className="text-xs text-neutral">
+                            {dateFormat(blade.createdAt, "dd.mm.yyyy , HH:MM")}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="flex items-center py-5">
+                      <div className="mr-2 h-5 w-5">
+                        <img
+                          className="rounded-full"
+                          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                          src={blade.creatorImg}
+                          alt=""
+                        />
+                      </div>
+                      {blade.creator}
+                    </td>
+
+                    {sessionData?.user.role === "ADMIN" && (
+                      <th>
+                        <div>
+                          <div
+                            onClick={() => statusHandler(blade.id)}
+                            className={`h-3 w-3 rounded-full ${
+                              blade.active ? "bg-green-400" : "bg-primary"
+                            }`}
+                          >
+                            {openStatus === blade.id && !blade.active && (
+                              <ActivateBlade
+                                blade={blade}
+                                createPost={createPost}
+                                updateStatusHandler={updateStatusHandler}
+                                handleCloseModal={handleCloseModal}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      </th>
+                    )}
+
+                    <td>
+                      <div className="flex items-center">
+                        <p className="w-5">{blade._count.bandhistorikk}</p>
+                        <BsClipboardData
+                          style={{
+                            marginLeft: ".5rem",
+                            fontSize: ".9rem",
+                          }}
+                          // onClick={openHistorikkDataHandler}
+                          className="text-neutral"
+                        />
+                      </div>
+                    </td>
+
+                    <td className="relative">
+                      {!blade.deleted && (
                         <RiDeleteBinLine
                           style={{
                             color: "indianred",
@@ -301,67 +299,67 @@ const SearchMain = ({
                           }}
                           onClick={() => deleteHandler(blade.id)}
                         />
-                        {openDeleteID === blade.id && (
-                          <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-primary-content text-white">
-                            <div className="card-body">
-                              <h2 className="card-title">
-                                Slett blad: {blade.IdNummer}
-                              </h2>
-                              <p>Velg årsaken til vrak?</p>
-                              <select
-                                onChange={(e) =>
-                                  setWasteReasonInput(e.currentTarget.value)
-                                }
-                                className="select select-bordered select-xs w-full max-w-xs text-black"
-                              >
-                                <option disabled selected>
-                                  Velg
-                                </option>
-                                <option value="Normal slitasje">
-                                  Normal slitasje
-                                </option>
-                                <option value="Ikjøring">Ikjøring</option>
-                                <option className="Røk av">Røk av</option>
-                                <option className="Sprekk">Sprekk</option>
-                                <option className="Dårlig stamme">
-                                  Dårlig stamme
-                                </option>
-                                <option className="Varmekjørt">
-                                  Varmekjørt
-                                </option>
-                                <option className="Store tannskader">
-                                  Store tannskader
-                                </option>
-                                <option className="Oppspenningsfeil i sag">
-                                  Oppspenningsfeil i sag
-                                </option>
-                              </select>
+                      )}
+                      {openDeleteID === blade.id && (
+                        <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
+                          <div className="card-body">
+                            <h2 className="card-title">
+                              Slett blad: {blade.IdNummer}
+                            </h2>
+                            <p>Velg årsaken til vrak?</p>
+                            <select
+                              onChange={(e) =>
+                                setWasteReasonInput(e.currentTarget.value)
+                              }
+                              className="select select-bordered select-xs w-full max-w-xs text-black"
+                            >
+                              <option disabled selected>
+                                Velg
+                              </option>
+                              <option value="Normal slitasje">
+                                Normal slitasje
+                              </option>
+                              <option value="Ikjøring">Ikjøring</option>
+                              <option className="Røk av">Røk av</option>
+                              <option className="Sprekk">Sprekk</option>
+                              <option className="Dårlig stamme">
+                                Dårlig stamme
+                              </option>
+                              <option className="Varmekjørt">Varmekjørt</option>
+                              <option className="Store tannskader">
+                                Store tannskader
+                              </option>
+                              <option className="Oppspenningsfeil i sag">
+                                Oppspenningsfeil i sag
+                              </option>
+                            </select>
 
-                              {wasteReasonInput && (
-                                <th>
-                                  <button className="btn btn-xs bg-red-600">
-                                    <DeleteComponent
-                                      wasteReasonInput={wasteReasonInput}
-                                      setWasteReasonInput={setWasteReasonInput}
-                                      id={blade.id}
-                                    />
-                                  </button>
-                                </th>
-                              )}
-                            </div>
-                            <div className="card-actions my-5 justify-end">
-                              <button
-                                onClick={closeDeleteHandler}
-                                className="btn btn-xs"
-                              >
-                                Avbryt
-                              </button>
-                            </div>
+                            {wasteReasonInput && (
+                              <th>
+                                <button className="btn btn-xs bg-red-600">
+                                  <DeleteComponent
+                                    wasteReasonInput={wasteReasonInput}
+                                    setWasteReasonInput={setWasteReasonInput}
+                                    id={blade.id}
+                                    closeDeleteHandler={closeDeleteHandler}
+                                  />
+                                </button>
+                              </th>
+                            )}
                           </div>
-                        )}
-                      </td>
-                    </tr>
-                  )}
+                          <div className="card-actions my-5 justify-end">
+                            <button
+                              onClick={closeDeleteHandler}
+                              className="btn btn-xs"
+                            >
+                              Avbryt
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+
                   {
                     <div className="absolute z-50 h-auto w-screen rounded-2xl bg-base-100  max-lg:relative  md:w-full">
                       <div className="mr-5 flex justify-between">
