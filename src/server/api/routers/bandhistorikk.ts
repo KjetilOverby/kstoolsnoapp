@@ -276,7 +276,7 @@ export const bandhistorikkRouter = createTRPCRouter({
         'BFS426': 0,
         'BFS427': 0,
         'BFS429': 0,
-        'BSF438': 0,
+        'BFS438': 0,
         'BFS442': 0,
       };
   

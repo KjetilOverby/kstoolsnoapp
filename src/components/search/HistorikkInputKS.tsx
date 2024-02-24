@@ -189,7 +189,7 @@ const HistorikkInputKS = ({
               />
             </label>
             <label className="label cursor-pointer">
-              <span className="label-text">BSF438</span>
+              <span className="label-text">BFS438</span>
               <input
                 onChange={(e) =>
                   setBfsValue({
@@ -197,7 +197,7 @@ const HistorikkInputKS = ({
                     bfs5: e.currentTarget.checked ? e.currentTarget.value : "",
                   })
                 }
-                value="BSF438"
+                value="BFS438"
                 type="checkbox"
                 className="checkbox"
               />
