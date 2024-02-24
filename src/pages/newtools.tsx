@@ -21,6 +21,11 @@ const Newtools = ({ theme, setTheme }) => {
   });
 
   const [idValue, setIdValue] = useState("");
+  const [openDeleteID, setOpenDeleteID] = useState<string | null>(null);
+
+  const deleteHandler = (postID: string) => {
+    setOpenDeleteID(postID);
+  };
 
   const { data } = api.sawblades.getAllcreate.useQuery({
     date: `${dateValue.endDate}T23:59:59.000Z`,
@@ -119,9 +124,38 @@ const Newtools = ({ theme, setTheme }) => {
                           </td>
 
                           <td>
-                            <th className="text-red-600">
-                              <Deleteblades blade={blade.id} />
-                            </th>
+                            <button
+                              className="btn btn-sm bg-red-500 text-white hover:bg-red-600"
+                              onClick={() => deleteHandler(blade.id)}
+                            >
+                              SLETT
+                            </button>
+                            {openDeleteID === blade.id && (
+                              <th className="">
+                                <div className="card absolute bottom-5 right-28 z-50 flex bg-red-500 p-5 text-white">
+                                  <h1 className="mb-5 text-lg">
+                                    Slett {blade.IdNummer}?
+                                  </h1>
+                                  <p className="mb-3">
+                                    Slettingen er permanent og kan ikke angres.
+                                  </p>
+                                  <p className="mb-5">
+                                    Bladet vil ikke legge seg i statistikk for
+                                    slettede blad.
+                                  </p>
+
+                                  <div className="flex">
+                                    <button
+                                      onClick={() => setOpenDeleteID(null)}
+                                      className="btn btn-sm mr-5"
+                                    >
+                                      Avbryt
+                                    </button>
+                                    <Deleteblades blade={blade.id} />
+                                  </div>
+                                </div>
+                              </th>
+                            )}
                           </td>
                         </tr>
                       </>

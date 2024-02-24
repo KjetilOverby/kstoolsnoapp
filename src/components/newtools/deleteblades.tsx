@@ -27,7 +27,12 @@ const Deleteblades = ({ blade }: bladeProps) => {
   return (
     <>
       <div>
-        <button onClick={deleteBlade}>SLETT</button>
+        <button
+          className="btn btn-sm bg-red-400 hover:bg-red-500"
+          onClick={deleteBlade}
+        >
+          SLETT
+        </button>
       </div>
       <div></div>
     </>

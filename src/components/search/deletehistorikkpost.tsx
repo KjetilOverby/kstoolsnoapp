@@ -2,7 +2,6 @@
 // @ts-nocheck
 import React from "react";
 import { api } from "~/utils/api";
-import { RiDeleteBinFill } from "react-icons/ri";
 
 interface PostProps {
   post: string;
@@ -27,11 +26,11 @@ const Deletehistorikkpost = ({ post, setOpenBandhistorikkData }: PostProps) => {
   return (
     <>
       <div>
-        <button onClick={deletePost}>
-          <RiDeleteBinFill
-            style={{ fontSize: "1rem" }}
-            className="text-primary"
-          />
+        <button
+          className="btn btn-sm bg-red-600 text-white hover:bg-red-700"
+          onClick={deletePost}
+        >
+          Slett
         </button>
       </div>
       <div></div>
