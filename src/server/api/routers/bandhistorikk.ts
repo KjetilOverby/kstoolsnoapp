@@ -8,6 +8,53 @@ import {
 } from "~/server/api/trpc";
 export const bandhistorikkRouter = createTRPCRouter({
 
+  columns: protectedProcedure
+  .input(z.object({ id: z.boolean(), historikkId: z.boolean(), createdAt: z.boolean(), updatedAt: z.boolean(), userId: z.boolean(), sagNr: z.boolean(), datoInn: z.boolean(), klInn: z.boolean(), datoUt: z.boolean(), klUt: z.boolean(), sagtid: z.boolean(), feilkode: z.boolean(), temperatur: z.boolean(), sideklaring: z.boolean(), ampere: z.boolean(), stokkAnt: z.boolean(), anmSag: z.boolean(), creator: z.boolean(), creatorImg: z.boolean(), anmKS: z.boolean(), sgSag: z.boolean(), sgKS: z.boolean(), handling: z.boolean(), side: z.boolean(), bladType: z.boolean(), datoSrv: z.boolean(), activePost: z.boolean(), bladeRelationId: z.boolean(), alt: z.boolean(), creator2: z.boolean(), creatorImg2: z.boolean(), creator3: z.boolean(), creatorImg3: z.boolean() }))
+  .query(async ({ ctx, input }) => {
+    const total = await ctx.db.bandhistorikk.findMany({
+      select: {
+        id: input.id,
+        historikkId: input.historikkId,
+        createdAt: input.createdAt,
+        updatedAt: input.updatedAt,
+        userId: input.userId,
+        sagNr: input.sagNr,
+        datoInn: input.datoInn,
+        klInn: input.klInn,
+        datoUt: input.datoUt,
+        klUt: input.klUt,
+        sagtid: input.sagtid,
+        feilkode: input.feilkode,
+        temperatur: input.temperatur,
+        sideklaring: input.sideklaring,
+        ampere: input.ampere,
+        stokkAnt: input.stokkAnt,
+        anmSag: input.anmSag,
+        creator: input.creator,
+        creatorImg: input.creatorImg,
+        anmKS: input.anmKS,
+        sgSag: input.sgSag,
+        sgKS: input.sgKS,
+        handling: input.handling,
+        side: input.side,
+        bladType: input.bladType,
+        datoSrv: input.datoSrv,
+        activePost: input.activePost,
+        bladeRelationId: input.bladeRelationId,
+        alt: input.alt,
+        creator2: input.creator2,
+        creatorImg2: input.creatorImg2,
+        creator3: input.creator3, 
+        creatorImg3: input.creatorImg3,
+       
+        
+      },
+    });
+
+
+    return total;
+  }),
+
     countAllHistorikk: protectedProcedure
         .query(({ ctx, }) => {
          return ctx.db.bandhistorikk.count({

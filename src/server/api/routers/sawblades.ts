@@ -9,6 +9,37 @@ import {
   protectedProcedure,
 } from "~/server/api/trpc";
 export const sawbladesRouter = createTRPCRouter({
+
+
+  columns: protectedProcedure
+  .input(z.object({ type: z.boolean(), id: z.boolean(), createdAt: z.boolean(), updatedAt: z.boolean(), kunde: z.boolean(), IdNummer: z.boolean(), creator: z.boolean(), side: z.boolean(), note: z.boolean(), active: z.boolean(), deleted: z.boolean(), deleteReason: z.boolean(), produsent: z.boolean(), deleter: z.boolean(), deleterImg: z.boolean(), creatorImg: z.boolean(), createdById: z.boolean(), userId: z.boolean(), userId: z.boolean()}))
+  .query(async ({ ctx, input }) => {
+    console.log(input);
+    const total = await ctx.db.sawblades.findMany({
+      select: {
+        id: true,
+        createdAt: input.createdAt,
+        updatedAt: input.updatedAt,
+        kunde : input.kunde,
+        type: input.type,
+        IdNummer: input.IdNummer,
+        createdById: input.createdById,
+        userId: input.userId,
+        creator: input.creator,
+        creatorImg : input.creatorImg,
+        deleted: input.deleted,
+        note: input.note,
+        side: input.side,
+        active: input.active,
+        deleteReason: input.deleteReason,
+        produsent: input.produsent,
+        deleter: input.deleter,
+        deleterImg: input.deleterImg,
+      },
+    });
+    return total;
+  }),
+
   // getAll: protectedProcedure
   // .query(({ ctx }) => {
  
@@ -24,6 +55,8 @@ export const sawbladesRouter = createTRPCRouter({
     //       }
     //      })
     //   }),
+
+    
 
     countAllBlades: protectedProcedure
     .query(async ({ ctx }) => {
