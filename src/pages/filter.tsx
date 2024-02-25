@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
@@ -6,6 +8,8 @@ import FilterTable from "~/components/filter/FilterTable";
 import HeaderComponent from "~/components/reusable/HeaderComponent";
 import { api } from "~/utils/api";
 import { CSVLink } from "react-csv";
+import dateFormat from "dateformat";
+import DatepickerComponent from "~/components/reusable/Datepicker";
 
 interface Props {
   theme: string;
@@ -71,16 +75,22 @@ const Filter = ({ theme }: Props) => {
     creatorImg3: false,
   });
 
-  const [fetchData, setFetchData] = useState(false);
-  const { data: sawblades } = api.sawblades?.columns.useQuery(sawbladeColumns, {
-    enabled: fetchData,
+  const [dateValue, setDateValue] = useState({
+    endDate: dateFormat(new Date(), "yyyy-mm-dd"),
+    startDate: dateFormat(new Date(), "yyyy-mm-dd"),
   });
-  const { data: historikk } = api.bandhistorikk?.columns.useQuery(
-    historikkColumns,
-    {
-      enabled: fetchData,
-    },
-  );
+
+  const [fetchData, setFetchData] = useState(false);
+  const { data: sawblades } = api.sawblades?.columns.useQuery({
+    ...sawbladeColumns,
+    date: `${dateValue.endDate}T23:59:59.000Z`,
+    date2: `${dateValue.startDate}T00:00:00.000Z`,
+  });
+  const { data: historikk } = api.bandhistorikk?.columns.useQuery({
+    ...historikkColumns,
+    date: `${dateValue.endDate}T23:59:59.000Z`,
+    date2: `${dateValue.startDate}T00:00:00.000Z`,
+  });
 
   const [openToggle, setOpenToggle] = useState(true);
   const [openBandsag, setOpenBandsag] = useState(false);
@@ -178,16 +188,22 @@ const Filter = ({ theme }: Props) => {
   return (
     <div data-theme={theme} className="min-h-screen ">
       <HeaderComponent />
-      <div>
+      <div className="mx-96">
+        <div className="shadow-xl">
+          <DatepickerComponent
+            setDateValue={setDateValue}
+            dateValue={dateValue}
+          />
+        </div>
         <button
           onClick={openBandsagHandler}
-          className="btn bg-blue-500 text-white hover:bg-blue-600"
+          className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
         >
           Båndsagblad
         </button>
         <button
           onClick={openHistorikkHandler}
-          className="btn bg-blue-500 text-white hover:bg-blue-600"
+          className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
         >
           Historikk
         </button>
@@ -217,7 +233,7 @@ const Filter = ({ theme }: Props) => {
             Hent data
           </button>
           <div className="card-actions justify-end">
-            {historikkData && (
+            {sawbladesData && (
               <CSVLink
                 data={sawbladesData}
                 filename="Bandsagblad.csv"
@@ -227,7 +243,9 @@ const Filter = ({ theme }: Props) => {
               </CSVLink>
             )}
           </div>
-          {fetchData && <FilterTable data={sawblades && sawblades} />}
+          <div className="overflow-scroll">
+            {fetchData && <FilterTable data={sawblades && sawblades} />}
+          </div>
         </div>
       )}
       {openHistorikk && (
@@ -265,7 +283,9 @@ const Filter = ({ theme }: Props) => {
               </CSVLink>
             )}
           </div>
-          {fetchData && <FilterTable data={historikk && historikk} />}
+          <div className="overflow-scroll">
+            {fetchData && <FilterTable data={historikk && historikk} />}
+          </div>
         </div>
       )}
     </div>

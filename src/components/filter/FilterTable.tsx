@@ -8,7 +8,7 @@ import React from "react";
 const FilterTable = ({ data }) => {
   return (
     <div>
-      <table className="table table-xs">
+      <table className="table table-xs ">
         <thead>
           <tr className="bg-blue-400 text-white">
             {data?.length > 0 &&
@@ -22,7 +22,7 @@ const FilterTable = ({ data }) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             <tr key={index}>
               {Object.values(item).map((value, i) => (
-                <td key={i}>
+                <td key={i} className="whitespace-nowrap">
                   {value instanceof Date
                     ? value.toISOString()
                     : typeof value === "boolean"

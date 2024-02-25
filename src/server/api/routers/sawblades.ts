@@ -12,10 +12,16 @@ export const sawbladesRouter = createTRPCRouter({
 
 
   columns: protectedProcedure
-  .input(z.object({ type: z.boolean(), id: z.boolean(), createdAt: z.boolean(), updatedAt: z.boolean(), kunde: z.boolean(), IdNummer: z.boolean(), creator: z.boolean(), side: z.boolean(), note: z.boolean(), active: z.boolean(), deleted: z.boolean(), deleteReason: z.boolean(), produsent: z.boolean(), deleter: z.boolean(), deleterImg: z.boolean(), creatorImg: z.boolean(), createdById: z.boolean(), userId: z.boolean(), userId: z.boolean()}))
+  .input(z.object({ type: z.boolean(), id: z.boolean(), createdAt: z.boolean(), updatedAt: z.boolean(), kunde: z.boolean(), IdNummer: z.boolean(), creator: z.boolean(), side: z.boolean(), note: z.boolean(), active: z.boolean(), deleted: z.boolean(), deleteReason: z.boolean(), produsent: z.boolean(), deleter: z.boolean(), deleterImg: z.boolean(), creatorImg: z.boolean(), createdById: z.boolean(), userId: z.boolean(), userId: z.boolean(), date: z.string(), date2: z.string()}))
   .query(async ({ ctx, input }) => {
     console.log(input);
     const total = await ctx.db.sawblades.findMany({
+      where: {
+        createdAt: {
+          lte: new Date(input.date),
+          gte: new Date(input.date2),
+        }
+      },
       select: {
         id: true,
         createdAt: input.createdAt,

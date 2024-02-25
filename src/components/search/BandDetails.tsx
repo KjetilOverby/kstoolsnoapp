@@ -339,24 +339,27 @@ const BandDetails = ({
                         </div>
                       )}
                     </td>
-                    <td className="text-neutral">
-                      <button
-                        onClick={editHistorikkPostHandler}
-                        className="btn btn-xs mr-5 bg-orange-500"
-                      >
-                        <CiEdit />
-                      </button>
-
-                      <RoleAdmin>
-                        {!post.activePost && (
-                          <button
-                            onClick={openKSinput}
-                            className="btn btn-xs bg-blue-500 text-white hover:bg-blue-400"
-                          >
-                            KS
-                          </button>
-                        )}
-                      </RoleAdmin>
+                    <td className="mt-3 flex items-center justify-center text-neutral ">
+                      <div>
+                        <button
+                          onClick={editHistorikkPostHandler}
+                          className="btn btn-xs mr-5 bg-orange-500"
+                        >
+                          <CiEdit />
+                        </button>
+                      </div>
+                      <div>
+                        <RoleAdmin>
+                          {!post.activePost && (
+                            <button
+                              onClick={openKSinput}
+                              className="btn btn-xs bg-blue-500 text-white hover:bg-blue-400"
+                            >
+                              KS
+                            </button>
+                          )}
+                        </RoleAdmin>
+                      </div>
                     </td>
                     <td className="text-neutral">{post.handling}</td>
                     <td className="text-neutral">{post.sideklaring}</td>

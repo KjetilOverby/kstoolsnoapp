@@ -9,9 +9,15 @@ import {
 export const bandhistorikkRouter = createTRPCRouter({
 
   columns: protectedProcedure
-  .input(z.object({ id: z.boolean(), historikkId: z.boolean(), createdAt: z.boolean(), updatedAt: z.boolean(), userId: z.boolean(), sagNr: z.boolean(), datoInn: z.boolean(), klInn: z.boolean(), datoUt: z.boolean(), klUt: z.boolean(), sagtid: z.boolean(), feilkode: z.boolean(), temperatur: z.boolean(), sideklaring: z.boolean(), ampere: z.boolean(), stokkAnt: z.boolean(), anmSag: z.boolean(), creator: z.boolean(), creatorImg: z.boolean(), anmKS: z.boolean(), sgSag: z.boolean(), sgKS: z.boolean(), handling: z.boolean(), side: z.boolean(), bladType: z.boolean(), datoSrv: z.boolean(), activePost: z.boolean(), bladeRelationId: z.boolean(), alt: z.boolean(), creator2: z.boolean(), creatorImg2: z.boolean(), creator3: z.boolean(), creatorImg3: z.boolean() }))
+  .input(z.object({ id: z.boolean(), historikkId: z.boolean(), createdAt: z.boolean(), updatedAt: z.boolean(), userId: z.boolean(), sagNr: z.boolean(), datoInn: z.boolean(), klInn: z.boolean(), datoUt: z.boolean(), klUt: z.boolean(), sagtid: z.boolean(), feilkode: z.boolean(), temperatur: z.boolean(), sideklaring: z.boolean(), ampere: z.boolean(), stokkAnt: z.boolean(), anmSag: z.boolean(), creator: z.boolean(), creatorImg: z.boolean(), anmKS: z.boolean(), sgSag: z.boolean(), sgKS: z.boolean(), handling: z.boolean(), side: z.boolean(), bladType: z.boolean(), datoSrv: z.boolean(), activePost: z.boolean(), bladeRelationId: z.boolean(), alt: z.boolean(), creator2: z.boolean(), creatorImg2: z.boolean(), creator3: z.boolean(), creatorImg3: z.boolean(), date: z.string(), date2: z.string() }))
   .query(async ({ ctx, input }) => {
     const total = await ctx.db.bandhistorikk.findMany({
+      where: {
+        updatedAt: {
+          lte: new Date(input.date),
+          gte: new Date(input.date2),
+        }
+      },
       select: {
         id: input.id,
         historikkId: input.historikkId,
