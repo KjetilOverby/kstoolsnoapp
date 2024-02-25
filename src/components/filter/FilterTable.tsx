@@ -10,7 +10,7 @@ const FilterTable = ({ data }) => {
     <div>
       <table className="table table-xs ">
         <thead>
-          <tr className="bg-blue-400 text-white">
+          <tr className="bg-blue-400 text-white ">
             {data?.length > 0 &&
               Object.keys(data[0]).map((key, index) => (
                 <th key={index}>{key}</th>
@@ -20,7 +20,7 @@ const FilterTable = ({ data }) => {
         <tbody>
           {data?.map((item, index) => (
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            <tr key={index}>
+            <tr key={index} className="hover:cursor-pointer hover:bg-primary">
               {Object.values(item).map((value, i) => (
                 <td key={i} className="whitespace-nowrap">
                   {value instanceof Date

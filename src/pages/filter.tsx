@@ -96,6 +96,8 @@ const Filter = ({ theme }: Props) => {
   const [openBandsag, setOpenBandsag] = useState(false);
   const [openHistorikk, setOpenHistorikk] = useState(false);
 
+  const [openList, setOpenList] = useState(false);
+
   const openBandsagHandler = () => {
     setOpenBandsag(!openBandsag);
     setOpenHistorikk(false);
@@ -189,105 +191,143 @@ const Filter = ({ theme }: Props) => {
     <div data-theme={theme} className="min-h-screen ">
       <HeaderComponent />
       <div className="mx-96">
+        <h1 className="my-10 text-xl">Avanserte søk og filtrering av data</h1>
+        <p>Velg tidsperiode</p>
         <div className="shadow-xl">
           <DatepickerComponent
             setDateValue={setDateValue}
             dateValue={dateValue}
           />
+          {openList && (
+            <p>
+              Hvis ingen data vises kan det være at du ikke har noe på valgt
+              tidsperiode.
+            </p>
+          )}
         </div>
-        <button
-          onClick={openBandsagHandler}
-          className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
-        >
-          Båndsagblad
-        </button>
-        <button
-          onClick={openHistorikkHandler}
-          className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
-        >
-          Historikk
-        </button>
+        {openList && (
+          <div className="mt-5">
+            <button
+              onClick={() => window.location.reload()}
+              className="btn bg-green-500 text-white hover:bg-green-600"
+            >
+              Nytt søk
+            </button>
+          </div>
+        )}
+        {!openList && (
+          <div>
+            <button
+              onClick={openBandsagHandler}
+              className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
+            >
+              Båndsagblad
+            </button>
+            <button
+              onClick={openHistorikkHandler}
+              className="btn btn-sm bg-blue-500 text-white hover:bg-blue-600"
+            >
+              Historikk
+            </button>
+          </div>
+        )}
       </div>
-      {openBandsag && (
-        <div className="m-10">
-          {openToggle && (
-            <div>
-              <Checkbox
-                sawbladeColumns={sawbladeColumns}
-                setSawbladeColumns={setSawbladeColumns}
-                title="Båndsagblad"
-              />
+      <div className="mx-96">
+        {openBandsag && (
+          <div className="mt-10">
+            <div className="flex">
+              {!openList && (
+                <button
+                  className="btn mb-5 mr-5 bg-blue-500 text-white hover:bg-blue-600"
+                  onClick={() => {
+                    if (Object.values(sawbladeColumns).some((value) => value)) {
+                      setFetchData(true);
+                      setOpenToggle(false);
+                      setOpenList(true);
+                    } else {
+                      alert("Velg minst en kolonne!");
+                    }
+                  }}
+                >
+                  Hent data
+                </button>
+              )}
+              <div className="card-actions mb-5 justify-end">
+                {sawbladesData && openList && (
+                  <CSVLink
+                    data={sawbladesData}
+                    filename="Bandsagblad.csv"
+                    className="btn btn-neutral"
+                  >
+                    Download
+                  </CSVLink>
+                )}
+              </div>
             </div>
-          )}
-          <button
-            className="btn my-5 bg-blue-500 text-white hover:bg-blue-600"
-            onClick={() => {
-              if (Object.values(sawbladeColumns).some((value) => value)) {
-                setFetchData(true);
-                setOpenToggle(false);
-              } else {
-                alert("Velg minst en kolonne!");
-              }
-            }}
-          >
-            Hent data
-          </button>
-          <div className="card-actions justify-end">
-            {sawbladesData && (
-              <CSVLink
-                data={sawbladesData}
-                filename="Bandsagblad.csv"
-                className="btn btn-neutral"
-              >
-                Download
-              </CSVLink>
+            {openToggle && (
+              <div>
+                <Checkbox
+                  sawbladeColumns={sawbladeColumns}
+                  setSawbladeColumns={setSawbladeColumns}
+                  title="Båndsagblad"
+                />
+              </div>
             )}
-          </div>
-          <div className="overflow-scroll">
-            {fetchData && <FilterTable data={sawblades && sawblades} />}
-          </div>
-        </div>
-      )}
-      {openHistorikk && (
-        <div className="m-10">
-          {openToggle && (
-            <div>
-              <Checkbox
-                sawbladeColumns={historikkColumns}
-                setSawbladeColumns={setHistorikkColumns}
-                title="Historikk"
-              />
+            <div className="overflow-scroll">
+              {fetchData && <FilterTable data={sawblades && sawblades} />}
             </div>
-          )}
-          <button
-            className="btn my-5 bg-blue-500 text-white hover:bg-blue-600"
-            onClick={() => {
-              if (Object.values(historikkColumns).some((value) => value)) {
-                setFetchData(true);
-                setOpenToggle(false);
-              } else {
-                alert("Velg minst en kolonne!");
-              }
-            }}
-          >
-            Hent data historikk
-          </button>
-          <div className="card-actions justify-end">
-            {historikkData && (
-              <CSVLink
-                data={historikkData}
-                filename="Historikk.csv"
-                className="btn btn-neutral"
-              >
-                Download
-              </CSVLink>
+          </div>
+        )}
+      </div>
+      <div className="mx-96">
+        {openHistorikk && (
+          <div className="mt-10 ">
+            <div className="flex">
+              {!openList && (
+                <button
+                  className="btn  mb-5 mr-5 bg-blue-500 text-white hover:bg-blue-600"
+                  onClick={() => {
+                    if (
+                      Object.values(historikkColumns).some((value) => value)
+                    ) {
+                      setFetchData(true);
+                      setOpenToggle(false);
+                      setOpenList(true);
+                    } else {
+                      alert("Velg minst en kolonne!");
+                    }
+                  }}
+                >
+                  Hent data historikk
+                </button>
+              )}
+              <div className="card-actions mb-5">
+                {sawbladesData && openList && (
+                  <CSVLink
+                    data={historikkData}
+                    filename="Historikk.csv"
+                    className="btn btn-neutral"
+                  >
+                    Download
+                  </CSVLink>
+                )}
+              </div>
+            </div>
+            {openToggle && (
+              <div>
+                <Checkbox
+                  sawbladeColumns={historikkColumns}
+                  setSawbladeColumns={setHistorikkColumns}
+                  title="Historikk"
+                />
+              </div>
             )}
+            <div className="overflow-scroll">
+              {fetchData && <FilterTable data={historikk && historikk} />}
+            </div>
           </div>
-          <div className="overflow-scroll">
-            {fetchData && <FilterTable data={historikk && historikk} />}
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

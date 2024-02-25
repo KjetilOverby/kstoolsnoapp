@@ -6,6 +6,7 @@
 import { useState, useEffect } from "react";
 import DatepickerComponent from "~/components/reusable/Datepicker";
 import HeaderComponent from "~/components/reusable/HeaderComponent";
+import dateFormat from "dateformat";
 import SearchMain from "~/components/search/SearchMain";
 import { api } from "~/utils/api";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -13,6 +14,11 @@ import NotAuthorized from "~/components/reusable/NotAuthorized";
 import CountOverview from "~/components/search/CountOverview";
 
 const Search = ({ theme }) => {
+  // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+  const [dateValue, setDateValue] = useState({
+    endDate: dateFormat(new Date(), "yyyy-mm-dd"),
+    startDate: dateFormat(new Date(), "yyyy-mm-dd"),
+  });
   const [closeSearchComponent, setCloseSearchComponent] = useState(false);
   const { data: sessionData } = useSession();
 
@@ -54,6 +60,8 @@ const Search = ({ theme }) => {
     api.sawblades.getAllIngenHandling.useQuery({});
 
   const { data: deletedSawblades } = api.sawblades.getAllDeleted.useQuery({
+    date: `${dateValue.endDate}T23:59:59.000Z`,
+    date2: `${dateValue.startDate}T00:00:00.000Z`,
     IdNummer: idValue,
   });
   const { data: sawbladeslActive } = api.sawblades.getActive.useQuery({
@@ -67,6 +75,8 @@ const Search = ({ theme }) => {
   });
   const { data: sawbladesOsterdalDeleted } =
     api.sawblades.getCustomerAllDeleted.useQuery({
+      date: `${dateValue.endDate}T23:59:59.000Z`,
+      date2: `${dateValue.startDate}T00:00:00.000Z`,
       IdNummer: idValue,
       init: "MØ",
     });
@@ -179,6 +189,8 @@ const Search = ({ theme }) => {
                   setCloseSearchComponent={setCloseSearchComponent}
                   sawbladesIngenHandling={sawbladesIngenHandling}
                   openIngenHandling={openIngenHandling}
+                  dateValue={dateValue}
+                  setDateValue={setDateValue}
                 />
               </>
             )}
@@ -195,6 +207,8 @@ const Search = ({ theme }) => {
                   activeBlades={sawbladesOsterdalActive}
                   closeSearchComponent={closeSearchComponent}
                   setCloseSearchComponent={setCloseSearchComponent}
+                  dateValue={dateValue}
+                  setDateValue={setDateValue}
                 />
               </>
             )}

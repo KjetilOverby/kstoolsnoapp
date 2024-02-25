@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @next/next/no-img-element */
@@ -17,6 +18,7 @@ import { DeleteComponent } from "./DeleteComponent";
 import { signIn, signOut, useSession } from "next-auth/react";
 import BSFTable from "../reusable/BSFTable";
 import RoleAdmin from "../roles/RoleAdmin";
+import DatepickerComponent from "../reusable/Datepicker";
 
 interface Blade {
   creatorImg: string | undefined;
@@ -73,12 +75,9 @@ const SearchMain = ({
   deletedSawblades,
   setCloseSearchComponent,
   closeSearchComponent,
+  dateValue,
+  setDateValue,
 }: BladeProps) => {
-  // const page = params["page"] ?? "1";
-  // const per_page = params["per_page"] ?? "10";
-  // const start = (Number(page) - 1) * Number(per_page);
-  // const end = start + Number(per_page);
-  // const entries = sawblades.slice(start, end);
   const { data: sessionData } = useSession();
 
   const [showDeletedBlades, setShowDeletedBlades] = useState(false);
@@ -477,14 +476,22 @@ const SearchMain = ({
         </table>
       </div>
       <button
-        className="btn btn-xs my-5"
+        className="btn btn-sm my-5 bg-blue-500 text-white hover:bg-blue-600"
         onClick={() => setShowDeletedBlades(!showDeletedBlades)}
       >
         {showDeletedBlades ? "Skjul slettede blad" : "Vis slettede blad"}
       </button>
       {showDeletedBlades && (
         <div>
-          <h1 className="text-xl text-neutral">Slettede blad</h1>
+          <h1 className="mb-5 text-xl text-neutral">
+            Slettede blad {deletedSawblades?.length}
+          </h1>
+          <div className="shadow-xl">
+            <DatepickerComponent
+              setDateValue={setDateValue}
+              dateValue={dateValue}
+            />
+          </div>
           <table className="table table-xs whitespace-nowrap bg-base-100">
             <thead>
               <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
