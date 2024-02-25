@@ -15,9 +15,29 @@ export const bandhistorikkRouter = createTRPCRouter({
          })
       }),
 
+
+    countAllHistorikkCustomer: protectedProcedure
+    .input(z.object({init: z.string()}))
+        .query(({ ctx, input }) => {
+         return ctx.db.bandhistorikk.count({
+       where: {
+        bladeRelationId: { startsWith: input.init }
+        }
+         })
+      }),
+
       countAllSagtid: protectedProcedure
   .query(async ({ ctx }) => {
     const records = await ctx.db.bandhistorikk.findMany({});
+    const sum = records.reduce((acc, record) => acc + record.sagtid, 0);
+    return sum;
+  }),
+      countAllSagtidCustomer: protectedProcedure
+      .input(z.object({init: z.string()}))
+       .query(async ({ ctx, input }) => {
+    const records = await ctx.db.bandhistorikk.findMany({ where: {
+      bladeRelationId: { startsWith: input.init }
+      }});
     const sum = records.reduce((acc, record) => acc + record.sagtid, 0);
     return sum;
   }),

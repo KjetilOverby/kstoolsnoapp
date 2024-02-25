@@ -33,6 +33,17 @@ export const sawbladesRouter = createTRPCRouter({
   
       return { total, deleted, notDeleted };
     }),
+
+    countAllBladesCustomer: protectedProcedure
+    .input(z.object({init: z.string()}))
+    .query(async ({ ctx, input }) => {
+      const total = await ctx.db.sawblades.count({where: { IdNummer: { startsWith: input.init } }});
+      const deleted = await ctx.db.sawblades.count({ where: { deleted: true, IdNummer: { startsWith: input.init } } });
+      const notDeleted = await ctx.db.sawblades.count({ where: { deleted: false , IdNummer: { startsWith: input.init }} });
+      
+  
+      return { total, deleted, notDeleted };
+    }),
   
 
     getAllcreate: protectedProcedure
@@ -146,6 +157,7 @@ export const sawbladesRouter = createTRPCRouter({
                           },
          })
       }),
+      
     getAllDeletedStats: protectedProcedure
     .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string(),}))
         .query(({ ctx, input }) => {

@@ -3,13 +3,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatepickerComponent from "~/components/reusable/Datepicker";
 import HeaderComponent from "~/components/reusable/HeaderComponent";
 import SearchMain from "~/components/search/SearchMain";
 import { api } from "~/utils/api";
 import { signIn, signOut, useSession } from "next-auth/react";
 import NotAuthorized from "~/components/reusable/NotAuthorized";
+import CountOverview from "~/components/search/CountOverview";
 
 const Search = ({ theme }) => {
   const [closeSearchComponent, setCloseSearchComponent] = useState(false);
@@ -17,11 +18,35 @@ const Search = ({ theme }) => {
 
   const [idValue, setIdValue] = useState("");
   const [openIngenHandling, setOpenIngenHandling] = useState(false);
+  const [KundeId, setKundeId] = useState("");
+
+  useEffect(() => {
+    if (sessionData?.user.role === "ADMIN") {
+      setKundeId("");
+    } else if (sessionData?.user.role === "MO_ADMIN") {
+      setKundeId("MØ");
+    }
+  }, [sessionData]);
 
   const { data: countAllBlades } = api.sawblades.countAllBlades.useQuery({});
+  const { data: countAllBladesCustomer } =
+    api.sawblades.countAllBladesCustomer.useQuery({
+      init: KundeId,
+    });
   const { data: countAllHistorikk } =
     api.bandhistorikk.countAllHistorikk.useQuery({});
-  const { data: countAllSagtid } = api.bandhistorikk.countAllSagtid.useQuery();
+  const { data: countAllHistorikkCustomer } =
+    api.bandhistorikk.countAllHistorikkCustomer.useQuery({
+      init: KundeId,
+    });
+
+  const { data: countAllSagtid } = api.bandhistorikk.countAllSagtid.useQuery(
+    {},
+  );
+  const { data: countAllSagtidCustomer } =
+    api.bandhistorikk.countAllSagtidCustomer.useQuery({
+      init: KundeId,
+    });
   const { data: sawblades } = api.sawblades.getAll.useQuery({
     IdNummer: idValue,
   });
@@ -127,34 +152,25 @@ const Search = ({ theme }) => {
             {sessionData?.user.role === "ADMIN" && (
               <>
                 <div className="flex">
-                  <div className="mr-20">
-                    <p className="text-xs italic">
-                      Blad totalt: {countAllBlades?.total}
-                    </p>
-                    <p className="text-xs italic">
-                      Blad i bruk: {countAllBlades?.notDeleted}
-                    </p>
-                    <p className="text-xs italic">
-                      Blad slettet: {countAllBlades?.deleted}
-                    </p>
-                    <p className="text-xs italic">
-                      Serviceposter: {countAllHistorikk}
-                    </p>
-                    <p className="text-xs italic">
-                      Antall timer: {countAllSagtid}
-                    </p>
-                  </div>
+                  <CountOverview
+                    countAllBlades={countAllBlades}
+                    countAllHistorikk={countAllHistorikk}
+                    countAllSagtid={countAllSagtid}
+                  />
                   <div>
-                    <p className="text-sm">Blad Ingen Handling:</p>
+                    <p className="text-xs italic">Blad Ingen Handling:</p>
                     {sawbladesIngenHandling?.map((sawblade) => (
                       <>
                         <div key={sawblade.id} className="flex justify-between">
-                          <p className="text-xs">ID: {sawblade.IdNummer}</p>
+                          <p className="text-xs italic">
+                            ID: {sawblade.IdNummer}
+                          </p>
                         </div>
                       </>
                     ))}
                   </div>
                 </div>
+
                 <SearchMain
                   sawblades={sawblades}
                   deletedSawblades={deletedSawblades}
@@ -167,13 +183,20 @@ const Search = ({ theme }) => {
               </>
             )}
             {sessionData?.user.role === "MO_ADMIN" && (
-              <SearchMain
-                sawblades={sawbladesOsterdal}
-                deletedSawblades={sawbladesOsterdalDeleted}
-                activeBlades={sawbladesOsterdalActive}
-                closeSearchComponent={closeSearchComponent}
-                setCloseSearchComponent={setCloseSearchComponent}
-              />
+              <>
+                <CountOverview
+                  countAllBlades={countAllBladesCustomer}
+                  countAllHistorikk={countAllHistorikkCustomer}
+                  countAllSagtid={countAllSagtidCustomer}
+                />
+                <SearchMain
+                  sawblades={sawbladesOsterdal}
+                  deletedSawblades={sawbladesOsterdalDeleted}
+                  activeBlades={sawbladesOsterdalActive}
+                  closeSearchComponent={closeSearchComponent}
+                  setCloseSearchComponent={setCloseSearchComponent}
+                />
+              </>
             )}
           </div>
         </>

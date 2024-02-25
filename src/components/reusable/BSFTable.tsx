@@ -28,7 +28,7 @@ const BSFTable = () => {
             <th>STELL.FERDIG SLIP OG RETT f.o.m 100mm bredde TANN</th>
           </tr>
           <tr className="border border-primary">
-            <th>BSF438</th>
+            <th>BFS438</th>
             <th>REP.SVEIST STELLIT TANN</th>
           </tr>
           <tr>

@@ -11,6 +11,7 @@ import { CiEdit } from "react-icons/ci";
 import DeactivateBlade from "./DeactivateBlade";
 import EditBandDetails from "./EditBandDetails";
 import { RiDeleteBinFill } from "react-icons/ri";
+import RoleAdmin from "../roles/RoleAdmin";
 
 interface bandProps {
   blade: {
@@ -346,14 +347,16 @@ const BandDetails = ({
                         <CiEdit />
                       </button>
 
-                      {!post.activePost && (
-                        <button
-                          onClick={openKSinput}
-                          className="btn btn-xs bg-blue-500 text-white hover:bg-blue-400"
-                        >
-                          KS
-                        </button>
-                      )}
+                      <RoleAdmin>
+                        {!post.activePost && (
+                          <button
+                            onClick={openKSinput}
+                            className="btn btn-xs bg-blue-500 text-white hover:bg-blue-400"
+                          >
+                            KS
+                          </button>
+                        )}
+                      </RoleAdmin>
                     </td>
                     <td className="text-neutral">{post.handling}</td>
                     <td className="text-neutral">{post.sideklaring}</td>

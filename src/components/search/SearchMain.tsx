@@ -16,6 +16,7 @@ import { BsClipboardData } from "react-icons/bs";
 import { DeleteComponent } from "./DeleteComponent";
 import { signIn, signOut, useSession } from "next-auth/react";
 import BSFTable from "../reusable/BSFTable";
+import RoleAdmin from "../roles/RoleAdmin";
 
 interface Blade {
   creatorImg: string | undefined;
@@ -296,120 +297,124 @@ const SearchMain = ({
                       </div>
                     </td>
 
-                    <td className="relative">
-                      {!blade.deleted && (
-                        <RiDeleteBinLine
-                          style={{
-                            color: "indianred",
-                            fontSize: "1rem",
-                          }}
-                          onClick={() => deleteHandler(blade.id)}
-                        />
-                      )}
-                      {openDeleteID === blade.id && (
-                        <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
-                          <div className="card-body">
-                            <h2 className="card-title">
-                              Slett blad: {blade.IdNummer}
-                            </h2>
-                            <p>Velg årsaken til vrak?</p>
-                            <select
-                              onChange={(e) =>
-                                setWasteReasonInput(e.currentTarget.value)
-                              }
-                              className="select select-bordered select-xs w-full max-w-xs text-black"
-                            >
-                              <option disabled selected>
-                                Velg
-                              </option>
-                              <option value="Normal slitasje">
-                                Normal slitasje
-                              </option>
-                              <option value="Ikjøring">Ikjøring</option>
-                              <option className="Røk av">Røk av</option>
-                              <option className="Sprekk">Sprekk</option>
-                              <option className="Dårlig stamme">
-                                Dårlig stamme
-                              </option>
-                              <option className="Varmekjørt">Varmekjørt</option>
-                              <option className="Store tannskader">
-                                Store tannskader
-                              </option>
-                              <option className="Oppspenningsfeil i sag">
-                                Oppspenningsfeil i sag
-                              </option>
-                            </select>
+                    <RoleAdmin>
+                      <td className="relative">
+                        {!blade.deleted && (
+                          <RiDeleteBinLine
+                            style={{
+                              color: "indianred",
+                              fontSize: "1rem",
+                            }}
+                            onClick={() => deleteHandler(blade.id)}
+                          />
+                        )}
+                        {openDeleteID === blade.id && (
+                          <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
+                            <div className="card-body">
+                              <h2 className="card-title">
+                                Slett blad: {blade.IdNummer}
+                              </h2>
+                              <p>Velg årsaken til vrak?</p>
+                              <select
+                                onChange={(e) =>
+                                  setWasteReasonInput(e.currentTarget.value)
+                                }
+                                className="select select-bordered select-xs w-full max-w-xs text-black"
+                              >
+                                <option disabled selected>
+                                  Velg
+                                </option>
+                                <option value="Normal slitasje">
+                                  Normal slitasje
+                                </option>
+                                <option value="Ikjøring">Ikjøring</option>
+                                <option className="Røk av">Røk av</option>
+                                <option className="Sprekk">Sprekk</option>
+                                <option className="Dårlig stamme">
+                                  Dårlig stamme
+                                </option>
+                                <option className="Varmekjørt">
+                                  Varmekjørt
+                                </option>
+                                <option className="Store tannskader">
+                                  Store tannskader
+                                </option>
+                                <option className="Oppspenningsfeil i sag">
+                                  Oppspenningsfeil i sag
+                                </option>
+                              </select>
 
-                            {wasteReasonInput && (
-                              <th>
-                                <button className="btn btn-xs bg-red-600">
-                                  <DeleteComponent
-                                    wasteReasonInput={wasteReasonInput}
-                                    setWasteReasonInput={setWasteReasonInput}
-                                    id={blade.id}
-                                    closeDeleteHandler={closeDeleteHandler}
-                                  />
-                                </button>
-                                <h1>
-                                  NB: Husk å sette Vrak i BFS koder på
-                                  historikk.
-                                </h1>
-                              </th>
-                            )}
+                              {wasteReasonInput && (
+                                <th>
+                                  <button className="btn btn-xs bg-red-600">
+                                    <DeleteComponent
+                                      wasteReasonInput={wasteReasonInput}
+                                      setWasteReasonInput={setWasteReasonInput}
+                                      id={blade.id}
+                                      closeDeleteHandler={closeDeleteHandler}
+                                    />
+                                  </button>
+                                  <h1>
+                                    NB: Husk å sette Vrak i BFS koder på
+                                    historikk.
+                                  </h1>
+                                </th>
+                              )}
+                            </div>
+                            <div className="card-actions my-5  ">
+                              <button
+                                onClick={closeDeleteHandler}
+                                className="btn btn-xs"
+                              >
+                                Avbryt
+                              </button>
+                            </div>
                           </div>
-                          <div className="card-actions my-5  ">
-                            <button
-                              onClick={closeDeleteHandler}
-                              className="btn btn-xs"
-                            >
-                              Avbryt
-                            </button>
-                          </div>
-                        </div>
-                      )}
+                        )}
 
-                      {blade.deleted && (
-                        <button
-                          onClick={() => gjenopprettHandler(blade.id)}
-                          className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
-                        >
-                          Gjenopprett
-                        </button>
-                      )}
+                        {blade.deleted && (
+                          <button
+                            onClick={() => gjenopprettHandler(blade.id)}
+                            className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
+                          >
+                            Gjenopprett
+                          </button>
+                        )}
 
-                      {openGjenopprettID === blade.id && (
-                        <div className="card absolute right-24 z-[100] grid w-96 items-center text-wrap bg-gray-500 p-5 text-white">
-                          <h1 className="mb-5 text-xl">Gjenopprett</h1>
-                          <div className="h-auto w-full overflow-auto whitespace-normal ">
-                            <p className="">
-                              Ved å angre sletting av dette bladet så
-                              gjenopprettes statistikk tilbake til det som var
-                              før sletting og sletteårsak vil bli fjernet.
-                            </p>
-                            <br />
-                            <p className="text-yellow-200">
-                              NB: Husk fjerne vrak i BFS koder på historikk
-                            </p>
-                          </div>
+                        {openGjenopprettID === blade.id && (
+                          <div className="card absolute right-24 z-[100] grid w-96 items-center text-wrap bg-gray-500 p-5 text-white">
+                            <h1 className="mb-5 text-xl">Gjenopprett</h1>
+                            <div className="h-auto w-full overflow-auto whitespace-normal ">
+                              <p className="">
+                                Ved å angre sletting av dette bladet så
+                                gjenopprettes statistikk tilbake til det som var
+                                før sletting og sletteårsak vil bli fjernet.
+                              </p>
+                              <br />
+                              <p className="text-yellow-200">
+                                NB: Husk fjerne vrak i BFS koder på historikk
+                              </p>
+                            </div>
 
-                          <div className="mt-5">
-                            <button className="btn btn-sm mr-2 bg-green-300 hover:bg-green-500">
-                              {" "}
-                              <RestoreComponent
-                                setOpenGjenopprettID={setOpenGjenopprettID}
-                                id={blade.id}
-                              />
-                            </button>
-                            <button
-                              onClick={() => setOpenGjenopprettID(null)}
-                              className="btn btn-sm "
-                            >
-                              Avbryt
-                            </button>
+                            <div className="mt-5">
+                              <button className="btn btn-sm mr-2 bg-green-300 hover:bg-green-500">
+                                {" "}
+                                <RestoreComponent
+                                  setOpenGjenopprettID={setOpenGjenopprettID}
+                                  id={blade.id}
+                                />
+                              </button>
+                              <button
+                                onClick={() => setOpenGjenopprettID(null)}
+                                className="btn btn-sm "
+                              >
+                                Avbryt
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      )}
-                    </td>
+                        )}
+                      </td>
+                    </RoleAdmin>
                   </tr>
 
                   {
@@ -490,7 +495,6 @@ const SearchMain = ({
                 <th className="text-sm text-neutral">Slettet av</th>
                 <th className="text-sm text-neutral">Dato slettet</th>
                 <th className="text-sm text-neutral">Årsak</th>
-                <th className="text-sm text-neutral"></th>
               </tr>
             </thead>
             <tbody>
@@ -549,11 +553,6 @@ const SearchMain = ({
                           </div>
                         </td>
                         <td className="py-5">{blade.deleteReason}</td>
-                        <td className="py-5">
-                          <th className="text-neutral">
-                            <RestoreComponent id={blade.id} />
-                          </th>
-                        </td>
                       </tr>
                     )}
                   </>
