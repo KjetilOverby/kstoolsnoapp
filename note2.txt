@@ -1,0 +1,8 @@
+closeDeleteHandler (searchMain 211) Virker ikke
+Legge til Nom antall og reelt antall blader 
+Vis slettede blad med periodevalg
+Statistikk ikke i orden
+Slette servicepost med modal
+Slette nye blad med modal
+Finne ut hva som skal vises i service og feil Statistikk
+Lage en datafilter side med nedlasting av CSV.
