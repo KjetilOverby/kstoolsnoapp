@@ -174,7 +174,7 @@ export const sawbladesRouter = createTRPCRouter({
           
           where: {
             AND: [{
-              createdAt: {
+             updatedAt: {
                 lte: new Date(input.date),
                 gte: new Date(input.date2),
                },
@@ -208,7 +208,7 @@ export const sawbladesRouter = createTRPCRouter({
          
           where: {
             AND: [{
-              createdAt: {
+              updatedAt: {
                 lte: new Date(input.date),
                 gte: new Date(input.date2),
                },
@@ -272,7 +272,7 @@ export const sawbladesRouter = createTRPCRouter({
          
           where: {
             AND: [{
-              createdAt: {
+              updatedAt: {
                 lte: new Date(input.date),
                 gte: new Date(input.date2),
                },

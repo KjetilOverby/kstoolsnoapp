@@ -264,6 +264,7 @@ const HistorikkInput = ({
               className="select select-bordered select-xs w-full max-w-xs bg-white"
             >
               <option value="">Velg feilkode</option>
+              <option value="Rutine">Rutine</option>
               <option value="Bølger">Bølger</option>
               <option value="Vandrer på hjul">Vandrer på hjul</option>
               <option value="Sprekk">Sprekk</option>
@@ -276,7 +277,6 @@ const HistorikkInput = ({
               <option value="Havari">Havari</option>
               <option value="Ikjøring">Ikjøring</option>
               <option value="Skar ut">Skar ut</option>
-              <option value="Rutine">Rutine</option>
               <option value="Riper/bølger">Riper/bølger</option>
               <option value="Riper/sprekk">Riper/sprekk</option>
               <option value="Riper/vandrer">Riper/vandrer</option>

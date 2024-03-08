@@ -152,328 +152,259 @@ const SearchMain = ({
         ) : (
           ""
         )} */}
-        <table className="table table-xs whitespace-nowrap bg-base-100">
-          <thead>
-            <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
-              <th className="text-sm text-neutral">ID</th>
-              <th className="text-sm text-neutral">Type</th>
-              <th className="text-sm text-neutral">Dato opprettet</th>
-              <th className="text-sm text-neutral">Opprettet av</th>
-              {sessionData?.user.role === "ADMIN" && (
-                <th className="text-sm text-neutral">Aktiv</th>
-              )}
 
-              <th className="text-sm text-neutral">Historikk</th>
+        {sawblades?.map((blade) => {
+          const statusHandler = (postId: string) => {
+            setOpenStatus(postId);
+          };
 
-              <th className="text-sm text-neutral"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {sawblades?.map((blade) => {
-              const statusHandler = (postId: string) => {
-                setOpenStatus(postId);
-              };
+          const handleCloseModal = () => {
+            setOpenStatus(null);
+          };
 
-              const handleCloseModal = () => {
-                setOpenStatus(null);
-              };
+          const historikkHandler = (historikkId: string | null) => {
+            setopenHistorikk(historikkId);
+          };
 
-              const historikkHandler = (historikkId: string | null) => {
-                setopenHistorikk(historikkId);
-              };
+          const handleCloseHistorikk = () => {
+            setTimeout(() => {
+              setopenHistorikk(null);
+              setCloseSearchComponent(false);
+            }, 100);
+          };
 
-              const handleCloseHistorikk = () => {
-                setTimeout(() => {
-                  setopenHistorikk(null);
-                  setCloseSearchComponent(false);
-                }, 100);
-              };
+          const updateStatusHandler = () => {
+            void updateStatus.mutate({
+              id: blade.id,
+              active: true,
+            });
+          };
 
-              const updateStatusHandler = () => {
-                void updateStatus.mutate({
-                  id: blade.id,
-                  active: true,
-                });
-              };
+          const deactivateStatusHandler = () => {
+            void updateStatus.mutate({
+              id: blade.id,
+              active: false,
+            });
+          };
 
-              const deactivateStatusHandler = () => {
-                void updateStatus.mutate({
-                  id: blade.id,
-                  active: false,
-                });
-              };
+          const openHistorikkDataHandler = () => {
+            setCloseSearchComponent(true);
+            historikkHandler(blade.id);
+          };
 
-              const openHistorikkDataHandler = () => {
-                setCloseSearchComponent(true);
-                historikkHandler(blade.id);
-              };
+          const closeDeleteHandler = () => {
+            setOpenDeleteID(null);
+            setWasteReasonInput("");
+          };
 
-              const closeDeleteHandler = () => {
-                setOpenDeleteID(null);
-                setWasteReasonInput("");
-              };
-
-              return (
-                <>
-                  <tr
-                    key={blade.id}
-                    className="border border-base-100 bg-base-100 hover:bg-primary"
-                  >
-                    <td className="py-5 font-bold text-neutral">
-                      {blade.IdNummer}{" "}
-                      {blade.note && (
-                        <span className="text-xs font-normal text-neutral">
-                          ({blade.note})
-                        </span>
+          return (
+            <>
+              <div className="mt-10 flex items-center ">
+                {/* {sessionData?.user.role === "ADMIN" && (
+                  <div>
+                    <div
+                      onClick={() => statusHandler(blade.id)}
+                      className={`h-8 w-8 rounded-full ${
+                        blade.active ? "bg-green-400" : "bg-primary"
+                      }`}
+                    >
+                      {openStatus === blade.id && !blade.active && (
+                        <ActivateBlade
+                          blade={blade}
+                          createPost={createPost}
+                          updateStatusHandler={updateStatusHandler}
+                          handleCloseModal={handleCloseModal}
+                        />
                       )}
-                    </td>
-                    <td className="py-5">
-                      <div className="flex items-center space-x-3">
-                        <div className="avatar"></div>
-                        <div>
-                          <div className="text-xs text-neutral">
-                            {blade.type} {blade.side}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-5">
-                      <div className="flex items-center space-x-3">
-                        <div className="avatar"></div>
+                    </div>
+                  </div>
+                )} */}
 
-                        <div>
-                          <div className="text-xs text-neutral">
-                            {dateFormat(blade.createdAt, "dd.mm.yyyy , HH:MM")}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="flex items-center py-5">
-                      <div className="mr-2 h-5 w-5">
-                        <img
-                          className="rounded-full"
-                          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                          src={blade.creatorImg}
-                          alt=""
-                        />
-                      </div>
-                      {blade.creator}
-                    </td>
-
-                    {sessionData?.user.role === "ADMIN" && (
-                      <th>
-                        <div>
-                          <div
-                            onClick={() => statusHandler(blade.id)}
-                            className={`h-3 w-3 rounded-full ${
-                              blade.active ? "bg-green-400" : "bg-primary"
-                            }`}
-                          >
-                            {openStatus === blade.id && !blade.active && (
-                              <ActivateBlade
-                                blade={blade}
-                                createPost={createPost}
-                                updateStatusHandler={updateStatusHandler}
-                                handleCloseModal={handleCloseModal}
-                              />
-                            )}
-                          </div>
-                        </div>
-                      </th>
+                <RoleAdmin>
+                  <div className="my-5">
+                    {!blade.deleted && (
+                      <button
+                        className="btn btn-sm  bg-red-500 text-white hover:bg-red-600"
+                        onClick={() => deleteHandler(blade.id)}
+                      >
+                        SLETT
+                      </button>
                     )}
-
-                    <td>
-                      <div className="flex items-center">
-                        <p className="w-5">{blade._count.bandhistorikk}</p>
-                        <BsClipboardData
-                          style={{
-                            marginLeft: ".5rem",
-                            fontSize: ".9rem",
-                          }}
-                          // onClick={openHistorikkDataHandler}
-                          className="text-neutral"
-                        />
-                      </div>
-                    </td>
-
-                    <RoleAdmin>
-                      <td className="relative">
-                        {!blade.deleted && (
-                          <RiDeleteBinLine
-                            style={{
-                              color: "indianred",
-                              fontSize: "1rem",
-                            }}
-                            onClick={() => deleteHandler(blade.id)}
-                          />
-                        )}
-                        {openDeleteID === blade.id && (
-                          <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
-                            <div className="card-body">
-                              <h2 className="card-title">
-                                Slett blad: {blade.IdNummer}
-                              </h2>
-                              <p>Velg årsaken til vrak?</p>
-                              <select
-                                onChange={(e) =>
-                                  setWasteReasonInput(e.currentTarget.value)
-                                }
-                                className="select select-bordered select-xs w-full max-w-xs text-black"
-                              >
-                                <option disabled selected>
-                                  Velg
-                                </option>
-                                <option value="Normal slitasje">
-                                  Normal slitasje
-                                </option>
-                                <option value="Ikjøring">Ikjøring</option>
-                                <option className="Røk av">Røk av</option>
-                                <option className="Sprekk">Sprekk</option>
-                                <option className="Dårlig stamme">
-                                  Dårlig stamme
-                                </option>
-                                <option className="Varmekjørt">
-                                  Varmekjørt
-                                </option>
-                                <option className="Store tannskader">
-                                  Store tannskader
-                                </option>
-                                <option className="Oppspenningsfeil i sag">
-                                  Oppspenningsfeil i sag
-                                </option>
-                              </select>
-
-                              {wasteReasonInput && (
-                                <th>
-                                  <button className="btn btn-xs bg-red-600">
-                                    <DeleteComponent
-                                      wasteReasonInput={wasteReasonInput}
-                                      setWasteReasonInput={setWasteReasonInput}
-                                      id={blade.id}
-                                      closeDeleteHandler={closeDeleteHandler}
-                                    />
-                                  </button>
-                                  <h1>
-                                    NB: Husk å sette Vrak i BFS koder på
-                                    historikk.
-                                  </h1>
-                                </th>
-                              )}
-                            </div>
-                            <div className="card-actions my-5  ">
-                              <button
-                                onClick={closeDeleteHandler}
-                                className="btn btn-xs"
-                              >
-                                Avbryt
-                              </button>
-                            </div>
-                          </div>
-                        )}
-
-                        {blade.deleted && (
-                          <button
-                            onClick={() => gjenopprettHandler(blade.id)}
-                            className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
+                    {openDeleteID === blade.id && (
+                      <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
+                        <div className="card-body">
+                          <h2 className="card-title">
+                            Slett blad: {blade.IdNummer}
+                          </h2>
+                          <p>Velg årsaken til vrak?</p>
+                          <select
+                            onChange={(e) =>
+                              setWasteReasonInput(e.currentTarget.value)
+                            }
+                            className="select select-bordered select-xs w-full max-w-xs text-black"
                           >
-                            Gjenopprett
-                          </button>
-                        )}
+                            <option disabled selected>
+                              Velg
+                            </option>
+                            <option value="Normal slitasje">
+                              Normal slitasje
+                            </option>
+                            <option value="Ikjøring">Ikjøring</option>
+                            <option className="Røk av">Røk av</option>
+                            <option className="Sprekk">Sprekk</option>
+                            <option className="Dårlig stamme">
+                              Dårlig stamme
+                            </option>
+                            <option className="Varmekjørt">Varmekjørt</option>
+                            <option className="Store tannskader">
+                              Store tannskader
+                            </option>
+                            <option className="Oppspenningsfeil i sag">
+                              Oppspenningsfeil i sag
+                            </option>
+                          </select>
 
-                        {openGjenopprettID === blade.id && (
-                          <div className="card absolute right-24 z-[100] grid w-96 items-center text-wrap bg-gray-500 p-5 text-white">
-                            <h1 className="mb-5 text-xl">Gjenopprett</h1>
-                            <div className="h-auto w-full overflow-auto whitespace-normal ">
-                              <p className="">
-                                Ved å angre sletting av dette bladet så
-                                gjenopprettes statistikk tilbake til det som var
-                                før sletting og sletteårsak vil bli fjernet.
-                              </p>
-                              <br />
-                              <p className="text-yellow-200">
-                                NB: Husk fjerne vrak i BFS koder på historikk
-                              </p>
-                            </div>
-
-                            <div className="mt-5">
-                              <button className="btn btn-sm mr-2 bg-green-300 hover:bg-green-500">
-                                {" "}
-                                <RestoreComponent
-                                  setOpenGjenopprettID={setOpenGjenopprettID}
+                          {wasteReasonInput && (
+                            <th>
+                              <button className="btn btn-xs bg-red-600">
+                                <DeleteComponent
+                                  wasteReasonInput={wasteReasonInput}
+                                  setWasteReasonInput={setWasteReasonInput}
                                   id={blade.id}
+                                  closeDeleteHandler={closeDeleteHandler}
                                 />
                               </button>
-                              <button
-                                onClick={() => setOpenGjenopprettID(null)}
-                                className="btn btn-sm "
-                              >
-                                Avbryt
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </td>
-                    </RoleAdmin>
-                  </tr>
-
-                  {
-                    <div className="absolute z-50 h-auto w-screen rounded-2xl bg-base-100  max-lg:relative  md:w-full">
-                      <div className="mr-5 flex justify-between">
-                        <div>
-                          <h1 className=" text-lg text-neutral">Historikk</h1>
-                          <h1 className="text-2xl font-semibold text-neutral">
-                            ID: {blade.IdNummer}{" "}
-                            <span className="text-red-500">
-                              {blade.deleted && "(VRAK)"}
-                            </span>
-                          </h1>
-                          <p className="text-xl text-neutral">
-                            Type: {blade.type} {blade.side}
-                          </p>
-                          <p className="italic text-neutral">
-                            Registrert:{" "}
-                            {dateFormat(blade.createdAt, "dd.mm.yyyy")}
-                          </p>
-                          <p className="italic text-neutral">
-                            Registrert av: {blade.creator}
-                          </p>
-                          {blade.deleted && (
-                            <>
-                              <p className="italic text-neutral">
-                                Vraket av: {blade.deleter}
-                              </p>
-                              <p className="italic text-neutral">
-                                Vrakårsak: {blade.deleteReason}
-                              </p>
-                            </>
+                              <h1>
+                                NB: Husk å sette Vrak i BFS koder på historikk.
+                              </h1>
+                            </th>
                           )}
                         </div>
-                        <div>
-                          <BSFTable />
+                        <div className="card-actions my-5  ">
+                          <button
+                            onClick={closeDeleteHandler}
+                            className="btn btn-xs"
+                          >
+                            Avbryt
+                          </button>
                         </div>
                       </div>
-                      <BandDetails
-                        bandhistorikkData={blade}
-                        setOpenBandhistorikkData={setOpenBandhistorikkData}
-                        blade={blade}
-                        updatePost={updatePost}
-                        updateStatusHandler={updateStatusHandler}
-                        handleCloseModal={handleCloseModal}
-                      />
+                    )}
 
-                      {/* <button
-                        onClick={handleCloseHistorikk}
-                        className="btn btn-primary btn-xs mt-5"
+                    {blade.deleted && (
+                      <button
+                        onClick={() => gjenopprettHandler(blade.id)}
+                        className="btn btn-sm bg-green-500 text-white hover:bg-green-600"
                       >
-                        Lukk historikk
-                      </button> */}
+                        Gjenopprett
+                      </button>
+                    )}
+
+                    {openGjenopprettID === blade.id && (
+                      <div className="card absolute right-24 z-[100] grid w-96 items-center text-wrap bg-gray-500 p-5 text-white">
+                        <h1 className="mb-5 text-xl">Gjenopprett</h1>
+                        <div className="h-auto w-full overflow-auto whitespace-normal ">
+                          <p className="">
+                            Ved å angre sletting av dette bladet så
+                            gjenopprettes statistikk tilbake til det som var før
+                            sletting og sletteårsak vil bli fjernet.
+                          </p>
+                          <br />
+                          <p className="text-yellow-200">
+                            NB: Husk fjerne vrak i BFS koder på historikk
+                          </p>
+                        </div>
+
+                        <div className="mt-5">
+                          <button className="btn btn-sm bg-green-300 hover:bg-green-500">
+                            {" "}
+                            <RestoreComponent
+                              setOpenGjenopprettID={setOpenGjenopprettID}
+                              id={blade.id}
+                            />
+                          </button>
+                          <button
+                            onClick={() => setOpenGjenopprettID(null)}
+                            className="btn btn-sm "
+                          >
+                            Avbryt
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </RoleAdmin>
+              </div>
+              {
+                <div className=" z-50 h-auto rounded-2xl bg-base-100  max-lg:relative  md:w-full">
+                  <div className="mr-5 flex justify-between">
+                    <div>
+                      <h1 className="text-2xl font-semibold text-neutral">
+                        ID: {blade.IdNummer}{" "}
+                        <span className="font-thin text-gray-400">
+                          {blade.note && `(${blade.note})`}
+                        </span>
+                        <span className="text-red-500">
+                          {blade.deleted && "VRAKET"}
+                        </span>
+                      </h1>
+                      <p className="text-xs text-neutral">
+                        Type: {blade.type} {blade.side}
+                      </p>
+                      <p className="mb-5 text-xs text-neutral">
+                        Antall serviceposter: {blade._count.bandhistorikk}
+                      </p>
+
+                      <div className="mb-5 rounded-xl bg-green-200 p-2 text-xs">
+                        <p className="">Registrert av: {blade.creator}</p>
+                        <p className="mb-3">
+                          Dato:
+                          {dateFormat(blade.createdAt, "dd.mm.yyyy")}
+                        </p>
+                        <div className="w-10">
+                          <img
+                            className="w-full rounded-full"
+                            src={blade.creatorImg}
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                      {blade.deleted && (
+                        <div className="mb-5 rounded-xl bg-red-200 p-2 text-xs">
+                          <p>Slettet av: {blade.deleter}</p>
+                          <p>
+                            Dato: {dateFormat(blade.updatedAt, "dd.mm.yyyy")}
+                          </p>
+                          <p className="mb-3">
+                            Vrakårsak: {blade.deleteReason}
+                          </p>
+                          <div className="w-10">
+                            <img
+                              className="w-full rounded-full"
+                              src={blade.deleterImg}
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  }
-                </>
-              );
-            })}
-          </tbody>
-        </table>
+                    <div>
+                      <BSFTable />
+                    </div>
+                  </div>
+                  <BandDetails
+                    bandhistorikkData={blade}
+                    setOpenBandhistorikkData={setOpenBandhistorikkData}
+                    blade={blade}
+                    updatePost={updatePost}
+                    updateStatusHandler={updateStatusHandler}
+                    handleCloseModal={handleCloseModal}
+                  />
+                </div>
+              }
+            </>
+          );
+        })}
       </div>
       <button
         className="btn btn-sm my-5 bg-blue-500 text-white hover:bg-blue-600"
