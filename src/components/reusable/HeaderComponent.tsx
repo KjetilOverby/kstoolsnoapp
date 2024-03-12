@@ -111,8 +111,12 @@ const HeaderComponent = () => {
                     className="mr-3 h-6 sm:h-9"
                     alt="Flowbite Logo"
                   /> */}
-                  <span className="self-center whitespace-nowrap text-xl font-semibold text-neutral">
-                    KS-TOOLS
+                  <span className="w-64">
+                    <img
+                      className="w-full"
+                      src="https://lh3.googleusercontent.com/pw/AP1GczO19apGy2A8BpjpXfSxH9QqnIHayFE3D79I2fFrdmwJNHOHpn6q7T6w9AWxC6w5xkY-_CYbwYSuasGM8ppssCBtuLEz1m_mRsT8ttP5rHf_cHK153cz89ehUYEUpXKfetsUMRKUuYy0hMhZ2xLoPyR0=w1920-h193-s-no?authuser=0"
+                      alt=""
+                    />
                   </span>
                 </p>
               </div>
@@ -345,6 +349,11 @@ const HeaderComponent = () => {
             </ul>*/}
           </div>
           <div className="flex items-center lg:order-2">
+            <div className="mr-10 rounded-xl border border-yellow-500 bg-slate-500 p-1">
+              <p className=" text-end  text-sm font-bold text-yellow-500">
+                Bandsagblad
+              </p>
+            </div>
             <Link href={sessionData ? "/api/auth/signout" : "/api/auth/signin"}>
               <div className="h-10 w-10">
                 <img
