@@ -82,6 +82,11 @@ const AdminContent = ({
                         <span className="text-red-500">
                           {blade.type} {blade.side}
                         </span>{" "}
+                        . Sletteårsak:
+                        <span className="text-orange-500">
+                          {" "}
+                          {blade.deleteReason},{" "}
+                        </span>
                         for{" "}
                         <span className="text-purple-500">{blade.kunde}</span>,
                         id nr:{" "}
@@ -112,13 +117,26 @@ const AdminContent = ({
                         <span className="text-red-500">
                           {blade.bladType} {blade.side}
                         </span>{" "}
-                        med service: {blade.service} og id nummer:{" "}
+                        med feilkode:{" "}
+                        <span className="text-yellow-600">
+                          {blade.feilkode}
+                        </span>{" "}
+                        , sagnummer:{" "}
+                        <span className="text-orange-600">{blade.sagNr}</span> ,{" "}
+                        {blade.anmSag && (
+                          <>
+                            Kommentar:{" "}
+                            <span className="text-blue-600">
+                              {" "}
+                              ({blade.anmSag})
+                            </span>
+                            ,{" "}
+                          </>
+                        )}
+                        id nr:{" "}
                         <span className="text-green-500">
                           {blade.bladeRelationId}
                         </span>
-                        {blade.anmSag && (
-                          <span> Kommentar: {blade.anmSag}</span>
-                        )}
                       </li>
                     </div>
                   </ul>
@@ -187,11 +205,21 @@ const AdminContent = ({
                             <span className="text-red-500">
                               {blade.bladType} {blade.side}
                             </span>
-                            , kode: {blade.handling},{" "}
+                            , kode:{" "}
+                            <span className="text-orange-500">
+                              {blade.handling}
+                            </span>
+                            .{" "}
                             {blade.anmKS && (
-                              <span> Kommentar: ({blade.anmKS})</span>
+                              <>
+                                Kommentar:{" "}
+                                <span className="text-blue-500">
+                                  {" "}
+                                  ({blade.anmKS})
+                                </span>
+                              </>
                             )}{" "}
-                            og id nummer:{" "}
+                            og id nr:{" "}
                             <span className="text-green-500">
                               {blade.bladeRelationId}
                             </span>
