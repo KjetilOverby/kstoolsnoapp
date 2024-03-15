@@ -32,6 +32,18 @@ export const userRouter = createTRPCRouter({
       });
   }),
 
+  updateRoleBrukere: protectedProcedure.input(z.object({email: z.string(), role: z.nativeEnum(UserRole)}))
+  .mutation(async ({ctx, input}) => {
+      return ctx.db.user.update({
+          where: {
+            email: input.email
+          },
+          data: {
+             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+             role: input.role,
+          }
+      });
+  }),
 
 
 });
