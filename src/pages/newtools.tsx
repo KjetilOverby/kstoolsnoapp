@@ -132,7 +132,7 @@ const Newtools = ({ theme, setTheme }) => {
                             </button>
                             {openDeleteID === blade.id && (
                               <th className="">
-                                <div className="card absolute bottom-5 right-28 z-50 flex bg-red-500 p-5 text-white">
+                                <div className="card absolute  right-28 z-50 flex bg-red-500 p-5 text-white">
                                   <h1 className="mb-5 text-lg">
                                     Slett {blade.IdNummer}?
                                   </h1>

@@ -1,5 +1,3 @@
-import React from "react";
-
 const BSFTable = () => {
   return (
     <div>
@@ -34,6 +32,10 @@ const BSFTable = () => {
           <tr>
             <th>BFS442</th>
             <th>SLIPESERVICE AV REP.TENNER METER</th>
+          </tr>
+          <tr>
+            <th>BFS498</th>
+            <th>STELL.FERDIG SLIP OG RETT IKJØRING</th>
           </tr>
         </tbody>
       </table>

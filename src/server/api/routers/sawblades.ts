@@ -129,7 +129,7 @@ export const sawbladesRouter = createTRPCRouter({
               },
               bandhistorikk: {
                 orderBy: {
-                  createdAt: 'asc'
+                  createdAt: 'desc'
                 }
               },
             },
@@ -364,7 +364,7 @@ export const sawbladesRouter = createTRPCRouter({
                             },
                             bandhistorikk: {
                               orderBy: {
-                                createdAt: 'asc'
+                                createdAt: 'desc'
                               }
                             },
                           },

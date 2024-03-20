@@ -49,6 +49,7 @@ const HistorikkInputKS = ({
     bfs4: "",
     bfs5: "",
     bfs6: "",
+    bfs7: "",
     vrak: "",
   });
 
@@ -212,6 +213,20 @@ const HistorikkInputKS = ({
                   })
                 }
                 value="BFS442"
+                type="checkbox"
+                className="checkbox"
+              />
+            </label>
+            <label className="label cursor-pointer">
+              <span className="label-text">BFS498</span>
+              <input
+                onChange={(e) =>
+                  setBfsValue({
+                    ...bfsValue,
+                    bfs7: e.currentTarget.checked ? e.currentTarget.value : "",
+                  })
+                }
+                value="BFS498"
                 type="checkbox"
                 className="checkbox"
               />
