@@ -32,7 +32,8 @@ interface bladeDataProps {
 export const NewInputComponent = ({
   bladeData,
   setBladeData,
-}: bladeDataProps) => {
+  value,
+}: bladeDataProps & { value: string }) => {
   return (
     <div>
       <select
@@ -40,6 +41,7 @@ export const NewInputComponent = ({
           setBladeData({ ...bladeData, type: e.currentTarget.value })
         }
         className="select select-sm border-neutral bg-base-100 text-lg text-neutral"
+        value={value}
       >
         <option disabled selected>
           Velg bladtype

@@ -442,6 +442,24 @@ export const sawbladesRouter = createTRPCRouter({
      })
   }),
 
+  editSawblade: protectedProcedure
+  .input(z.object({id: z.string(), type: z.string(),  note: z.string()}))
+  .mutation(({ ctx, input }) => {
+  
+
+ // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+ return ctx.db.sawblades.update({
+  where: {
+    id: input.id
+},
+     data: {
+        
+         type: input.type,
+         note: input.note,
+     },
+ })
+}),
+
   // create: protectedProcedure
   //   .input(z.object({ name: z.string().min(1) }))
   //   .mutation(async ({ ctx, input }) => {

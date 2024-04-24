@@ -169,15 +169,44 @@ const Search = ({ theme }) => {
                   />
                   <div>
                     <p className="text-xs italic">Blad Ingen Handling:</p>
-                    {sawbladesIngenHandling?.map((sawblade) => (
-                      <>
-                        <div key={sawblade.id} className="flex justify-between">
+                    {sawbladesIngenHandling?.map((sawblade) => {
+                      const lastPost =
+                        sawblade.bandhistorikk[
+                          sawblade.bandhistorikk.length - 1
+                        ];
+                      return (
+                        <div
+                          key={sawblade.id}
+                          className="flex cursor-pointer justify-between"
+                        >
                           <p className="text-xs italic">
-                            ID: {sawblade.IdNummer}
+                            <span className="text-blue-500">
+                              {sawblade.IdNummer}
+                            </span>
+                            ,{" "}
+                            <span className="text-red-500">
+                              {sawblade.type}
+                            </span>
+                            ,{" "}
+                            {lastPost && (
+                              <>
+                                <span className="text-green-500">
+                                  Feilkode: {lastPost.feilkode}
+                                </span>
+                                ,{" "}
+                                <span className="text-orange-500">
+                                  Sag: {lastPost.sagNr}
+                                </span>
+                                ,{" "}
+                                <span className="text-purple-500">
+                                  Timer: {lastPost.sagtid}
+                                </span>
+                              </>
+                            )}
                           </p>
                         </div>
-                      </>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
 

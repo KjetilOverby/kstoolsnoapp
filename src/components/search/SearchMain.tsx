@@ -19,6 +19,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import BSFTable from "../reusable/BSFTable";
 import RoleAdmin from "../roles/RoleAdmin";
 import DatepickerComponent from "../reusable/Datepicker";
+import { NewInputComponent } from "../newtools/NewInputComponent";
+import { set } from "zod";
 
 interface Blade {
   creatorImg: string | undefined;
@@ -94,6 +96,13 @@ const SearchMain = ({
     null,
   );
 
+  const [note, setNote] = useState<string>("");
+
+  const [openEditBladeModal, setOpenEditBladeModal] = useState<string | null>(
+    null,
+  );
+  const [bladeTypeSelect, setBladeTypeSelect] = useState("");
+
   const [countBlades, setCountBlades] = useState();
 
   const [newBladesCount, setNewBladesCount] = useState();
@@ -103,6 +112,10 @@ const SearchMain = ({
   };
   const gjenopprettHandler = (postID: string) => {
     setOpenGjenopprettID(postID);
+  };
+
+  const editBladeHandler = (postID: string) => {
+    setOpenEditBladeModal(postID);
   };
 
   const ctx = api.useContext();
@@ -128,6 +141,13 @@ const SearchMain = ({
     onSuccess: () => {
       void ctx.sawblades.getAll.invalidate();
       void ctx.sawblades.getCustomer.invalidate();
+    },
+  });
+  const editSawBlade = api.sawblades.editSawblade.useMutation({
+    onSuccess: () => {
+      void ctx.sawblades.getAll.invalidate();
+      void ctx.sawblades.getCustomer.invalidate();
+      setOpenEditBladeModal(null);
     },
   });
 
@@ -222,14 +242,76 @@ const SearchMain = ({
 
                 <RoleAdmin>
                   <div className="my-5">
-                    {!blade.deleted && (
-                      <button
-                        className="btn btn-sm  bg-red-500 text-white hover:bg-red-600"
-                        onClick={() => deleteHandler(blade.id)}
-                      >
-                        SLETT
-                      </button>
-                    )}
+                    <div className="flex">
+                      <div>
+                        {!blade.deleted && (
+                          <button
+                            className="btn btn-sm  bg-red-500 text-white hover:bg-red-600"
+                            onClick={() => deleteHandler(blade.id)}
+                          >
+                            SLETT
+                          </button>
+                        )}
+                      </div>
+                      <div className="relative">
+                        <button
+                          onClick={() => editBladeHandler(blade.id)}
+                          className="btn btn-sm  ml-5 bg-warning text-yellow-900 hover:bg-yellow-600"
+                        >
+                          Rediger blad
+                        </button>
+                        {openEditBladeModal === blade.id && (
+                          <div className="card absolute z-[100]  flex  flex-col  bg-warning p-5 text-white">
+                            <form
+                              onSubmit={(e) => {
+                                e.preventDefault();
+                                void editSawBlade.mutate({
+                                  id: blade.id,
+                                  type: bladeTypeSelect.type || blade.type,
+                                  note: note,
+                                });
+                              }}
+                            >
+                              <p className="mb-5 text-yellow-800">
+                                Rediger blad
+                              </p>
+                              <div className="mb-5">
+                                <label className="text-yellow-800">
+                                  Bladtype
+                                </label>
+                                <NewInputComponent
+                                  bladeData={bladeTypeSelect}
+                                  setBladeData={setBladeTypeSelect}
+                                  value={blade.type}
+                                />
+                              </div>
+                              <div className="flex flex-col">
+                                <label className="text-yellow-800">Notat</label>
+                                <input
+                                  value={note}
+                                  className="text-black"
+                                  onChange={(e) =>
+                                    setNote(e.currentTarget.value)
+                                  }
+                                  type="text"
+                                />
+                              </div>
+                              <div className="mt-5">
+                                <button
+                                  onClick={() => setOpenEditBladeModal(null)}
+                                  className="btn mr-5 bg-info text-white"
+                                >
+                                  AVBRYT
+                                </button>
+                                <button className="btn bg-success text-white">
+                                  LAGRE ENDRINGER
+                                </button>
+                              </div>
+                            </form>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     {openDeleteID === blade.id && (
                       <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
                         <div className="card-body">
