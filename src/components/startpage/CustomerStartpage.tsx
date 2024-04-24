@@ -1,12 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React from "react";
 import HeaderComponent from "../reusable/HeaderComponent";
 import CustomerContent from "./CustomerContent";
 
-const CustomerStartpage = () => {
+const CustomerStartpage = ({ newblades, dateValue, setDateValue }) => {
   return (
     <div data-theme="lightmode" className="min-h-screen bg-base-100">
       <HeaderComponent />
-      <CustomerContent />
+      <CustomerContent
+        newblades={newblades}
+        dateValue={dateValue}
+        setDateValue={setDateValue}
+      />
     </div>
   );
 };

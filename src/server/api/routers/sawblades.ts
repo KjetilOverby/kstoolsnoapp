@@ -106,6 +106,7 @@ export const sawbladesRouter = createTRPCRouter({
          })
       }),
 
+ 
 
     getAll: protectedProcedure
     .input(z.object({IdNummer: z.string()}))
@@ -672,6 +673,36 @@ export const sawbladesRouter = createTRPCRouter({
         
         //   return result;
         // }),
+
+
+
+           // ************************* CUSTOMERS *****************************////////
+
+           getAllcreateCustomer: protectedProcedure
+           .input(z.object({date: z.string(), date2: z.string(), IdNummer: z.string()}))
+               .query(({ ctx, input }) => {
+                return ctx.db.sawblades.findMany({
+             
+                 where: {
+                   AND: [{
+                     createdAt: {
+                      lte: new Date(input.date),
+                      gte: new Date(input.date2),
+                     },
+                     IdNummer: {
+                      startsWith: 'MØ',
+                      contains: input.IdNummer,
+                    }
+                   }]
+                 },
+                 orderBy: {
+                   IdNummer: 'desc'
+                                 },
+              
+                })
+             }),
+       
+
 })
 
 

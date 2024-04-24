@@ -12,6 +12,7 @@ import NotLoggedInPage from "~/components/startpage/NotLoggedInPage";
 import { useState } from "react";
 import dateFormat from "dateformat";
 import { api } from "~/utils/api";
+import { useEffect } from "react";
 
 interface adminProps {
   theme: string;
@@ -19,6 +20,14 @@ interface adminProps {
 
 export default function Home({ theme }: adminProps) {
   const { data: sessionData } = useSession();
+  useEffect(() => {
+    if (sessionData?.user.role === "MO_ADMIN") {
+      setCustomerInit("MØ-");
+    } else if (sessionData?.user.role === "MT_ADMIN") {
+      setCustomerInit("MT-");
+    }
+  }, [sessionData]);
+  const [customerInit, setCustomerInit] = useState("");
 
   const [dateValue, setDateValue] = useState({
     endDate: dateFormat(new Date(), "yyyy-mm-dd"),
@@ -51,6 +60,16 @@ export default function Home({ theme }: adminProps) {
       date2: `${dateValue.startDate}T00:00:00.000Z`,
     });
 
+  // ********* CUSTOMERS **********
+
+  const { data: newbladesCustomer } =
+    api.sawblades.getAllcreateCustomer.useQuery({
+      date: `${dateValue.endDate}T23:59:59.000Z`,
+      date2: `${dateValue.startDate}T00:00:00.000Z`,
+      IdNummer: "",
+      init: customerInit,
+    });
+
   return (
     <div>
       {!sessionData && <NotLoggedInPage />}
@@ -70,7 +89,11 @@ export default function Home({ theme }: adminProps) {
         />
       )}
       {sessionData && sessionData.user.role === "MO_ADMIN" && (
-        <CustomerStartpage />
+        <CustomerStartpage
+          newblades={newbladesCustomer}
+          dateValue={dateValue}
+          setDateValue={setDateValue}
+        />
       )}
     </div>
   );
