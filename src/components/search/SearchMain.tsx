@@ -261,7 +261,7 @@ const SearchMain = ({
                           Rediger blad
                         </button>
                         {openEditBladeModal === blade.id && (
-                          <div className="card absolute z-[100]  flex  flex-col  bg-warning p-5 text-white">
+                          <div className="card absolute top-10  z-[100]  flex  flex-col bg-warning p-5 text-white shadow-2xl">
                             <form
                               onSubmit={(e) => {
                                 e.preventDefault();
@@ -275,7 +275,11 @@ const SearchMain = ({
                               <p className="mb-5 text-yellow-800">
                                 Rediger blad
                               </p>
-                              <div className="mb-5">
+                              <h1 className="text-xl text-blue-800">
+                                {blade.IdNummer} ({blade.note})
+                              </h1>
+                              <p className="text-blue-800">{blade.type}</p>
+                              <div className="mb-5 mt-5">
                                 <label className="text-yellow-800">
                                   Bladtype
                                 </label>
@@ -299,11 +303,11 @@ const SearchMain = ({
                               <div className="mt-5">
                                 <button
                                   onClick={() => setOpenEditBladeModal(null)}
-                                  className="btn mr-5 bg-info text-white"
+                                  className="btn btn-sm mr-5 bg-info text-white"
                                 >
                                   AVBRYT
                                 </button>
-                                <button className="btn bg-success text-white">
+                                <button className="btn btn-sm bg-success text-white">
                                   LAGRE ENDRINGER
                                 </button>
                               </div>

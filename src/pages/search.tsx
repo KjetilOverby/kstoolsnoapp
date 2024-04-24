@@ -168,7 +168,9 @@ const Search = ({ theme }) => {
                     countAllSagtid={countAllSagtid}
                   />
                   <div>
-                    <p className="text-xs italic">Blad Ingen Handling:</p>
+                    <p className="text-xs italic">
+                      Blad Ingen Handling({sawbladesIngenHandling?.length}):{" "}
+                    </p>
                     {sawbladesIngenHandling?.map((sawblade) => {
                       const lastPost =
                         sawblade.bandhistorikk[
