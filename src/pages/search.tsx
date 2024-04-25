@@ -178,6 +178,7 @@ const Search = ({ theme }) => {
                         ];
                       return (
                         <div
+                          onClick={() => setIdValue(sawblade.IdNummer)}
                           key={sawblade.id}
                           className="flex cursor-pointer justify-between"
                         >

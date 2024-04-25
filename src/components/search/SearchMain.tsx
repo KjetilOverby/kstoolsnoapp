@@ -256,12 +256,12 @@ const SearchMain = ({
                       <div className="relative">
                         <button
                           onClick={() => editBladeHandler(blade.id)}
-                          className="btn btn-sm  ml-5 bg-warning text-yellow-900 hover:bg-yellow-600"
+                          className="btn btn-sm  ml-5 bg-gray-300 text-gray-600 hover:bg-gray-100"
                         >
                           Rediger blad
                         </button>
                         {openEditBladeModal === blade.id && (
-                          <div className="card absolute top-10  z-[100]  flex  flex-col bg-warning p-5 text-white shadow-2xl">
+                          <div className="card absolute top-10  z-[100]  flex  flex-col border bg-white p-12 text-white shadow-2xl">
                             <form
                               onSubmit={(e) => {
                                 e.preventDefault();
@@ -272,28 +272,26 @@ const SearchMain = ({
                                 });
                               }}
                             >
-                              <p className="mb-5 text-yellow-800">
+                              <p className="mb-5 text-xl font-semibold text-black">
                                 Rediger blad
                               </p>
-                              <h1 className="text-xl text-blue-800">
+                              <h1 className="text-lg text-blue-800">
                                 {blade.IdNummer} ({blade.note})
                               </h1>
-                              <p className="text-blue-800">{blade.type}</p>
+                              <p className="text-lg text-blue-800">
+                                {blade.type}
+                              </p>
                               <div className="mb-5 mt-5">
-                                <label className="text-yellow-800">
-                                  Bladtype
-                                </label>
+                                <label className="text-black">Bladtype</label>
                                 <NewInputComponent
                                   bladeData={bladeTypeSelect}
                                   setBladeData={setBladeTypeSelect}
-                                  value={blade.type}
                                 />
                               </div>
                               <div className="flex flex-col">
-                                <label className="text-yellow-800">Notat</label>
+                                <label className="text-black">Notat</label>
                                 <input
-                                  value={note}
-                                  className="text-black"
+                                  className="rounded-md border p-1 text-black"
                                   onChange={(e) =>
                                     setNote(e.currentTarget.value)
                                   }
@@ -303,11 +301,11 @@ const SearchMain = ({
                               <div className="mt-5">
                                 <button
                                   onClick={() => setOpenEditBladeModal(null)}
-                                  className="btn btn-sm mr-5 bg-info text-white"
+                                  className="btn btn-sm mr-5 bg-black text-white"
                                 >
                                   AVBRYT
                                 </button>
-                                <button className="btn btn-sm bg-success text-white">
+                                <button className="btn btn-sm bg-white text-black">
                                   LAGRE ENDRINGER
                                 </button>
                               </div>
@@ -317,7 +315,7 @@ const SearchMain = ({
                       </div>
                     </div>
                     {openDeleteID === blade.id && (
-                      <div className="card absolute right-24 z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
+                      <div className="card absolute  z-[100] flex w-96 flex-col items-center bg-red-500 text-white">
                         <div className="card-body">
                           <h2 className="card-title">
                             Slett blad: {blade.IdNummer}
