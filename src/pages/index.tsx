@@ -82,6 +82,12 @@ export default function Home({ theme }: adminProps) {
       date2: `${dateValue.startDate}T00:00:00.000Z`,
       init: customerInit,
     });
+  const { data: servicepostKScustomer } =
+    api.statistikkBladeData.getAllHistorikkKScustomer.useQuery({
+      date: `${dateValue.endDate}T23:59:59.000Z`,
+      date2: `${dateValue.startDate}T00:00:00.000Z`,
+      init: customerInit,
+    });
 
   return (
     <div>
@@ -108,6 +114,7 @@ export default function Home({ theme }: adminProps) {
           setDateValue={setDateValue}
           deletedblades={deletedbladesCustomer}
           servicepost={servicepostCustomer}
+          servicepostKS={servicepostKScustomer}
         />
       )}
     </div>

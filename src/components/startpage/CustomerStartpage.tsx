@@ -11,6 +11,7 @@ const CustomerStartpage = ({
   setDateValue,
   deletedblades,
   servicepost,
+  servicepostKS,
 }) => {
   return (
     <div data-theme="lightmode" className="min-h-screen bg-base-100">
@@ -21,6 +22,7 @@ const CustomerStartpage = ({
         setDateValue={setDateValue}
         deletedblades={deletedblades}
         servicepost={servicepost}
+        servicepostKS={servicepostKS}
       />
     </div>
   );

@@ -13,6 +13,7 @@ const CustomerContent = ({
   newblades,
   deletedblades,
   servicepost,
+  servicepostKS,
 }) => {
   return (
     <>
@@ -133,6 +134,58 @@ const CustomerContent = ({
                         {blade.bladeRelationId}
                       </span>
                     </li>
+                  </div>
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <h1 className="mb-3 mt-10 font-bold">
+            Handling Kvarnstrands & Stridsbergs:
+          </h1>
+          {servicepostKS?.map((blade) => {
+            return (
+              <div key={blade.id}>
+                <ul>
+                  <div className="mb-2 flex items-center">
+                    {blade.creator3 && (
+                      <>
+                        <img
+                          className="mr-3 w-5 rounded-full"
+                          src={blade.creatorImg3}
+                          alt=""
+                        />
+                        <li className="text-xs text-neutral">
+                          {dateFormat(blade.datoSrv, "dd.mm.yyyy, HH:MM")} -{" "}
+                          <span className="text-blue-500">
+                            {blade.sgKS ? blade.sgKS : blade.creator3}
+                          </span>{" "}
+                          har lagt til handling for{" "}
+                          <span className="text-red-500">
+                            {blade.bladType} {blade.side}
+                          </span>
+                          , kode:{" "}
+                          <span className="text-orange-500">
+                            {blade.handling}
+                          </span>
+                          .{" "}
+                          {blade.anmKS && (
+                            <>
+                              Kommentar:{" "}
+                              <span className="text-blue-500">
+                                {" "}
+                                ({blade.anmKS})
+                              </span>
+                            </>
+                          )}{" "}
+                          og id nr:{" "}
+                          <span className="text-green-500">
+                            {blade.bladeRelationId}
+                          </span>
+                        </li>
+                      </>
+                    )}
                   </div>
                 </ul>
               </div>
