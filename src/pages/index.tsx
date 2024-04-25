@@ -69,6 +69,19 @@ export default function Home({ theme }: adminProps) {
       IdNummer: "",
       init: customerInit,
     });
+  const { data: deletedbladesCustomer } =
+    api.sawblades.getAllDeletedCustomer.useQuery({
+      date: `${dateValue.endDate}T23:59:59.000Z`,
+      date2: `${dateValue.startDate}T00:00:00.000Z`,
+      IdNummer: "",
+      init: customerInit,
+    });
+  const { data: servicepostCustomer } =
+    api.statistikkBladeData.getAllCustomerHistorikk.useQuery({
+      date: `${dateValue.endDate}T23:59:59.000Z`,
+      date2: `${dateValue.startDate}T00:00:00.000Z`,
+      init: customerInit,
+    });
 
   return (
     <div>
@@ -93,6 +106,8 @@ export default function Home({ theme }: adminProps) {
           newblades={newbladesCustomer}
           dateValue={dateValue}
           setDateValue={setDateValue}
+          deletedblades={deletedbladesCustomer}
+          servicepost={servicepostCustomer}
         />
       )}
     </div>

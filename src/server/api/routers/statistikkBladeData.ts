@@ -25,17 +25,23 @@ export const statistikkBladeDataRouter = createTRPCRouter({
       }),
       
     getAllCustomerHistorikk: protectedProcedure
-    .input(z.object({date: z.string(), date2: z.string(), bladeRelationId: z.string(), init: z.string()}))
+    .input(z.object({date: z.string(), date2: z.string(), init: z.string()}))
         .query(({ ctx, input }) => {
          return ctx.db.bandhistorikk.findMany({
           where: {
-            AND: [{
-              createdAt: {
-               lte: new Date(input.date),
-               gte: new Date(input.date2),
+            AND: [
+              {
+                createdAt: {
+                  lte: new Date(input.date),
+                  gte: new Date(input.date2),
+                },
               },
-              bladeRelationId: { startsWith: 'MØ'},
-            }]
+              {
+                bladeRelationId: {
+                  startsWith: input.init,
+                },
+              },
+            ]
           },
          })
       }),
@@ -68,8 +74,7 @@ export const statistikkBladeDataRouter = createTRPCRouter({
           }),
 
 
-    
- 
+
 
 
 })

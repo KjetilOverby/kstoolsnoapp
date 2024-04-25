@@ -7,7 +7,13 @@ import React from "react";
 import DatepickerComponent from "../reusable/Datepicker";
 import dateFormat from "dateformat";
 
-const CustomerContent = ({ dateValue, setDateValue, newblades }) => {
+const CustomerContent = ({
+  dateValue,
+  setDateValue,
+  newblades,
+  deletedblades,
+  servicepost,
+}) => {
   return (
     <>
       <div className="min-h-screen bg-base-100 px-96 pb-10 pt-24">
@@ -54,6 +60,84 @@ const CustomerContent = ({ dateValue, setDateValue, newblades }) => {
               );
             })}
           </div>
+        </div>
+        <div>
+          <h1 className="mb-3 mt-10 font-bold">Blad slettet:</h1>
+          {deletedblades?.map((blade) => {
+            return (
+              <div key={blade.id}>
+                <ul>
+                  <div className="mb-2 flex items-center">
+                    <img
+                      className="mr-3 w-5 rounded-full"
+                      src={blade.deleterImg}
+                      alt=""
+                    />
+                    <li className="text-xs text-neutral">
+                      {dateFormat(blade.updatedAt, "dd.mm.yyyy, HH:MM")} -{" "}
+                      <span className="text-blue-500">{blade.deleter}</span> har
+                      slettet{" "}
+                      <span className="text-red-500">
+                        {blade.type} {blade.side}
+                      </span>{" "}
+                      . Sletteårsak:
+                      <span className="text-orange-500">
+                        {" "}
+                        {blade.deleteReason},{" "}
+                      </span>
+                      for <span className="text-purple-500">{blade.kunde}</span>
+                      , id nr:{" "}
+                      <span className="text-green-500">{blade.IdNummer}</span>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <h1 className="mb-3 mt-10 font-bold">Serviceposter:</h1>
+          {servicepost?.map((blade) => {
+            return (
+              <div key={blade.id}>
+                <ul>
+                  <div className="mb-2 flex items-center">
+                    <img
+                      className="mr-3 w-5 rounded-full"
+                      src={blade.creatorImg}
+                      alt=""
+                    />
+                    <li className="text-xs text-neutral">
+                      {dateFormat(blade.createdAt, "dd.mm.yyyy, HH:MM")} -{" "}
+                      <span className="text-blue-500"> {blade.creator}</span>{" "}
+                      har lagt til servicepost for{" "}
+                      <span className="text-red-500">
+                        {blade.bladType} {blade.side}
+                      </span>{" "}
+                      med feilkode:{" "}
+                      <span className="text-yellow-600">{blade.feilkode}</span>{" "}
+                      , sagnummer:{" "}
+                      <span className="text-orange-600">{blade.sagNr}</span> ,{" "}
+                      {blade.anmSag && (
+                        <>
+                          Kommentar:{" "}
+                          <span className="text-blue-600">
+                            {" "}
+                            ({blade.anmSag})
+                          </span>
+                          ,{" "}
+                        </>
+                      )}
+                      id nr:{" "}
+                      <span className="text-green-500">
+                        {blade.bladeRelationId}
+                      </span>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
