@@ -61,7 +61,7 @@ const StatistikkMain = ({
     "Riper/sprekk",
     "Riper/vandrer",
     "Bølger/sprekk",
-    "Bølger/vandrer",
+    "Iskjæring/sprekk",
     "Ikjøring/riper",
   ];
 
