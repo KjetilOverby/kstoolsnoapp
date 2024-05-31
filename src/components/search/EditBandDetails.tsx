@@ -259,7 +259,7 @@ const EditBandDetails = ({
               <option value="Riper/sprekk">Riper/sprekk</option>
               <option value="Riper/vandrer">Riper/vandrer</option>
               <option value="Bølger/sprekk">Bølger/sprekk</option>
-              <option value="Bølger/vandrer">Bølger/vandrer</option>
+              <option value="Iskjæring/sprekk">Iskjæring/sprekk</option>
               <option value="Ikjøring/riper">Ikjøring/riper</option>
             </select>
           </div>
