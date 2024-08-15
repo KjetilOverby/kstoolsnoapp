@@ -158,7 +158,7 @@ const SearchMain = ({
   }, [sawblades]);
 
   return (
-    <div className="max-lg:overflow-scroll">
+    <div className="flex max-lg:overflow-scroll">
       <div>
         {/* {!closeSearchComponent ? (
           <div>

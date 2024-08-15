@@ -18,8 +18,8 @@ const AdminContent = ({
 }) => {
   return (
     <>
-      <div className="min-h-screen bg-base-100 px-96 pb-10 pt-24">
-        <div className="w-[50rem]">
+      <div className="min-h-screen bg-base-100 pb-10 pt-24 md:px-20 2xl:px-96">
+        <div className="w-48 md:w-[24rem]">
           <img
             className="w-full"
             src="https://lh3.googleusercontent.com/pw/AP1GczO19apGy2A8BpjpXfSxH9QqnIHayFE3D79I2fFrdmwJNHOHpn6q7T6w9AWxC6w5xkY-_CYbwYSuasGM8ppssCBtuLEz1m_mRsT8ttP5rHf_cHK153cz89ehUYEUpXKfetsUMRKUuYy0hMhZ2xLoPyR0=w1920-h193-s-no?authuser=0"
@@ -34,7 +34,9 @@ const AdminContent = ({
           />
           <p>Aktivitet i gitt periode</p>
           <div>
-            <h1 className="my-3 font-bold">Blad lagt til:</h1>
+            <h1 className="my-3 text-xs font-bold text-gray-500 md:text-lg">
+              Blad lagt til:
+            </h1>
             {newblades?.map((blade) => {
               return (
                 <div key={blade.id}>
@@ -45,7 +47,7 @@ const AdminContent = ({
                         src={blade.creatorImg}
                         alt=""
                       />
-                      <li className="text-xs text-neutral">
+                      <li className="mb-3 text-[0.55rem] text-gray-500 md:mb-0 md:text-xs">
                         {dateFormat(blade.createdAt, "dd.mm.yyyy, HH:MM")} -{" "}
                         <span className="text-blue-500">{blade.creator}</span>{" "}
                         har lagt til{" "}
@@ -64,7 +66,9 @@ const AdminContent = ({
             })}
           </div>
           <div>
-            <h1 className="mb-3 mt-10 font-bold">Blad slettet:</h1>
+            <h1 className="my-3 text-xs font-bold text-gray-500 md:text-lg">
+              Blad slettet:
+            </h1>
             {deletedblades?.map((blade) => {
               return (
                 <div key={blade.id}>
@@ -75,7 +79,7 @@ const AdminContent = ({
                         src={blade.deleterImg}
                         alt=""
                       />
-                      <li className="text-xs text-neutral">
+                      <li className="mb-3 text-[0.55rem] text-gray-500 md:mb-0 md:text-xs">
                         {dateFormat(blade.updatedAt, "dd.mm.yyyy, HH:MM")} -{" "}
                         <span className="text-blue-500">{blade.deleter}</span>{" "}
                         har slettet{" "}
@@ -99,7 +103,9 @@ const AdminContent = ({
             })}
           </div>
           <div>
-            <h1 className="mb-3 mt-10 font-bold">Serviceposter:</h1>
+            <h1 className="my-3 text-xs font-bold text-gray-500 md:text-lg">
+              Serviceposter:
+            </h1>
             {servicepost?.map((blade) => {
               return (
                 <div key={blade.id}>
@@ -110,7 +116,7 @@ const AdminContent = ({
                         src={blade.creatorImg}
                         alt=""
                       />
-                      <li className="text-xs text-neutral">
+                      <li className="mb-3 text-[0.55rem] text-gray-500 md:mb-0 md:text-xs">
                         {dateFormat(blade.createdAt, "dd.mm.yyyy, HH:MM")} -{" "}
                         <span className="text-blue-500"> {blade.creator}</span>{" "}
                         har lagt til servicepost for{" "}
@@ -181,7 +187,7 @@ const AdminContent = ({
             })}
           </div> */}
           <div>
-            <h1 className="mb-3 mt-10 font-bold">
+            <h1 className="my-3 text-xs font-bold text-gray-500 md:text-lg">
               Handling Kvarnstrands & Stridsbergs:
             </h1>
             {servicepostKS?.map((blade) => {
@@ -196,7 +202,7 @@ const AdminContent = ({
                             src={blade.creatorImg3}
                             alt=""
                           />
-                          <li className="text-xs text-neutral">
+                          <li className="mb-3 text-[0.55rem] text-gray-500 md:mb-0 md:text-xs">
                             {dateFormat(blade.datoSrv, "dd.mm.yyyy, HH:MM")} -{" "}
                             <span className="text-blue-500">
                               {blade.sgKS ? blade.sgKS : blade.creator3}

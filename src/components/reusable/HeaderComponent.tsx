@@ -21,12 +21,15 @@ const HeaderComponent = () => {
   const router = useRouter();
   const { setTheme, theme } = useContext(AppDataContext);
 
-  const [toggleMenu, setToggleMenu] = useState(true);
+  const [toggleMenu, setToggleMenu] = useState(false);
 
   const [actualPage, setActualPage] = useState({
     search: "",
     statistikk: "",
   });
+  const closeMenu = () => {
+    setToggleMenu(false);
+  };
 
   const classText = "font-bold underline";
 
@@ -65,7 +68,7 @@ const HeaderComponent = () => {
   const { data: sessionData } = useSession();
   return (
     <header>
-      <nav className="border border-x-0 border-t-0 border-gray-200 border-b-primary bg-base-100 px-4 py-2.5  lg:px-6">
+      <nav className="border border-x-0 border-t-0 border-gray-200 border-b-primary bg-base-100 px-4  py-2.5 lg:px-6">
         <button
           data-collapse-toggle="mobile-menu-2"
           type="button"
@@ -101,10 +104,11 @@ const HeaderComponent = () => {
           </svg>
         </button>
         <div
-          className={`z-10 mx-auto flex max-w-screen-xl flex-wrap items-center justify-between max-lg:absolute max-lg:h-96 max-lg:w-60 max-lg:bg-accent max-lg:p-5  ${toggleMenu ? "left-0 duration-200" : "-left-60 duration-200"}`}
+          onBlur={closeMenu}
+          className={`z-10 mx-auto flex max-w-screen-xl flex-wrap items-center justify-between max-lg:absolute max-lg:h-96 max-lg:w-60 max-lg:bg-primary max-lg:p-5 max-md:h-[600px]  ${toggleMenu ? "left-0 duration-200" : "-left-60 duration-200"}`}
         >
           <div className="flex">
-            <Link href="/">
+            <Link onClick={closeMenu} href="/">
               <div>
                 <p className="flex items-center">
                   {/* <img
@@ -112,7 +116,7 @@ const HeaderComponent = () => {
                     className="mr-3 h-6 sm:h-9"
                     alt="Flowbite Logo"
                   /> */}
-                  <span className="w-64">
+                  <span className="md:w-64">
                     <img
                       className="w-full"
                       src="https://lh3.googleusercontent.com/pw/AP1GczO19apGy2A8BpjpXfSxH9QqnIHayFE3D79I2fFrdmwJNHOHpn6q7T6w9AWxC6w5xkY-_CYbwYSuasGM8ppssCBtuLEz1m_mRsT8ttP5rHf_cHK153cz89ehUYEUpXKfetsUMRKUuYy0hMhZ2xLoPyR0=w1920-h193-s-no?authuser=0"
@@ -125,7 +129,7 @@ const HeaderComponent = () => {
           </div>
           <div className="flex">
             <ul className="mt-4 flex flex-col font-medium lg:mt-0 lg:flex-row lg:space-x-8">
-              <Link href="/search">
+              <Link onClick={closeMenu} href="/search">
                 <li>
                   <p
                     className={`lg:hover:text-primary-700  block border-b border-gray-100 py-2 pl-3 pr-4 text-sm text-neutral  hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:dark:hover:bg-transparent lg:dark:hover:text-white ${actualPage.search}`}
@@ -134,7 +138,7 @@ const HeaderComponent = () => {
                   </p>
                 </li>
               </Link>
-              <Link href="/statistikk">
+              <Link onClick={closeMenu} href="/statistikk">
                 <li>
                   <p
                     className={`lg:hover:text-primary-700  block border-b border-gray-100 py-2 pl-3 pr-4 text-sm text-neutral hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:dark:hover:bg-transparent lg:dark:hover:text-white ${actualPage.statistikk}`}
@@ -143,7 +147,7 @@ const HeaderComponent = () => {
                   </p>
                 </li>
               </Link>
-              <Link href="/oversikt">
+              <Link onClick={closeMenu} href="/oversikt">
                 <li>
                   <p
                     className={`lg:hover:text-primary-700  block border-b border-gray-100 py-2 pl-3 pr-4 text-sm text-neutral hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:dark:hover:bg-transparent lg:dark:hover:text-white ${actualPage.oversikt}`}
@@ -152,7 +156,7 @@ const HeaderComponent = () => {
                   </p>
                 </li>
               </Link>
-              <Link href="/rapport">
+              <Link onClick={closeMenu} href="/rapport">
                 <li>
                   <p
                     className={`lg:hover:text-primary-700  block border-b border-gray-100 py-2 pl-3 pr-4 text-sm text-neutral hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:border-0 lg:p-0 lg:hover:bg-transparent lg:dark:hover:bg-transparent lg:dark:hover:text-white ${actualPage.rapport}`}
@@ -171,7 +175,7 @@ const HeaderComponent = () => {
                 </li>
               </Link> */}
               {sessionData?.user.role === "ADMIN" && (
-                <Link href="/newtools">
+                <Link onClick={closeMenu} href="/newtools">
                   <li>
                     <p
                       className={`bg-primary-700 lg:text-primary-700 block rounded py-2 pl-3 pr-4 text-sm text-neutral lg:bg-transparent lg:p-0 ${actualPage.opprett}`}
@@ -183,7 +187,7 @@ const HeaderComponent = () => {
                 </Link>
               )}
               <RoleSuperAdmin>
-                <Link href="/brukere">
+                <Link onClick={closeMenu} href="/brukere">
                   <li>
                     <p
                       className={`bg-primary-700 lg:text-primary-700 block rounded py-2 pl-3 pr-4 text-sm text-neutral lg:bg-transparent lg:p-0 ${actualPage.brukere}`}
@@ -361,8 +365,8 @@ const HeaderComponent = () => {
               )}
             </ul>*/}
           </div>
-          <div className="flex items-center lg:order-2">
-            <div className="mr-10 rounded-xl border border-yellow-500 bg-slate-500 p-1">
+          <div className="flex flex-col md:flex-row md:items-center lg:order-2">
+            <div className="mb-5 mr-10 rounded-xl border border-yellow-500 bg-slate-500 p-1">
               <p className=" text-end  text-sm font-bold text-yellow-500">
                 Bandsagblad
               </p>
@@ -376,7 +380,7 @@ const HeaderComponent = () => {
                 />
               </div>
             </Link>
-            <div className="ml-5">
+            <div className="ml-5 mt-5 md:mt-0">
               <p className="text-neutral">{sessionData?.user.name}</p>
               <div>
                 {sessionData?.user.role === "MO_ADMIN" && (

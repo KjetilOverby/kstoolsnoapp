@@ -136,10 +136,10 @@ const Search = ({ theme }) => {
       sessionData?.user.role === "MO_ADMIN" ? (
         <>
           <HeaderComponent />
-          <div className="mx-5 min-h-screen bg-base-100 p-5 md:max-lg:p-0 xl:mx-48">
+          <div className="min-h-screen bg-base-100 p-2 md:mx-5 md:p-5 md:max-lg:p-0 xl:mx-48">
             <div className="rounded-xl bg-base-100 shadow-xl">
               {!closeSearchComponent ? (
-                <div className="mb-5 w-96 rounded-xl bg-base-100 p-5">
+                <div className="mb-5 rounded-xl bg-base-100 p-5 md:w-96">
                   {/* <DatepickerComponent
                     setDateValue={setDateValue}
                     dateValue={dateValue}
@@ -161,14 +161,14 @@ const Search = ({ theme }) => {
             </div>
             {sessionData?.user.role === "ADMIN" && (
               <>
-                <div className="flex">
+                <div className="flex flex-col md:flex-row">
                   <CountOverview
                     countAllBlades={countAllBlades}
                     countAllHistorikk={countAllHistorikk}
                     countAllSagtid={countAllSagtid}
                   />
                   <div>
-                    <p className="text-xs italic">
+                    <p className="text-[.7rem] italic md:text-xs">
                       Blad Ingen Handling({sawbladesIngenHandling?.length}):{" "}
                     </p>
                     {sawbladesIngenHandling?.map((sawblade) => {
@@ -180,7 +180,7 @@ const Search = ({ theme }) => {
                         <div
                           onClick={() => setIdValue(sawblade.IdNummer)}
                           key={sawblade.id}
-                          className="flex cursor-pointer justify-between"
+                          className="mb-4 flex cursor-pointer justify-between md:mb-0"
                         >
                           <p className="text-xs italic">
                             <span className="text-blue-500">
