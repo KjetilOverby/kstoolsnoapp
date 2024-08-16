@@ -49,26 +49,36 @@ const OverviewTable = ({ count }) => {
   const totalSum = itemsArray.reduce((sum, item) => sum + item.totalCount, 0);
 
   return (
-    <div>
+    <div className="overflow-scroll">
       <table className="table table-xs">
         <thead>
           <tr className="border border-b-accent border-l-base-100 border-r-base-100 border-t-accent">
-            <th>Type</th>
-            <th>Blad i bruk: {nonDeletedSum}</th>
-            <th>Slettet: {deletedSum}</th>
-            <th>Totalt Antall {totalSum}</th>
+            <th className="text-[.7rem] md:text-xs">Type</th>
+            <th className="text-[.7rem] md:text-xs">
+              Blad i bruk: {nonDeletedSum}
+            </th>
+            <th className="text-[.7rem] md:text-xs">Slettet: {deletedSum}</th>
+            <th className="text-[.7rem] md:text-xs">
+              Totalt Antall {totalSum}
+            </th>
           </tr>
         </thead>
         <tbody>
           {itemsArray.map((item, index) => (
             <tr key={index} className="border-none hover:bg-primary">
-              <td className="py-5">
+              <td className="py-5 text-[.7rem] md:text-xs">
                 {item.type}
                 {item.side}
               </td>
-              <td className="py-5">{item.nonDeletedCount}</td>
-              <td className="py-5">{item.deletedCount}</td>
-              <td className="py-5">{item.totalCount}</td>
+              <td className="py-5 text-[.7rem] md:text-xs">
+                {item.nonDeletedCount}
+              </td>
+              <td className="py-5 text-[.7rem] md:text-xs">
+                {item.deletedCount}
+              </td>
+              <td className="py-5 text-[.7rem] md:text-xs">
+                {item.totalCount}
+              </td>
             </tr>
           ))}
         </tbody>

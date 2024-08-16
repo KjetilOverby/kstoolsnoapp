@@ -98,7 +98,7 @@ const StatistikkMain = ({
   }, [historikkData]);
 
   return (
-    <div className="px-10 pb-10">
+    <div className="px-1 pb-10 md:px-10">
       <div className="mx-5 mt-5 max-lg:mx-0">
         <div>
           <div className="w-1/5 shadow-xl max-lg:w-full">
@@ -108,7 +108,7 @@ const StatistikkMain = ({
             />
           </div>
           <h1 className="mt-10">Bytteårsaker</h1>
-          <div className="max-lg:overflow-scroll">
+          <div className="overflow-scroll">
             <table className="table table-xs whitespace-nowrap bg-base-100">
               <thead>
                 <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
@@ -152,7 +152,7 @@ const StatistikkMain = ({
         </div>
         <div className="">
           <h1 className="mt-10">Bytteårsaker i prosent</h1>
-          <div className="max-lg:overflow-scroll">
+          <div className="overflow-scroll">
             <table className="table table-xs whitespace-nowrap bg-neutral">
               <thead>
                 <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary bg-base-100 ">
@@ -194,7 +194,7 @@ const StatistikkMain = ({
             </table>
           </div>
         </div>
-        <div className="mt-20 flex w-full rounded-xl border border-base-100 p-5 shadow-2xl max-lg:grid">
+        <div className="mt-20 flex w-full rounded-xl border border-base-100 shadow-2xl max-lg:grid md:p-5">
           <div className="w-2/5 max-lg:w-full">
             <h1 className="text-2xl text-neutral">Vrak</h1>
             <p className="text-neutral">

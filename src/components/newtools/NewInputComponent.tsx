@@ -40,7 +40,7 @@ export const NewInputComponent = ({
         onChange={(e) =>
           setBladeData({ ...bladeData, type: e.currentTarget.value })
         }
-        className="select select-sm border-neutral bg-base-100 text-lg text-neutral"
+        className="select select-sm w-full border-neutral bg-base-100 text-lg text-neutral"
         value={value}
       >
         <option disabled selected>

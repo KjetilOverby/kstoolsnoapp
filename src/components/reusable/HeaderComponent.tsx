@@ -111,12 +111,7 @@ const HeaderComponent = () => {
             <Link onClick={closeMenu} href="/">
               <div>
                 <p className="flex items-center">
-                  {/* <img
-                    src="https://static.wixstatic.com/media/ea9f2f_dff85b2ff00146c9ae8fe2884c5bcc49~mv2.png/v1/fill/w_560,h_424,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/imageedit_1_4852502502.png"
-                    className="mr-3 h-6 sm:h-9"
-                    alt="Flowbite Logo"
-                  /> */}
-                  <span className="md:w-64">
+                  <span className="w-40 xl:w-64">
                     <img
                       className="w-full"
                       src="https://lh3.googleusercontent.com/pw/AP1GczO19apGy2A8BpjpXfSxH9QqnIHayFE3D79I2fFrdmwJNHOHpn6q7T6w9AWxC6w5xkY-_CYbwYSuasGM8ppssCBtuLEz1m_mRsT8ttP5rHf_cHK153cz89ehUYEUpXKfetsUMRKUuYy0hMhZ2xLoPyR0=w1920-h193-s-no?authuser=0"

@@ -39,7 +39,7 @@ const oversikt = ({ theme }) => {
       <HeaderComponent />
       {sessionData?.user.role === "ADMIN" && (
         <>
-          <div className="mx-5 min-h-screen bg-base-100 p-5 md:max-lg:p-0 xl:mx-96">
+          <div className="mx-5 min-h-screen bg-base-100 md:p-5 md:max-lg:p-0 xl:mx-96">
             <div className="overflow-x-auto">
               <h1 className="my-5">Oversikt over blad alle kunder:</h1>
               <p className="text-xs italic">
@@ -52,7 +52,7 @@ const oversikt = ({ theme }) => {
         </>
       )}
       {sessionData?.user.role === "MO_ADMIN" && (
-        <div className="mx-5 min-h-screen bg-base-100 p-5 md:max-lg:p-0 xl:mx-96">
+        <div className="mx-5 min-h-screen bg-base-100 md:p-5 md:max-lg:p-0 xl:mx-96">
           <div className="overflow-x-auto">
             <h1 className="my-5">Oversikt over blad:</h1>
             <p className="text-xs italic">

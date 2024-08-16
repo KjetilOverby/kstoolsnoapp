@@ -158,7 +158,7 @@ const SearchMain = ({
   }, [sawblades]);
 
   return (
-    <div className="flex max-lg:overflow-scroll">
+    <div className="flex flex-col">
       <div>
         {/* {!closeSearchComponent ? (
           <div>
@@ -422,58 +422,60 @@ const SearchMain = ({
               {
                 <div className=" z-50 h-auto rounded-2xl bg-base-100  max-lg:relative  md:w-full">
                   <div className="mr-5 flex justify-between">
-                    <div>
-                      <h1 className="text-2xl font-semibold text-neutral">
-                        ID: {blade.IdNummer}{" "}
-                        <span className="font-thin text-gray-400">
-                          {blade.note && `(${blade.note})`}
-                        </span>
-                        <span className="text-red-500">
-                          {blade.deleted && "VRAKET"}
-                        </span>
-                      </h1>
-                      <p className="text-xs text-neutral">
-                        Type: {blade.type} {blade.side}
-                      </p>
-                      <p className="mb-5 text-xs text-neutral">
-                        Antall serviceposter: {blade._count.bandhistorikk}
-                      </p>
-
-                      <div className="mb-5 rounded-xl bg-green-200 p-2 text-xs">
-                        <p className="">Registrert av: {blade.creator}</p>
-                        <p className="mb-3">
-                          Dato:
-                          {dateFormat(blade.createdAt, "dd.mm.yyyy")}
+                    <div className="md:flex">
+                      <div>
+                        <h1 className="text-2xl font-semibold text-neutral">
+                          ID: {blade.IdNummer}{" "}
+                          <span className="font-thin text-gray-400">
+                            {blade.note && `(${blade.note})`}
+                          </span>
+                          <span className="text-red-500">
+                            {blade.deleted && "VRAKET"}
+                          </span>
+                        </h1>
+                        <p className="text-xs text-neutral">
+                          Type: {blade.type} {blade.side}
                         </p>
-                        <div className="w-10">
-                          <img
-                            className="w-full rounded-full"
-                            src={blade.creatorImg}
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      {blade.deleted && (
-                        <div className="mb-5 rounded-xl bg-red-200 p-2 text-xs">
-                          <p>Slettet av: {blade.deleter}</p>
-                          <p>
-                            Dato: {dateFormat(blade.updatedAt, "dd.mm.yyyy")}
-                          </p>
+                        <p className="mb-5 text-xs text-neutral">
+                          Antall serviceposter: {blade._count.bandhistorikk}
+                        </p>
+
+                        <div className="mb-5 rounded-xl bg-green-200 p-2 text-xs">
+                          <p className="">Registrert av: {blade.creator}</p>
                           <p className="mb-3">
-                            Vrakårsak: {blade.deleteReason}
+                            Dato:
+                            {dateFormat(blade.createdAt, "dd.mm.yyyy")}
                           </p>
                           <div className="w-10">
                             <img
                               className="w-full rounded-full"
-                              src={blade.deleterImg}
+                              src={blade.creatorImg}
                               alt=""
                             />
                           </div>
                         </div>
-                      )}
-                    </div>
-                    <div>
-                      <BSFTable />
+                        {blade.deleted && (
+                          <div className="mb-5 rounded-xl bg-red-200 p-2 text-xs">
+                            <p>Slettet av: {blade.deleter}</p>
+                            <p>
+                              Dato: {dateFormat(blade.updatedAt, "dd.mm.yyyy")}
+                            </p>
+                            <p className="mb-3">
+                              Vrakårsak: {blade.deleteReason}
+                            </p>
+                            <div className="w-10">
+                              <img
+                                className="w-full rounded-full"
+                                src={blade.deleterImg}
+                                alt=""
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      <div>
+                        <BSFTable />
+                      </div>
                     </div>
                   </div>
                   <BandDetails
@@ -491,7 +493,7 @@ const SearchMain = ({
         })}
       </div>
       <button
-        className="btn btn-sm my-5 bg-blue-500 text-white hover:bg-blue-600"
+        className="btn btn-sm my-5 w-40 bg-blue-500 text-white hover:bg-blue-600"
         onClick={() => setShowDeletedBlades(!showDeletedBlades)}
       >
         {showDeletedBlades ? "Skjul slettede blad" : "Vis slettede blad"}
@@ -507,43 +509,44 @@ const SearchMain = ({
               dateValue={dateValue}
             />
           </div>
-          <table className="table table-xs whitespace-nowrap bg-base-100">
-            <thead>
-              <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
-                <th className="text-sm text-neutral">ID</th>
-                <th className="text-sm text-neutral">Type</th>
+          <div className="overflow-scroll">
+            <table className="table table-xs whitespace-nowrap bg-base-100 ">
+              <thead>
+                <tr className="border border-b-primary border-l-base-100 border-r-base-100 border-t-primary">
+                  <th className="text-sm text-neutral">ID</th>
+                  <th className="text-sm text-neutral">Type</th>
 
-                {/* <th className="text-sm text-neutral">Opprettet av</th> */}
-                <th className="text-sm text-neutral">Slettet av</th>
-                <th className="text-sm text-neutral">Dato slettet</th>
-                <th className="text-sm text-neutral">Årsak</th>
-              </tr>
-            </thead>
-            <tbody>
-              {deletedSawblades?.map((blade) => {
-                return (
-                  <>
-                    {blade.deleted && (
-                      <tr className="border border-base-100 bg-base-100 hover:bg-primary">
-                        <td className="py-5 font-bold text-neutral">
-                          {blade.IdNummer}{" "}
-                          {blade.note && (
-                            <span className="text-xs font-normal text-orange-600">
-                              ({blade.note})
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-5">
-                          <div className="flex items-center space-x-3">
-                            <div className="avatar"></div>
-                            <div>
-                              <div className="text-xs text-neutral">
-                                {blade.type} {blade.side}
+                  {/* <th className="text-sm text-neutral">Opprettet av</th> */}
+                  <th className="text-sm text-neutral">Slettet av</th>
+                  <th className="text-sm text-neutral">Dato slettet</th>
+                  <th className="text-sm text-neutral">Årsak</th>
+                </tr>
+              </thead>
+              <tbody>
+                {deletedSawblades?.map((blade) => {
+                  return (
+                    <>
+                      {blade.deleted && (
+                        <tr className="border border-base-100 bg-base-100 hover:bg-primary">
+                          <td className="py-5 font-bold text-neutral">
+                            {blade.IdNummer}{" "}
+                            {blade.note && (
+                              <span className="text-xs font-normal text-orange-600">
+                                ({blade.note})
+                              </span>
+                            )}
+                          </td>
+                          <td className="py-5">
+                            <div className="flex items-center space-x-3">
+                              <div className="avatar"></div>
+                              <div>
+                                <div className="text-xs text-neutral">
+                                  {blade.type} {blade.side}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                        {/*   <td className="flex items-center">
+                          </td>
+                          {/*   <td className="flex items-center">
                           <div className="mr-2 h-5 w-5">
                             <img
                               className="rounded-full"
@@ -554,34 +557,35 @@ const SearchMain = ({
                           {blade.creator}
                         </td> */}
 
-                        <td className="flex items-center py-5">
-                          <div className="mr-2 h-5 w-5">
-                            <img
-                              className="rounded-full"
-                              src={blade.deleterImg}
-                              alt=""
-                            />
-                          </div>
-                          {blade.deleter}
-                        </td>
-                        <td className="py-5">
-                          <div className="flex items-center space-x-3">
-                            <div className="text-xs text-neutral">
-                              {dateFormat(
-                                blade.updatedAt,
-                                "dd.mm.yyyy , HH:MM",
-                              )}
+                          <td className="flex items-center py-5">
+                            <div className="mr-2 h-5 w-5">
+                              <img
+                                className="rounded-full"
+                                src={blade.deleterImg}
+                                alt=""
+                              />
                             </div>
-                          </div>
-                        </td>
-                        <td className="py-5">{blade.deleteReason}</td>
-                      </tr>
-                    )}
-                  </>
-                );
-              })}
-            </tbody>
-          </table>
+                            {blade.deleter}
+                          </td>
+                          <td className="py-5">
+                            <div className="flex items-center space-x-3">
+                              <div className="text-xs text-neutral">
+                                {dateFormat(
+                                  blade.updatedAt,
+                                  "dd.mm.yyyy , HH:MM",
+                                )}
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-5">{blade.deleteReason}</td>
+                        </tr>
+                      )}
+                    </>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>
