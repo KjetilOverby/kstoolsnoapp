@@ -443,7 +443,7 @@ export const sawbladesRouter = createTRPCRouter({
   }),
 
   editSawblade: protectedProcedure
-  .input(z.object({id: z.string(), type: z.string(),  note: z.string()}))
+  .input(z.object({id: z.string(), type: z.string(),  note: z.string(), side: z.string()}))
   .mutation(({ ctx, input }) => {
   
 
@@ -456,6 +456,7 @@ export const sawbladesRouter = createTRPCRouter({
         
          type: input.type,
          note: input.note,
+         side: input.side,
      },
  })
 }),

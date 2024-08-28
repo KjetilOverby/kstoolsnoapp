@@ -97,6 +97,7 @@ const SearchMain = ({
   );
 
   const [note, setNote] = useState<string>("");
+  const [side, setSide] = useState<string>("");
 
   const [openEditBladeModal, setOpenEditBladeModal] = useState<string | null>(
     null,
@@ -261,7 +262,7 @@ const SearchMain = ({
                           Rediger blad
                         </button>
                         {openEditBladeModal === blade.id && (
-                          <div className="card absolute top-10  z-[100]  flex  flex-col border bg-white p-12 text-white shadow-2xl">
+                          <div className="card absolute top-10  z-[100]  flex  w-96 flex-col border bg-white p-12 text-white shadow-2xl">
                             <form
                               onSubmit={(e) => {
                                 e.preventDefault();
@@ -269,6 +270,7 @@ const SearchMain = ({
                                   id: blade.id,
                                   type: bladeTypeSelect.type || blade.type,
                                   note: note,
+                                  side: side,
                                 });
                               }}
                             >
@@ -279,7 +281,7 @@ const SearchMain = ({
                                 {blade.IdNummer} ({blade.note})
                               </h1>
                               <p className="text-lg text-blue-800">
-                                {blade.type}
+                                {blade.type} {blade.side}
                               </p>
                               <div className="mb-5 mt-5">
                                 <label className="text-black">Bladtype</label>
@@ -288,6 +290,24 @@ const SearchMain = ({
                                   setBladeData={setBladeTypeSelect}
                                 />
                               </div>
+                              <div>
+                                <label className="text-black">Side</label>
+                                <select
+                                  className="select select-sm mb-5 w-full border-neutral bg-base-100 text-lg text-neutral"
+                                  onChange={(e) =>
+                                    setSide(e.currentTarget.value)
+                                  }
+                                >
+                                  <option disabled selected>
+                                    Velg side
+                                  </option>
+
+                                  <option value="Høyre">Høyre</option>
+
+                                  <option value="Venstre">Venstre</option>
+                                </select>
+                              </div>
+
                               <div className="flex flex-col">
                                 <label className="text-black">Notat</label>
                                 <input
