@@ -23,8 +23,8 @@ export default function Home({ theme }: adminProps) {
   useEffect(() => {
     if (sessionData?.user.role === "MO_ADMIN") {
       setCustomerInit("MØ-");
-    } else if (sessionData?.user.role === "MT_ADMIN") {
-      setCustomerInit("MT-");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setCustomerInit("MM-");
     }
   }, [sessionData]);
   const [customerInit, setCustomerInit] = useState("");
@@ -117,8 +117,16 @@ export default function Home({ theme }: adminProps) {
           servicepostKS={servicepostKScustomer}
         />
       )}
+      {sessionData && sessionData.user.role === "MM_ADMIN" && (
+        <CustomerStartpage
+          newblades={newbladesCustomer}
+          dateValue={dateValue}
+          setDateValue={setDateValue}
+          deletedblades={deletedbladesCustomer}
+          servicepost={servicepostCustomer}
+          servicepostKS={servicepostKScustomer}
+        />
+      )}
     </div>
   );
 }
-
-//test
