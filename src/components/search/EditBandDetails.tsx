@@ -98,6 +98,7 @@ const EditBandDetails = ({
               className="select select-bordered select-xs w-full max-w-xs bg-white"
             >
               <option value="">Velg</option>
+              <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -261,6 +262,7 @@ const EditBandDetails = ({
               <option value="Bølger/sprekk">Bølger/sprekk</option>
               <option value="Iskjæring/sprekk">Iskjæring/sprekk</option>
               <option value="Ikjøring/riper">Ikjøring/riper</option>
+              <option value="Ingen info">Ingen info</option>
             </select>
           </div>
           <div>

@@ -63,6 +63,7 @@ const StatistikkMain = ({
     "Bølger/sprekk",
     "Iskjæring/sprekk",
     "Ikjøring/riper",
+    "Ingen info",
   ];
 
   const [tableData, setTableData] = useState<
