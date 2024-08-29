@@ -26,11 +26,16 @@ const Search = ({ theme }) => {
   const [openIngenHandling, setOpenIngenHandling] = useState(false);
   const [KundeId, setKundeId] = useState("");
 
+  console.log("id: " + idValue);
+  console.log("kunde: " + KundeId);
+
   useEffect(() => {
     if (sessionData?.user.role === "ADMIN") {
       setKundeId("");
     } else if (sessionData?.user.role === "MO_ADMIN") {
       setKundeId("MØ");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setKundeId("MM");
     }
   }, [sessionData]);
 
@@ -66,24 +71,24 @@ const Search = ({ theme }) => {
   });
   const { data: sawbladeslActive } = api.sawblades.getActive.useQuery({
     IdNummer: idValue,
-    init: "MØ",
+    init: KundeId,
   });
 
   const { data: sawbladesOsterdal } = api.sawblades.getCustomer.useQuery({
     IdNummer: idValue,
-    init: "MØ",
+    init: KundeId,
   });
   const { data: sawbladesOsterdalDeleted } =
     api.sawblades.getCustomerAllDeleted.useQuery({
       date: `${dateValue.endDate}T23:59:59.000Z`,
       date2: `${dateValue.startDate}T00:00:00.000Z`,
       IdNummer: idValue,
-      init: "MØ",
+      init: KundeId,
     });
   const { data: sawbladesOsterdalActive } =
     api.sawblades.getCustomerActive.useQuery({
       IdNummer: idValue,
-      init: "MØ",
+      init: KundeId,
     });
   // const [dateValue, setDateValue] = useState({
   //   endDate: "2040-01-14",
@@ -133,7 +138,8 @@ const Search = ({ theme }) => {
   return (
     <div data-theme={theme}>
       {sessionData?.user.role === "ADMIN" ||
-      sessionData?.user.role === "MO_ADMIN" ? (
+      sessionData?.user.role === "MO_ADMIN" ||
+      "MM_ADMIN" ? (
         <>
           <HeaderComponent />
           <div className="min-h-screen bg-base-100 p-2 md:mx-5 md:p-5 md:max-lg:p-0 xl:mx-48">
@@ -227,6 +233,24 @@ const Search = ({ theme }) => {
               </>
             )}
             {sessionData?.user.role === "MO_ADMIN" && (
+              <>
+                <CountOverview
+                  countAllBlades={countAllBladesCustomer}
+                  countAllHistorikk={countAllHistorikkCustomer}
+                  countAllSagtid={countAllSagtidCustomer}
+                />
+                <SearchMain
+                  sawblades={sawbladesOsterdal}
+                  deletedSawblades={sawbladesOsterdalDeleted}
+                  activeBlades={sawbladesOsterdalActive}
+                  closeSearchComponent={closeSearchComponent}
+                  setCloseSearchComponent={setCloseSearchComponent}
+                  dateValue={dateValue}
+                  setDateValue={setDateValue}
+                />
+              </>
+            )}
+            {sessionData?.user.role === "MM_ADMIN" && (
               <>
                 <CountOverview
                   countAllBlades={countAllBladesCustomer}

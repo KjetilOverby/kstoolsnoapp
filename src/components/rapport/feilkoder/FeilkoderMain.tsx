@@ -25,6 +25,8 @@ const FeilkoderMain = ({ dateValue }: { dateValue: any }) => {
       setKundeInit("");
     } else if (sessionData?.user.role === "MO_ADMIN") {
       setKundeInit("MØ");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setKundeInit("MM");
     }
   }, [sessionData]);
 
@@ -47,6 +49,21 @@ const FeilkoderMain = ({ dateValue }: { dateValue: any }) => {
         </div>
       )}
       {sessionData?.user.role === "MO_ADMIN" && (
+        <div>
+          <div className="text-neutrals  rounded-xl border border-primary p-5">
+            <p className="mb-5 text-center text-xs">Bytteårsaker på sag 1-7</p>
+            <div className="flex w-full justify-center"></div>
+            <div>
+              <FeilkodeChart data={feilkodersCustomer && feilkodersCustomer} />
+            </div>
+          </div>
+          <div className="mt-5 rounded-xl border border-primary p-5 text-neutral">
+            <p className="mb-5 text-center text-xs"></p>
+            <div></div>
+          </div>
+        </div>
+      )}
+      {sessionData?.user.role === "MM_ADMIN" && (
         <div>
           <div className="text-neutrals  rounded-xl border border-primary p-5">
             <p className="mb-5 text-center text-xs">Bytteårsaker på sag 1-7</p>

@@ -19,6 +19,15 @@ const statistikk = ({ theme }) => {
     startDate: dateFormat(new Date(), "yyyy-mm-dd"),
   });
 
+  useEffect(() => {
+    if (sessionData?.user.role === "MO_ADMIN") {
+      setCustomerInit("MØ-");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setCustomerInit("MM-");
+    }
+  }, [sessionData]);
+  const [customerInit, setCustomerInit] = useState("");
+
   const { data: statistikkData } =
     api.statistikkBladeData.getAllHistorikk.useQuery({
       date: `${dateValue.endDate}T23:59:59.000Z`,
@@ -29,8 +38,8 @@ const statistikk = ({ theme }) => {
     api.statistikkBladeData.getAllCustomerHistorikk.useQuery({
       date: `${dateValue.endDate}T23:59:59.000Z`,
       date2: `${dateValue.startDate}T00:00:00.000Z`,
-      bladeRelationId: "MØ",
-      init: "MØ",
+      bladeRelationId: customerInit,
+      init: customerInit,
     });
 
   const { data: deletedSawblades } = api.sawblades.getAllDeletedStats.useQuery({
@@ -43,7 +52,7 @@ const statistikk = ({ theme }) => {
       date: `${dateValue.endDate}T23:59:59.000Z`,
       date2: `${dateValue.startDate}T00:00:00.000Z`,
       IdNummer: "",
-      init: "MØ",
+      init: customerInit,
     });
 
   return (
@@ -58,6 +67,14 @@ const statistikk = ({ theme }) => {
         />
       )}
       {sessionData?.user.role === "MO_ADMIN" && (
+        <StatistikkMain
+          historikkData={statistikkDataMO}
+          setDateValue={setDateValue}
+          dateValue={dateValue}
+          deletedSawblades={deletedSawbladesMo}
+        />
+      )}
+      {sessionData?.user.role === "MM_ADMIN" && (
         <StatistikkMain
           historikkData={statistikkDataMO}
           setDateValue={setDateValue}

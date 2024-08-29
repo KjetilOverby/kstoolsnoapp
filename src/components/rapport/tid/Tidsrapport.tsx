@@ -45,6 +45,8 @@ const Tidsrapport = ({ dateValue, setDateValue }) => {
       setKundeInit("");
     } else if (sessionData?.user.role === "MO_ADMIN") {
       setKundeInit("MØ");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setKundeInit("MM");
     }
   }, [sessionData]);
 
@@ -65,6 +67,19 @@ const Tidsrapport = ({ dateValue, setDateValue }) => {
         </div>
       )}
       {sessionData?.user.role === "MO_ADMIN" && (
+        <div>
+          <div className="text-neutrals rounded-xl border border-primary p-5">
+            <p className="mb-5 text-center text-xs">
+              Total sagtid ({totalSagtidSumCustomer}) og antall serviceposter (
+              {totalServiceSumCustomer}) fordelt på sagnummer i timer
+            </p>
+            <div>
+              <ChartTimeCount sagtidSum={sagtidSumCustomer} />
+            </div>
+          </div>
+        </div>
+      )}
+      {sessionData?.user.role === "MM_ADMIN" && (
         <div>
           <div className="text-neutrals rounded-xl border border-primary p-5">
             <p className="mb-5 text-center text-xs">

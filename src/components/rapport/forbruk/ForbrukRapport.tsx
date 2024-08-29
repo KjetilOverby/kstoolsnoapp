@@ -55,6 +55,8 @@ const ForbrukRapport = ({ dateValue, setDateValue }) => {
       setKundeInit("");
     } else if (sessionData?.user.role === "MO_ADMIN") {
       setKundeInit("MØ");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setKundeInit("MM");
     }
   }, [sessionData]);
 

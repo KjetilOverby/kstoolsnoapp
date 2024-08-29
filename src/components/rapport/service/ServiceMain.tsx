@@ -27,6 +27,8 @@ const ServiceMain = ({ dateValue }) => {
       setKundeInit("");
     } else if (sessionData?.user.role === "MO_ADMIN") {
       setKundeInit("MØ");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setKundeInit("MM");
     }
   }, [sessionData]);
 
@@ -50,6 +52,21 @@ const ServiceMain = ({ dateValue }) => {
         </div>
       )}
       {sessionData?.user.role === "MO_ADMIN" && (
+        <div>
+          <div className="text-neutrals  rounded-xl border border-primary p-5">
+            <p className="mb-5 text-center text-xs">BFS koder antall service</p>
+            <div className="flex w-full justify-center">
+              <div className="mb-5 flex w-3/5">
+                <BSFTable />
+              </div>
+            </div>
+            <div>
+              <BfsChart bfsServiceData={bfsServiceDataCustomer} />
+            </div>
+          </div>
+        </div>
+      )}
+      {sessionData?.user.role === "MM_ADMIN" && (
         <div>
           <div className="text-neutrals  rounded-xl border border-primary p-5">
             <p className="mb-5 text-center text-xs">BFS koder antall service</p>

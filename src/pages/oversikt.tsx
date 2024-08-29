@@ -31,6 +31,8 @@ const oversikt = ({ theme }) => {
       setKundeId("");
     } else if (sessionData?.user.role === "MO_ADMIN") {
       setKundeId("MØ");
+    } else if (sessionData?.user.role === "MM_ADMIN") {
+      setKundeId("MM");
     }
   }, [sessionData]);
 
@@ -52,6 +54,18 @@ const oversikt = ({ theme }) => {
         </>
       )}
       {sessionData?.user.role === "MO_ADMIN" && (
+        <div className="mx-5 min-h-screen bg-base-100 md:p-5 md:max-lg:p-0 xl:mx-96">
+          <div className="overflow-x-auto">
+            <h1 className="my-5">Oversikt over blad:</h1>
+            <p className="text-xs italic">
+              I tabellen vises slettet og total antall verdier fra start
+              15.02.2024
+            </p>
+            <OverviewTable count={countCustomer} deleted={false} />
+          </div>
+        </div>
+      )}
+      {sessionData?.user.role === "MM_ADMIN" && (
         <div className="mx-5 min-h-screen bg-base-100 md:p-5 md:max-lg:p-0 xl:mx-96">
           <div className="overflow-x-auto">
             <h1 className="my-5">Oversikt over blad:</h1>

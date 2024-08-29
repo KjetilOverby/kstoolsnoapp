@@ -346,7 +346,7 @@ export const sawbladesRouter = createTRPCRouter({
             AND: [
               {
                 IdNummer: {
-                  startsWith: "MØ",
+                  startsWith: input.init,
                 },
               },
               {
