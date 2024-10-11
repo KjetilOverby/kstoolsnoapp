@@ -177,45 +177,74 @@ const Search = ({ theme }) => {
                     <p className="text-[.7rem] italic md:text-xs">
                       Blad Ingen Handling({sawbladesIngenHandling?.length}):{" "}
                     </p>
-                    {sawbladesIngenHandling?.map((sawblade) => {
-                      const lastPost =
-                        sawblade.bandhistorikk[
-                          sawblade.bandhistorikk.length - 1
-                        ];
-                      return (
-                        <div
-                          onClick={() => setIdValue(sawblade.IdNummer)}
-                          key={sawblade.id}
-                          className="mb-4 flex cursor-pointer justify-between md:mb-0"
-                        >
-                          <p className="text-xs italic">
-                            <span className="text-blue-500">
-                              {sawblade.IdNummer}
-                            </span>
-                            ,{" "}
-                            <span className="text-red-500">
-                              {sawblade.type}
-                            </span>
-                            ,{" "}
-                            {lastPost && (
-                              <>
-                                <span className="text-green-500">
-                                  Feilkode: {lastPost.feilkode}
-                                </span>
-                                ,{" "}
-                                <span className="text-orange-500">
-                                  Sag: {lastPost.sagNr}
-                                </span>
-                                ,{" "}
-                                <span className="text-purple-500">
-                                  Timer: {lastPost.sagtid}
-                                </span>
-                              </>
-                            )}
-                          </p>
-                        </div>
-                      );
-                    })}
+                    <table className="mb-4 w-full cursor-pointer border border-primary md:mb-0">
+                      <thead>
+                        <tr>
+                          <th className="text-left text-xs italic text-neutral">
+                            IdNummer
+                          </th>
+                          <th className="text-rneutral text-left text-xs italic">
+                            Type
+                          </th>
+                          <th className="text-left text-xs italic text-neutral">
+                            Feilkode
+                          </th>
+                          <th className="text-left text-xs italic text-neutral">
+                            Sag
+                          </th>
+                          <th className="text-left text-xs italic text-neutral">
+                            Timer
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sawbladesIngenHandling?.map((sawblade) => {
+                          const lastPost =
+                            sawblade.bandhistorikk[
+                              sawblade.bandhistorikk.length - 1
+                            ];
+                          return (
+                            <tr
+                              onClick={() => setIdValue(sawblade.IdNummer)}
+                              key={sawblade.id}
+                              className="cursor-pointer border hover:bg-primary hover:text-white"
+                            >
+                              <td className="border border-primary p-1 text-xs italic text-neutral">
+                                {sawblade.IdNummer}
+                              </td>
+                              <td className="border border-primary p-1 text-xs italic text-neutral">
+                                {sawblade.type}
+                              </td>
+                              {lastPost ? (
+                                <>
+                                  <td className="border border-primary p-1 text-xs italic text-neutral">
+                                    {lastPost.feilkode}
+                                  </td>
+                                  <td className="border border-primary p-1 text-xs italic text-neutral">
+                                    {lastPost.sagNr}
+                                  </td>
+                                  <td className="border border-primary p-1 text-xs italic text-neutral">
+                                    {lastPost.sagtid}
+                                  </td>
+                                </>
+                              ) : (
+                                <>
+                                  <td className="border border-primary p-1 text-xs italic text-neutral">
+                                    N/A
+                                  </td>
+                                  <td className="border border-primary p-1 text-xs italic text-neutral">
+                                    N/A
+                                  </td>
+                                  <td className="border border-primary p-1 text-xs italic text-neutral">
+                                    N/A
+                                  </td>
+                                </>
+                              )}
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
 
