@@ -213,7 +213,7 @@ const Search = ({ theme }) => {
                                 {sawblade.IdNummer}
                               </td>
                               <td className="border border-primary p-1 text-xs italic text-neutral">
-                                {sawblade.type}
+                                {sawblade.type} {sawblade.side}
                               </td>
                               {lastPost ? (
                                 <>
@@ -221,7 +221,8 @@ const Search = ({ theme }) => {
                                     {lastPost.feilkode}
                                   </td>
                                   <td className="border border-primary p-1 text-xs italic text-neutral">
-                                    {lastPost.sagNr}
+                                    {lastPost.sagNr}{" "}
+                                    {lastPost.sagNr % 2 === 0 ? "H" : "V"}
                                   </td>
                                   <td className="border border-primary p-1 text-xs italic text-neutral">
                                     {lastPost.sagtid}
